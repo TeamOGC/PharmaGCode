@@ -1,0 +1,69 @@
+.textbox {
+  -fx-background-color:  #e5e5e5;
+  -fx-background-radius: 32px;
+  -fx-text-fill: rgb(0, 0, 0);
+}
+
+
+.btn{
+  -fx-background-color:  #20e0a0;
+  -fx-text-fill: #fff;
+  -fx-background-radius: 32px;
+}
+.btn:hover {
+  -fx-text-fill:  #20e0a0;
+  -fx-background-color:  #f4f4f4;
+  -fx-border-radius: 32px;
+  -fx-border-color: #20e0a0;
+}
+
+
+.circlebtn{
+  -fx-background-color:  #20e0a0;
+  -fx-text-fill: #fff;
+  -fx-background-radius: 100px;
+}
+.circlebtn:hover {
+  -fx-text-fill:  #20e0a0;
+  -fx-background-color:  #f4f4f4;
+  -fx-border-radius: 100px;
+  -fx-border-color: #20e0a0;
+}
+
+
+.backbtn{
+  -fx-background-color:  #f4f4f4;
+  -fx-text-fill: #000;
+  -fx-background-radius: 100px;
+}
+.backbtn:hover {
+  -fx-text-fill:  #f4f4f4;
+  -fx-background-color:  #20e0a0;
+  -fx-border-radius: 100px;
+}
+
+.radiobtn{
+  /* -fx-background-color:  #e5e5e5;
+  -fx-border-color: #e5e5e5; */
+  -fx-background-radius: 100px;
+}
+
+.entries{
+  -fx-text-fill:  #000;
+  -fx-background-color:  #f4f4f4;
+  -fx-border-radius: 32px;
+  -fx-border-color: #000;
+}
+
+.attributi{
+  -fx-background-color:  #000000;
+  -fx-text-fill: #fff;
+  -fx-background-radius: 32px;
+}
+
+.datepicker{
+  -fx-background-color:  #fff;
+  -fx-text-fill: #000;
+  -fx-background-radius: 32px;
+  -fx-border-radius: 32px;
+}

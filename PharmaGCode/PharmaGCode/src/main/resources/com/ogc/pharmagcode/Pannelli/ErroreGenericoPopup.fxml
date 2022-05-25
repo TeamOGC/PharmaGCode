@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.PannelloErrore">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="213.0" layoutY="126.0" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: #e00; -fx-background-radius: 32;" text="ATTENZIONE!" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="194.0" layoutY="169.0" prefHeight="63.0" prefWidth="211.0" text="** Messaggio **" textAlignment="CENTER" wrapText="true" fx:id="messaggio">
+         <font>
+            <Font name="SansSerif Regular" size="17.0" />
+         </font>
+      </Label>
+      <Button layoutX="261.0" layoutY="245.0" mnemonicParsing="false" styleClass="btn" text="Chiudi" onAction="#conferma">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
