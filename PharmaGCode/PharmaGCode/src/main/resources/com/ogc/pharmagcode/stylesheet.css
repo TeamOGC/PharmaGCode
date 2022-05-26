@@ -1,3 +1,5 @@
+
+
 .textbox {
   -fx-background-color:  #e5e5e5;
   -fx-background-radius: 32px;
@@ -9,12 +11,18 @@
   -fx-background-color:  #20e0a0;
   -fx-text-fill: #fff;
   -fx-background-radius: 32px;
+  -fx-font-size: 17px;
+  -fx-font-family: SansSerif;
+  -fx-font-style: Bold;
+  -fx-border-radius: 32px;
+  -fx-border-color: #20e0a0;
+
 }
 .btn:hover {
   -fx-text-fill:  #20e0a0;
   -fx-background-color:  #f4f4f4;
-  -fx-border-radius: 32px;
-  -fx-border-color: #20e0a0;
+  /*-fx-border-radius: 32px;*/
+  /*-fx-border-color: #20e0a0;*/
 }
 
 
@@ -53,6 +61,34 @@
   -fx-background-color:  #f4f4f4;
   -fx-border-radius: 32px;
   -fx-border-color: #000;
+  -fx-border-insets: 0px, 5px, 0px, 5px;
+}
+
+.list-cell:filled:selected:focused,
+.list-cell:filled:selected,
+.list-cell:focused,
+.list-cell:selected,
+.list-cell:filled
+{
+  -fx-text-fill:  #000 !important;
+  -fx-background-color:  #fff;
+/*  -fx-border-radius: 32px;
+  -fx-border-color: #000;*/
+}
+
+
+
+.list-view,
+.list-view:filled:selected:focused,
+.list-view:selected{
+  -fx-text-fill: #000 !important;
+
+}
+
+.labelentries{
+  -fx-text-fill: #000 !important;
+  -fx-font-family: SansSerif;
+  -fx-font-size: 15px;
 }
 
 .attributi{

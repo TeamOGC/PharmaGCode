@@ -21,11 +21,6 @@
           <RowConstraints maxHeight="382.0" minHeight="10.0" prefHeight="308.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#cliccaModificaPassword" prefHeight="43.0" prefWidth="231.0" styleClass="btn" text="Modifica Password" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
-               <font>
-                  <Font name="SansSerif Bold" size="18.0" />
-               </font>
-            </Button>
             <HBox alignment="CENTER" prefHeight="214.0" prefWidth="896.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#cliccaCercaFarmaco" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Cerca Farmaco" textAlignment="CENTER" textFill="WHITE" wrapText="true">
@@ -37,14 +32,6 @@
                      </HBox.margin>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#cliccaVisualizzaOrdini" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Visualizza Ordini" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                     <font>
-                        <Font name="SansSerif Bold" size="20.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Ordina Farmaco" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="SansSerif Bold" size="20.0" />
                      </font>
@@ -64,6 +51,17 @@
                      <font>
                         <Font name="SansSerif Bold" size="20.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#cliccaModificaPassword" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Modifica Password" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="SansSerif Bold" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </Button>
                </children>
             </HBox>
