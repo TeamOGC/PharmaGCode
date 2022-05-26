@@ -1,10 +1,7 @@
-package com.ogc.pharmagcode;
+package com.ogc.pharmagcode.GestioneAccount;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class GestoreAutenticazione {
     public GestoreAutenticazione(Stage stage){

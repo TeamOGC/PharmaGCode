@@ -1,4 +1,4 @@
-package com.ogc.pharmagcode;
+package com.ogc.pharmagcode.Utils;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

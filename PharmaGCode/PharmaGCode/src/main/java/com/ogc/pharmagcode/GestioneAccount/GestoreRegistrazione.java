@@ -1,5 +1,7 @@
-package com.ogc.pharmagcode;
+package com.ogc.pharmagcode.GestioneAccount;
 
+import com.ogc.pharmagcode.Utils.MailUtils;
+import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
 
 import java.util.Random;

@@ -1,4 +1,4 @@
-package com.ogc.pharmagcode;
+package com.ogc.pharmagcode.Utils;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -6,6 +6,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
+
 
 public class MailUtils {
     // Manda OTP

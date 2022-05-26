@@ -1,12 +1,10 @@
-package com.ogc.pharmagcode;
+package com.ogc.pharmagcode.Utils;
 
+import com.ogc.pharmagcode.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 public class Utils {
     public static FXMLLoader creaLoader(String path){
