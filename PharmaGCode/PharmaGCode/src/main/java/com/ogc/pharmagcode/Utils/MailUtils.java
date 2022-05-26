@@ -1,54 +1,41 @@
 package com.ogc.pharmagcode.Utils;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import java.util.Properties;
+//import javax.mail.*;
+//import javax.mail.internet.InternetAddress;
+//import javax.mail.internet.MimeBodyPart;
+//import javax.mail.internet.MimeMessage;
+//import javax.mail.internet.MimeMultipart;
+//import java.util.Properties;
 
+
+import java.net.http.*;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
 
 public class MailUtils {
     // Manda OTP
     // Manda Nuova Password
-    public static void inviaMail(String msg, String dest){
-        int port=25;
+    public static void inviaMail(String msg, String dest, String subject) {
 
-        Properties prop = new Properties();
-        prop.put("mail.smtp.auth", true);
-        prop.put("mail.smtp.starttls.enable", "true");
-        prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "25");
-        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        Session session=Session.getInstance(prop, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("pharmaogc@gmail.com","OggiCarbonara22");
-            }
-        });
-//        Session session=Session.getDefaultInstance(prop);
+        // create a client
+        HttpClient client = HttpClient.newHttpClient();
 
+        dest = URLEncoder.encode(dest, StandardCharsets.UTF_8);
+        msg = URLEncoder.encode(msg, StandardCharsets.UTF_8);
+        subject = URLEncoder.encode(subject, StandardCharsets.UTF_8);
+        String base_url = "https://script.google.com/macros/s/AKfycbxhsYULGupk_IuMEKca9aYKFB7pbhQS2yBa0X3YTv8VAaOW9piYxynh8s7W_NlF2LZhYw/exec";
 
-        Message message=new MimeMessage(session);
+        var request = HttpRequest.newBuilder(URI.create(base_url + "?to=" + dest + "&subject=" + subject + "&body=" + msg))
+                .header("accept", "application/json")
+                .GET()
+                .build();
+
         try {
-            message.setFrom(new InternetAddress("pharmaogc@gmail.com","Never Gonna Give You Up"));
-            message.setRecipients(
-                    Message.RecipientType.TO, InternetAddress.parse(dest));
-            message.setSubject("OTP");
-
-
-            MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            mimeBodyPart.setContent(msg, "text/html; charset=utf-8");
-
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(mimeBodyPart);
-
-            message.setContent(multipart);
-
-            Transport.send(message);
-        }catch(Exception e){
-            e.printStackTrace();
+            var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+        } catch (Exception e) {
+            // se fallisce sticazzi..
+            System.err.println("Qualcosa è andato storto con la mail");
         }
-
     }
 }
