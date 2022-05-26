@@ -17,7 +17,7 @@ public class GestoreRegistrazione {
     public void inviaMailOTP(String mail){
         Random r=new Random();
         otp=""+r.nextInt(1000000);
-        MailUtils.inviaMail("Il tuo codice OTP è: "+otp, mail);
+        MailUtils.inviaMail("Il tuo codice OTP è: "+otp, mail, "Codice OTP");
     }
     public void inserisciOTP(){}
     public void controllaValiditaOTP(String otp){

@@ -6,6 +6,7 @@ module com.ogc.pharmagcode {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires java.mail;
+    requires java.net.http;
 
     opens com.ogc.pharmagcode to javafx.fxml;
     exports com.ogc.pharmagcode;
