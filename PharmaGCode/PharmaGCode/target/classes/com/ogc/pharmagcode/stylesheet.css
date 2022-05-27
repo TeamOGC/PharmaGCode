@@ -85,9 +85,6 @@
 
 }
 
-.list-view > * {
-  -fx-background-color: #db0000;
-}
 .labelentries{
   -fx-text-fill: #000 !important;
   -fx-font-family: SansSerif;

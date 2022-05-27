@@ -65,7 +65,7 @@
                   </Button>
                </children>
             </HBox>
-            <Label prefHeight="30.0" prefWidth="214.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label prefHeight="30.0" prefWidth="214.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" fx:id="orologio">
                <font>
                   <Font name="SansSerif Bold" size="17.0" />
                </font>

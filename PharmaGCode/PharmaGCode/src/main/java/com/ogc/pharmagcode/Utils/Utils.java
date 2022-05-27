@@ -12,6 +12,7 @@ public class Utils {
         return loader;
     }
     public static void creaInterfaccia(FXMLLoader loader, int w, int h, Stage stage){
+        stage.setResizable(false);
         try{
             Scene s=new Scene(loader.load(),w,h);
             stage.setScene(s);
@@ -22,6 +23,7 @@ public class Utils {
     }
     public static void creaPannelloErrore(String messaggio){
         Stage stage=new Stage();
+        stage.setResizable(false);
         FXMLLoader loader=creaLoader("Pannelli/ErroreGenericoPopup.fxml");
         loader.setControllerFactory(c->{return new PannelloErrore(messaggio, stage);});
         creaInterfaccia(loader,600,400,stage);
@@ -36,9 +38,21 @@ public class Utils {
         creaInterfaccia(loader,600,400,stage);
     }
 
-    public static void cambiaInterfaccia(String interfaccia, Stage stage, Callback c){
+    public static Object cambiaInterfaccia(String interfaccia, Stage stage, Callback c){
         FXMLLoader loader=creaLoader(interfaccia);
         loader.setControllerFactory(c);
         creaInterfaccia(loader, 1280,800, stage);
+        return loader.getController();
+    }
+    public static Object cambiaInterfaccia(String interfaccia, Stage stage, Callback c,int w,int h){
+        FXMLLoader loader=creaLoader(interfaccia);
+        loader.setControllerFactory(c);
+        creaInterfaccia(loader, w,h, stage);
+        return loader.getController();
+    }
+    public static Object cambiaInterfaccia(String interfaccia, Stage stage, int w,int h){
+        FXMLLoader loader=creaLoader(interfaccia);
+        creaInterfaccia(loader, w,h, stage);
+        return loader.getController();
     }
 }

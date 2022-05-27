@@ -4,8 +4,11 @@ import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
 
 public class GestoreVisualizzaOrdini {
-    public GestoreVisualizzaOrdini(Stage s){
-        Utils.cambiaInterfaccia("GestioneFarmaci/VisualizzaOrdiniFarmacia.fxml",s, c->{return new InterfacciaVisualizzaOrdini();});
+    private InterfacciaVisualizzaOrdini i;
+    public GestoreVisualizzaOrdini(){
+        i=(InterfacciaVisualizzaOrdini) Utils.cambiaInterfaccia("GestioneFarmaci/VisualizzaOrdiniFarmacia.fxml",
+                new Stage(),
+                c->{return new InterfacciaVisualizzaOrdini();});
 
     }
 
