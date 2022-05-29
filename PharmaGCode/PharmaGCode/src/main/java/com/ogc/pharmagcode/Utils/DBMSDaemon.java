@@ -82,7 +82,48 @@ public class DBMSDaemon {
 
     }
 
+    /**
+     * Controlla scorte farmacia dopo lo scarico merci
+     *
+     * @param id_lotto lotto del farmaco scaricato
+     * @param id_farmacia farmacia che ha scaricato il farmaco
+     * @return quantità ancora disponibili dalla farmacia
+     */
+    public int ControlloScorte(int id_lotto, int id_farmacia) {
+        connectFarmacia();
+        var query = "SELECT Lotto.quantita FROM DB_Farmacie.Lotto WHERE id_lotto = ? AND id_farmacia= ?";
+        try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
+            stmt.setInt(1, id_lotto);
+            stmt.setInt(2, id_farmacia);
+            var r = stmt.executeQuery();
+            return r.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return -1;
+    }
 
+    /**
+     * Consente di effettuare il caricamento merci
+     *
+     * @param id_lotto id del lotto
+     * @param id_farmacia id della farmacia
+     * @param data_caricamento data del caricamento della merce
+     * @param qty quantita
+     */
+    public void caricaFarmaco(int id_lotto, int id_farmacia, Date data_caricamento, int qty) {
+        connectFarmacia();
+        int risultato = 0;
+        try (CallableStatement call = connFarmacia.prepareCall("{CALL caricoMerci(?, ?, ?, ?, ?)}")) {
+            call.setInt(1, id_lotto);
+            call.setInt(2, id_farmacia);
+            call.setDate(3, data_caricamento);
+            call.setInt(4, qty);
+            call.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+    }
 
     public void testQuery() {
         connectFarmacia(); // provo a riconnettermi ad ogni query, metti caso che parte la connessione per qualche motivo
