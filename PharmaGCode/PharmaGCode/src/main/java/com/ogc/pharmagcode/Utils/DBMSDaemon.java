@@ -3,6 +3,7 @@ package com.ogc.pharmagcode.Utils;
 import com.ogc.pharmagcode.Entity.Utente;
 
 import java.sql.*;
+import java.util.List;
 
 public class DBMSDaemon {
     private static final String baseUrl = "beverlylab.duckdns.org";
@@ -113,7 +114,6 @@ public class DBMSDaemon {
      */
     public void caricaFarmaco(int id_lotto, int id_farmacia, Date data_caricamento, int qty) {
         connectFarmacia();
-        int risultato = 0;
         try (CallableStatement call = connFarmacia.prepareCall("{CALL caricoMerci(?, ?, ?, ?, ?)}")) {
             call.setInt(1, id_lotto);
             call.setInt(2, id_farmacia);
@@ -123,6 +123,58 @@ public class DBMSDaemon {
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         }
+    }
+
+    /**
+     * Consente di effettuare lo scarico di un farmaco appena venduto
+     *
+     * @param id_lotto id del lotto che viene scaricato
+     * @param id_farmacia id della farmacia che effettua lo scarico
+     * @param qty quantità di farmaco che viene scaricato
+     * @return quantità di farmaco ancora disponibile in quella farmacia
+     */
+    public int scaricaMerci(int id_lotto, int id_farmacia, int qty) {
+        connectFarmacia();
+        String query = "UPDATE DBMS_Farmacie.Lotto SET Lotto.quantita= ? WHERE Lotto.id_lotto=? AND Lotto.id_farmacia=?";
+        try (PreparedStatement stmt= connFarmacia.prepareStatement(query)) {
+            stmt.setInt(1, qty);
+            stmt.setInt(2, id_lotto);
+            stmt.setInt(3, id_farmacia);
+            stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        try (CallableStatement call = connFarmacia.prepareCall("{CALL aggiornaQuantitaLotto(lotto_id, farmacia_id, @sommaQuantitaLotto)}")) {
+            call.setInt(1, id_lotto);
+            call.setInt(2, id_farmacia);
+            ResultSet risultato = call.executeQuery();
+            if (risultato.next()) {
+                return risultato.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return -1;
+    }
+
+    /**
+     * Query per chiedere la merce caricata in data odierna per l'avviso delle 20:00
+     *
+     * @param id_farmacia id della farmacia da cui parte la richiesta
+     * @param data_caricamento data in cui parte la richiesta
+     * @return "risultato" è un resultset che contiene nella colonna 1 l'id lotto e nella colonna 2 la quantità caricata
+     */
+    public ResultSet queryMerceCaricata(int id_farmacia, Date data_caricamento) {
+        connectFarmacia();
+        String query = "SELECT Caricamenti.id_lotto, Caricamenti.quantita FROM Caricamenti WHERE Caricamenti.data_caricamento=? AND Caricamenti.id_farmacia=?";
+        try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
+            stmt.setDate(1, data_caricamento);
+            stmt.setInt(2, id_farmacia);
+            return stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+        return null;
     }
 
     public void testQuery() {
