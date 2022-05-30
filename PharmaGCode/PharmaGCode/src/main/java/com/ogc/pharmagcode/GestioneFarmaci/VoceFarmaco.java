@@ -10,22 +10,26 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 public class VoceFarmaco extends HBox {
-    private Label[] labels=new Label[4];
+    private Label[] labels=new Label[5];
     private Button button=new Button();
 
-    public VoceFarmaco(String field1, String field2, String field3, String field4, String bottone,
+    public VoceFarmaco(String nome, String princAtt, int disponibilita,boolean inScadenza,String dataDiDisponibilita, String bottone,
                       EventHandler<ActionEvent> eventHandler){
         setMinHeight(50);
 
-        labels[0]=new Label(field1);
+        labels[0]=new Label(nome);
         labels[0].setMaxWidth(Double.MAX_VALUE);
         HBox.setMargin(labels[0],new Insets(0,0,0,10));
-        labels[1]=new Label(field2);
+        labels[1]=new Label(princAtt);
         labels[1].setMaxWidth(Double.MAX_VALUE);
-        labels[2]=new Label(field3);
+        labels[2]=new Label(disponibilita+"");
         labels[2].setMaxWidth(Double.MAX_VALUE);
-        labels[3]=new Label(field4);
+        labels[3]=new Label(dataDiDisponibilita);
         labels[3].setMaxWidth(Double.MAX_VALUE);
+        labels[4]=new Label(inScadenza?"Si":"No");
+        labels[4].setMaxWidth(Double.MAX_VALUE);
+        if(inScadenza)
+            labels[4].setStyle("-fx-text-fill: #ff0000 !important");
         if(bottone.isBlank()){
             button.setVisible(false);
         }

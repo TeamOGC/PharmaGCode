@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneFarmaci.InterfacciaCercaFarmaco">
    <children>
       <GridPane prefHeight="800.0" prefWidth="1280.0">
         <columnConstraints>
@@ -37,7 +37,7 @@
             </Label>
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="1024.0" styleClass="attributi" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="61.0" style="-fx-font-style: Bold;" styleClass="attributi" text="Nome">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="61.0" style="-fx-font-weight: bold;" styleClass="attributi" text="Nome">
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
@@ -45,7 +45,7 @@
                         <Insets left="70.0" right="70.0" />
                      </HBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="155.0" style="-fx-font-style: Bold;" styleClass="attributi" text="Principio Attivo">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="155.0" style="-fx-font-weight: bold;" styleClass="attributi" text="Principio Attivo">
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
@@ -53,7 +53,7 @@
                         <Insets right="25.0" />
                      </HBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="10.0" prefHeight="30.0" prefWidth="138.0" style="-fx-font-style: Bold;" styleClass="attributi" text="Disponibilita">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="10.0" prefHeight="30.0" prefWidth="138.0" style="-fx-font-weight: bold;" styleClass="attributi" text="Disponibilita">
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
@@ -61,7 +61,7 @@
                         <Insets right="30.0" />
                      </HBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="10.0" prefHeight="30.0" prefWidth="177.0" style="-fx-font-style: Bold;" styleClass="attributi" text="Data disponibilita">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="10.0" prefHeight="30.0" prefWidth="177.0" style="-fx-font-weight: bold;" styleClass="attributi" text="Data disponibilita">
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
@@ -69,7 +69,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="699.0" layoutY="20.0" prefHeight="30.0" prefWidth="140.0" style="-fx-font-style: Bold;" styleClass="attributi" text="Scadenza">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="699.0" layoutY="20.0" prefHeight="30.0" prefWidth="140.0" style="-fx-font-weight: bold;" styleClass="attributi" text="Scadenza">
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>

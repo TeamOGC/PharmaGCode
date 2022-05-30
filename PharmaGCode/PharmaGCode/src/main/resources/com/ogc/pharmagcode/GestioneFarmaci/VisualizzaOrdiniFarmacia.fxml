@@ -37,7 +37,7 @@
             </Label>
             <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="1024.0" styleClass="attributi" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="290.0" style="-fx-font-style: Bold;" styleClass="attributi" text="Nome">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="290.0" style="-fx-font-weight: bold;" styleClass="attributi" text="Nome">
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
@@ -45,7 +45,7 @@
                         <Insets right="50.0" />
                      </HBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="159.0" style="-fx-font-style: Bold;" styleClass="attributi" text="Stato">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="159.0" style="-fx-font-weight: bold;" styleClass="attributi" text="Stato">
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
@@ -53,7 +53,7 @@
                         <Insets right="50.0" />
                      </HBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="10.0" prefHeight="30.0" prefWidth="90.0" style="-fx-font-style: Bold;" styleClass="attributi" text="Quantita">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="10.0" prefHeight="30.0" prefWidth="90.0" style="-fx-font-weight: bold;" styleClass="attributi" text="Quantita">
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
@@ -61,7 +61,7 @@
                         <Insets right="50.0" />
                      </HBox.margin>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="10.0" prefHeight="30.0" prefWidth="174.0" style="-fx-font-style: Bold;" styleClass="attributi" text="Data di Consegna">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="10.0" prefHeight="30.0" prefWidth="174.0" style="-fx-font-weight: bold;" styleClass="attributi" text="Data di Consegna">
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>

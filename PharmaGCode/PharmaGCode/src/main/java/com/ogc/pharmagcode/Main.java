@@ -15,6 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("PharmaGC");
+        stage.setOnCloseRequest(c->{System.exit(0);});
         new GestoreAutenticazione(stage);
     }
 
