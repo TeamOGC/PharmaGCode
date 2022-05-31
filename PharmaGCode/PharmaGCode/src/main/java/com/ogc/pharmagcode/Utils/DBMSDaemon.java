@@ -1,10 +1,15 @@
 package com.ogc.pharmagcode.Utils;
 
+import com.ogc.pharmagcode.Entity.Farmacista;
+import com.ogc.pharmagcode.Entity.Farmaco;
 import com.ogc.pharmagcode.Entity.Utente;
 import com.ogc.pharmagcode.InterfacciaPrincipale;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 
 public class DBMSDaemon {
     private static final String baseUrl = "beverlylab.duckdns.org";
@@ -27,7 +32,7 @@ public class DBMSDaemon {
         return "";
     }
 
-    public void connect() {
+    public static void connect() {
         connectFarmacia();
         connectAzienda();
     }
@@ -41,7 +46,7 @@ public class DBMSDaemon {
         }
     }
 
-    public void connectAzienda() {
+    public static void connectAzienda() {
         try {
             if (connAzienda == null || connAzienda.isClosed())
                 DBMSDaemon.connAzienda = DriverManager.getConnection(buildConnectionUrl(DBAzienda));
@@ -60,12 +65,12 @@ public class DBMSDaemon {
      * @param password Password dell'utente (in chiaro)
      * @return {@link Utente}
      */
-    public Utente F_ControllaCredenziali(String mail, String password) {
+    public static Utente F_ControllaCredenziali(String mail, String password) {
         connectFarmacia();
         var query = "SELECT Farmacista.* FROM DB_Farmacie.Farmacista WHERE email = ? and password = ?";
         try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
             stmt.setString(1, mail);
-            stmt.setString(2, password); // In futuro da hashare questa password
+            stmt.setString(2, password);
             var r = stmt.executeQuery();
             if (r.next()) {
                 return new Utente(
@@ -78,7 +83,7 @@ public class DBMSDaemon {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace(System.err);
+            erroreComunicazioneDBMS(e);
         }
         return null;
 
@@ -92,18 +97,17 @@ public class DBMSDaemon {
      * @return true if email in DB, false if not
      *
      */
-    public boolean verificaEsistenzaMail(String mail){
+    public static boolean verificaEsistenzaMail(String mail){
         connectFarmacia();
         String query= "SELECT Farmacista.email FROM Farmacista WHERE email = ?";
-        try{
-            PreparedStatement stmt=connFarmacia.prepareStatement(query);
+        try(PreparedStatement stmt=connFarmacia.prepareStatement(query)){
             stmt.setString(1, mail);
             var r= stmt.executeQuery();
             if (r.next()){
                 return true;
             }
         } catch (SQLException e){
-            e.printStackTrace(System.err);
+            erroreComunicazioneDBMS(e);
         }
         return false;
     }
@@ -115,18 +119,17 @@ public class DBMSDaemon {
      * @param password password dell'utente
      * @return 1 if password aggiornata, -1 altrimenti
      */
-    public int aggiornaPassword(String mail, String password){
+    public static int aggiornaPassword(String mail, String password){
         connectFarmacia();
-        String query= "UPDATE Farmacista SET Farmacista.email = ? WHERE Farmacista.password = ?";
-        try{
-            PreparedStatement stmt= connFarmacia.prepareStatement(query);
-            stmt.setString(1,mail);
-            stmt.setString(2, password);
+        String query= "UPDATE Farmacista SET Farmacista.password = ? WHERE Farmacista.email = ?";
+        try(PreparedStatement stmt= connFarmacia.prepareStatement(query)){
+            stmt.setString(2, mail);
+            stmt.setString(1, password);
             var r= stmt.executeUpdate();
             if (r!=0)
                 return r;
         } catch (SQLException e){
-            e.printStackTrace(System.err);
+            erroreComunicazioneDBMS(e);
         }
         return -1;
     }
@@ -146,7 +149,7 @@ public class DBMSDaemon {
             var r = stmt.executeQuery();
             return r.getInt(1);
         } catch (SQLException e) {
-            e.printStackTrace(System.err);
+            erroreComunicazioneDBMS(e);
         }
         return -1;
     }
@@ -168,7 +171,7 @@ public class DBMSDaemon {
             call.setInt(4, qty);
             call.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(System.err);
+            erroreComunicazioneDBMS(e);
         }
     }
 
@@ -189,17 +192,7 @@ public class DBMSDaemon {
             stmt.setInt(3, id_farmacia);
             stmt.executeQuery();
         } catch (SQLException e) {
-            e.printStackTrace(System.err);
-        }
-        try (CallableStatement call = connFarmacia.prepareCall("{CALL aggiornaQuantitaLotto(?, ?, @sommaQuantitaLotto)}")) {
-            call.setInt(1, id_lotto);
-            call.setInt(2, id_farmacia);
-            ResultSet risultato = call.executeQuery();
-            if (risultato.next()) {
-                return risultato.getInt(1);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(System.err);
+            erroreComunicazioneDBMS(e);
         }
         return -1;
     }
@@ -219,23 +212,51 @@ public class DBMSDaemon {
             stmt.setInt(2, id_farmacia);
             return stmt.executeQuery();
         } catch (SQLException e) {
-            e.printStackTrace(System.err);
+            erroreComunicazioneDBMS(e);
         }
         return null;
     }
+
+    /**
+     * Aggiorna la quantità di farmaci
+     *
+     * @param listaFarmaci lista di farmaci di cui aggiornare la quantita
+     * @param id_farmacia id della farmacia che fa la richiesta
+     */
+    public static boolean queryQuantitaFarmaci(Farmaco[] listaFarmaci, int id_farmacia){
+        connectFarmacia();
+        String query = "SELECT Lotto.id_farmaco, SUM(Lotto.quantita) FROM DB_Farmacie.Lotto WHERE Lotto.id_farmacia= ? GROUP BY Lotto.id_farmaco" ;
+        try(PreparedStatement stmt = connFarmacia.prepareStatement(query)){
+            stmt.setInt(1, id_farmacia);
+            var r = stmt.executeQuery();
+            HashMap<Integer, Farmaco> listaTemp = new HashMap<>();
+            for(Farmaco farmaco : listaFarmaci){
+                listaTemp.put(farmaco.getId_farmaco(), farmaco);
+            }
+            while(r.next()){
+                int id_farmaco = r.getInt(1);
+                int qta = r.getInt(2);
+                if(listaTemp.containsKey(id_farmaco))
+                    listaTemp.get(id_farmaco).riempiQuantita(qta);
+            } return true;
+        } catch (SQLException e){
+            erroreComunicazioneDBMS(e);
+            return false;
+        }
+    }
+
 
     public void testQuery() {
         connectFarmacia(); // provo a riconnettermi ad ogni query, metti caso che parte la connessione per qualche motivo
         var query = "SELECT Farmaco.* FROM DB_Farmacie.Farmaco WHERE Farmaco.nome = ?";
         try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
             stmt.setString(1, "Oki");
-
             var r = stmt.executeQuery();
             while (r.next()) {
                 System.out.println("Cercato Oki, trovato  " + r.getInt(1));
             }
         } catch (SQLException e) {
-            e.printStackTrace(System.err);
+            erroreComunicazioneDBMS(e);
         }
     }
 
