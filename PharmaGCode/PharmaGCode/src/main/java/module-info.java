@@ -11,6 +11,7 @@ module com.ogc.pharmagcode {
     requires org.apache.logging.log4j;
     requires org.mariadb.jdbc;
 
+    exports com.ogc.pharmagcode.Entity;
     opens com.ogc.pharmagcode to javafx.fxml;
     exports com.ogc.pharmagcode;
     exports com.ogc.pharmagcode.GestioneAccount;
