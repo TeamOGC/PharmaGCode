@@ -7,6 +7,9 @@ import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.function.UnaryOperator;
 
 public class Utils {
@@ -18,6 +21,18 @@ public class Utils {
         }
         return null;
     };
+
+    public static String hash(String pwd){
+        byte[] encoded;
+        try {
+            MessageDigest md=MessageDigest.getInstance("SHA-256");
+            encoded=md.digest(pwd.getBytes(StandardCharsets.UTF_8));
+            return new String(encoded);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return pwd;
+    }
     public static FXMLLoader creaLoader(String path){
         FXMLLoader loader=new FXMLLoader(Main.class.getResource(path));
         return loader;
@@ -42,6 +57,11 @@ public class Utils {
     public static void creaPannelloAvviso(){
 
     }
+
+    /**
+     * Crea un nuovo pannello di conferma
+     * @param messaggio il messaggio da mostrare
+     */
     public static void creaPannelloConferma(String messaggio){
         Stage stage=new Stage();
         FXMLLoader loader=creaLoader("Pannelli/ConfermaPopup.fxml");
@@ -49,6 +69,13 @@ public class Utils {
         creaInterfaccia(loader,600,400,stage);
     }
 
+    /**
+     * Cambia l'interfaccia sullo stage passato come paramentro (eventualmente creato)
+     * @param interfaccia percorso dell'FXML
+     * @param stage
+     * @param c Callback chiamata quando viene creata l'interfaccia
+     * @return L'oggetto
+     */
     public static Object cambiaInterfaccia(String interfaccia, Stage stage, Callback c){
         FXMLLoader loader=creaLoader(interfaccia);
         loader.setControllerFactory(c);
