@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane prefHeight="800.0" prefWidth="1280.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="319.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="339.0" minHeight="10.0" prefHeight="188.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="586.0" minHeight="10.0" prefHeight="209.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="458.0" minHeight="10.0" prefHeight="278.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="30.0" prefWidth="213.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="SansSerif Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="108.0" text="Francesco" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="SansSerif Bold" size="17.0" />
+               </font>
+            </Label>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="49.0" prefWidth="320.0" GridPane.columnIndex="1">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" styleClass="backbtn" text="Indietro">
+                     <font>
+                        <Font name="SansSerif Bold" size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" styleClass="backbtn" text="Annulla">
+                     <font>
+                        <Font name="SansSerif Bold" size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="312.0" prefWidth="1024.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" text="Inserisci i valori richiesti per caricare/scaricare la merce:">
+                     <font>
+                        <Font name="SansSerif Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="76.0" prefWidth="1024.0">
+                     <children>
+                        <TextField promptText="Codice Lotto" styleClass="textbox">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </TextField>
+                        <TextField layoutX="437.0" layoutY="196.0" promptText="Quantita" styleClass="textbox">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" styleClass="btn" text="Conferma">
+                     <font>
+                        <Font name="SansSerif Bold" size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+   </children>
+</Pane>

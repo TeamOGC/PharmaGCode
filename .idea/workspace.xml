@@ -4,15 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="683c5b49-9ccd-4d0d-af28-3700ef3b2561" name="Changes" comment="Package System e Utils">
-      <change afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/GestioneFarmaci/InterfacciaVisualizzaOrdini.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/GestioneFarmaci/VoceOrdine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="683c5b49-9ccd-4d0d-af28-3700ef3b2561" name="Changes" comment="Roba col tempo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/GestioneFarmaci/InterfacciaPrincipaleFarmacista.java" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/GestioneFarmaci/InterfacciaPrincipaleFarmacista.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/resources/com/ogc/pharmagcode/GestioneFarmaci/InterfacciaFarmacista.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/resources/com/ogc/pharmagcode/GestioneFarmaci/InterfacciaFarmacista.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/BoundaryDiSistema.java" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/BoundaryDiSistema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/GestioneFarmaci/GestoreCercaFarmaco.java" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/GestioneFarmaci/GestoreCercaFarmaco.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/GestioneFarmaci/VoceFarmaco.java" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/GestioneFarmaci/VoceFarmaco.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/GestoreDiSistema.java" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/GestoreDiSistema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/java/com/ogc/pharmagcode/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/resources/com/ogc/pharmagcode/GestioneFarmaci/CercaFarmaco.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/resources/com/ogc/pharmagcode/GestioneFarmaci/CercaFarmaco.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/resources/com/ogc/pharmagcode/GestioneFarmaci/VisualizzaOrdiniFarmacia.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/resources/com/ogc/pharmagcode/GestioneFarmaci/VisualizzaOrdiniFarmacia.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/resources/com/ogc/pharmagcode/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/resources/com/ogc/pharmagcode/stylesheet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/target/classes/com/ogc/pharmagcode/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/target/classes/com/ogc/pharmagcode/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/target/classes/com/ogc/pharmagcode/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/PharmaGCode/PharmaGCode/target/classes/com/ogc/pharmagcode/stylesheet.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +29,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -52,11 +59,17 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/PharmaGCode/PharmaGCode/src/main/resources/com/ogc/pharmagcode/GestioneFarmaci" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3954023" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vince\IdeaProjects\PharmaGCode\PharmaGCode\PharmaGCode\src\main\resources\com\ogc\pharmagcode\GestioneFarmaci" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\vince\IdeaProjects\PharmaGCode\PharmaGCode\PharmaGCode\src\main\resources\com\ogc\pharmagcode\GestioneFarmaci" />
       <recent name="C:\Users\vince\IdeaProjects\PharmaGCode\PharmaGCode\PharmaGCode\src\main\resources\com\ogc\pharmagcode" />
@@ -71,6 +84,7 @@
     <configuration name="run Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.ogc.pharmagcode.Main" />
       <module name="PharmaGCode" />
+      <option name="PROGRAM_PARAMETERS" value="0 12345" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -87,6 +101,8 @@
       <workItem from="1653506844243" duration="6609000" />
       <workItem from="1653555310883" duration="602000" />
       <workItem from="1653556012769" duration="8192000" />
+      <workItem from="1653857036930" duration="1070000" />
+      <workItem from="1653860728143" duration="1636000" />
     </task>
     <task id="LOCAL-00001" summary="Package System e Utils">
       <created>1653556160845</created>
@@ -102,7 +118,21 @@
       <option name="project" value="LOCAL" />
       <updated>1653556444182</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Roba col tempo">
+      <created>1653655373614</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1653655373614</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Roba col tempo">
+      <created>1653655391016</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1653655391016</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,7 +143,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/mailViaGet" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -121,6 +163,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Package System e Utils" />
-    <option name="LAST_COMMIT_MESSAGE" value="Package System e Utils" />
+    <MESSAGE value="Roba col tempo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Roba col tempo" />
   </component>
 </project>
