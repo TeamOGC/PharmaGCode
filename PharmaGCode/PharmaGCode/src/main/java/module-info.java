@@ -8,6 +8,7 @@ module com.ogc.pharmagcode {
 //    requires java.mail;
     requires java.net.http;
     requires java.sql;
+    requires org.apache.logging.log4j;
 
     opens com.ogc.pharmagcode to javafx.fxml;
     exports com.ogc.pharmagcode;
@@ -15,6 +16,8 @@ module com.ogc.pharmagcode {
     opens com.ogc.pharmagcode.GestioneAccount to javafx.fxml;
     exports com.ogc.pharmagcode.GestioneFarmaci;
     opens com.ogc.pharmagcode.GestioneFarmaci to javafx.fxml;
+    exports com.ogc.pharmagcode.GestioneProduzione;
+    opens com.ogc.pharmagcode.GestioneProduzione to javafx.fxml;
     exports com.ogc.pharmagcode.Utils;
     opens com.ogc.pharmagcode.Utils to javafx.fxml;
 }

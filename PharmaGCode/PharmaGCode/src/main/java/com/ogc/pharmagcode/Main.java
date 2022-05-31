@@ -6,10 +6,15 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static java.lang.System.exit;
 
 public class Main extends Application {
+
+    private static final Logger log = LogManager.getLogger(Main.class);
+
     public static Orologio orologio=new Orologio();
     public static int sistema,idFarmacia;
     @Override
