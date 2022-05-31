@@ -17,17 +17,10 @@ public class InterfacciaPrincipaleFarmacista extends InterfacciaPrincipale {
         new GestoreCercaFarmaco();
     }
     @FXML
-    protected void cliccaVisualizzaOrdini(){
-
-        new GestoreVisualizzaOrdini();
-    }
+    protected void cliccaVisualizzaOrdini(){ new GestoreVisualizzaOrdini(); }
     @FXML
-    protected void cliccaCaricoMerci(){
-
-    }
+    protected void cliccaCaricoMerci(){ new GestoreCaricoMerci(); }
     @FXML
-    protected void cliccaScaricoMerci(){
-
-    }
+    protected void cliccaScaricoMerci(){ new GestoreScaricoMerci(); }
 
 }
