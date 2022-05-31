@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.net.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneProduzione.InterfacciaModificaProduzione">
+    <children>
+        <GridPane prefHeight="800.0" prefWidth="1280.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.5" minWidth="10.0" percentWidth="30.0" prefWidth="181.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.0" minWidth="10.0" percentWidth="40.0" prefWidth="237.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" percentWidth="30.0" prefWidth="182.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="161.0" minHeight="10.0" percentHeight="20.0" prefHeight="80.5" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="161.0" minHeight="10.0" prefHeight="127.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="384.0" minHeight="10.0" prefHeight="353.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="321.0" minHeight="10.0" percentHeight="20.0" prefHeight="188.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <VBox alignment="TOP_CENTER" prefHeight="319.0" prefWidth="512.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <children>
+                        <Label prefHeight="57.0" prefWidth="472.0" text="Scegliere il farmaco da modificare e la quantita prodotta in un mese:" textAlignment="CENTER" wrapText="true">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="46.0" prefWidth="384.0">
+                            <children>
+                                <TextField fx:id="farmaco" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Farmaco" styleClass="textbox">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets right="20.0" />
+                                    </HBox.margin>
+                                </TextField>
+                                <TextField fx:id="quantita" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantita" styleClass="textbox">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </TextField>
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="20.0" top="20.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <Button fx:id="confermaModificaBtn" mnemonicParsing="false" onAction="#conferma" prefHeight="42.0" prefWidth="132.0" styleClass="btn" text="Conferma" textFill="WHITE">
+                            <font>
+                                <Font name="SansSerif Bold" size="17.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </VBox>
+                <Label alignment="CENTER" prefHeight="59.0" prefWidth="442.0" text="Modifica Produzione" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="SansSerif Regular" size="35.0" />
+                    </font>
+                </Label>
+                <HBox alignment="BOTTOM_RIGHT" prefHeight="49.0" prefWidth="320.0">
+                    <children>
+                        <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" styleClass="backbtn" text="Indietro">
+                            <font>
+                                <Font name="SansSerif Bold" size="17.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" styleClass="backbtn" text="Annulla">
+                            <font>
+                                <Font name="SansSerif Bold" size="17.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <Label prefHeight="30.0" prefWidth="108.0" text="Giovanni" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+                    <font>
+                        <Font name="SansSerif Bold" size="17.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets bottom="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label alignment="CENTER" prefHeight="30.0" prefWidth="213.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                    <font>
+                        <Font name="SansSerif Bold" size="17.0" />
+                    </font>
+                    <GridPane.margin>
+                        <Insets bottom="5.0" />
+                    </GridPane.margin>
+                </Label>
+            </children>
+        </GridPane>
+    </children>
+</Pane>
