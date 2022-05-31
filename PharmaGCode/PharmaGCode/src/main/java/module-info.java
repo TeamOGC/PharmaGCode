@@ -9,6 +9,7 @@ module com.ogc.pharmagcode {
     requires java.net.http;
     requires java.sql;
     requires org.apache.logging.log4j;
+    requires org.mariadb.jdbc;
 
     opens com.ogc.pharmagcode to javafx.fxml;
     exports com.ogc.pharmagcode;
