@@ -1,6 +1,7 @@
 package com.ogc.pharmagcode;
 
 import com.ogc.pharmagcode.GestioneAccount.GestoreAutenticazione;
+import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Orologio;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -13,18 +14,19 @@ import static java.lang.System.exit;
 
 public class Main extends Application {
 
-    private static final Logger log = LogManager.getLogger(Main.class);
+    public static final Logger log = LogManager.getLogger(Main.class);
 
     public static Orologio orologio=new Orologio();
     public static int sistema,idFarmacia;
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("PharmaGC");
+        log.info("App partita");
         stage.setOnCloseRequest(c->{System.exit(0);});
         new GestoreAutenticazione(stage);
     }
 
-    public static void risolviSistema(String[] args){
+    private static void risolviSistema(String[] args){
         //Definisce quale tipo di sistema si sta usando (0 Farmacia, 1 Corriere, 2 Azienda)
         //e definisce un ID Farmacia (utilizzato solo se il sistema è destinato a una farmacia)
         try {

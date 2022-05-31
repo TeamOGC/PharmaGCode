@@ -1,6 +1,7 @@
 package com.ogc.pharmagcode.Utils;
 
 import com.ogc.pharmagcode.Entity.Utente;
+import com.ogc.pharmagcode.InterfacciaPrincipale;
 
 import java.sql.*;
 import java.util.List;
@@ -83,6 +84,52 @@ public class DBMSDaemon {
 
     }
 
+
+    /**
+     *  Verifica l'esistenza di una mail all'interno del DBMS
+     *
+     * @param mail email dell'utente
+     * @return true if email in DB, false if not
+     *
+     */
+    public boolean verificaEsistenzaMail(String mail){
+        connectFarmacia();
+        String query= "SELECT Farmacista.email FROM Farmacista WHERE email = ?";
+        try{
+            PreparedStatement stmt=connFarmacia.prepareStatement(query);
+            stmt.setString(1, mail);
+            var r= stmt.executeQuery();
+            if (r.next()){
+                return true;
+            }
+        } catch (SQLException e){
+            e.printStackTrace(System.err);
+        }
+        return false;
+    }
+
+    /**
+     * Aggiorna la password di un utente
+     *
+     * @param mail mail dell'utente
+     * @param password password dell'utente
+     * @return 1 if password aggiornata, -1 altrimenti
+     */
+    public int aggiornaPassword(String mail, String password){
+        connectFarmacia();
+        String query= "UPDATE Farmacista SET Farmacista.email = ? WHERE Farmacista.password = ?";
+        try{
+            PreparedStatement stmt= connFarmacia.prepareStatement(query);
+            stmt.setString(1,mail);
+            stmt.setString(2, password);
+            var r= stmt.executeUpdate();
+            if (r!=0)
+                return r;
+        } catch (SQLException e){
+            e.printStackTrace(System.err);
+        }
+        return -1;
+    }
     /**
      * Controlla scorte farmacia dopo lo scarico merci
      *
@@ -90,7 +137,7 @@ public class DBMSDaemon {
      * @param id_farmacia farmacia che ha scaricato il farmaco
      * @return quantità ancora disponibili dalla farmacia
      */
-    public int ControlloScorte(int id_lotto, int id_farmacia) {
+    public int controlloScorte(int id_lotto, int id_farmacia) {
         connectFarmacia();
         var query = "SELECT Lotto.quantita FROM DB_Farmacie.Lotto WHERE id_lotto = ? AND id_farmacia= ?";
         try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
@@ -135,7 +182,7 @@ public class DBMSDaemon {
      */
     public int scaricaMerci(int id_lotto, int id_farmacia, int qty) {
         connectFarmacia();
-        String query = "UPDATE DBMS_Farmacie.Lotto SET Lotto.quantita= ? WHERE Lotto.id_lotto=? AND Lotto.id_farmacia=?";
+        String query = "UPDATE DB_Farmacie.Lotto SET Lotto.quantita= ? WHERE Lotto.id_lotto=? AND Lotto.id_farmacia=?";
         try (PreparedStatement stmt= connFarmacia.prepareStatement(query)) {
             stmt.setInt(1, qty);
             stmt.setInt(2, id_lotto);
@@ -144,7 +191,7 @@ public class DBMSDaemon {
         } catch (SQLException e) {
             e.printStackTrace(System.err);
         }
-        try (CallableStatement call = connFarmacia.prepareCall("{CALL aggiornaQuantitaLotto(lotto_id, farmacia_id, @sommaQuantitaLotto)}")) {
+        try (CallableStatement call = connFarmacia.prepareCall("{CALL aggiornaQuantitaLotto(?, ?, @sommaQuantitaLotto)}")) {
             call.setInt(1, id_lotto);
             call.setInt(2, id_farmacia);
             ResultSet risultato = call.executeQuery();

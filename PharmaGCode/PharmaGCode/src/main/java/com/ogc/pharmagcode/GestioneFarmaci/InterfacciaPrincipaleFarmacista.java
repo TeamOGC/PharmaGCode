@@ -10,6 +10,7 @@ public class InterfacciaPrincipaleFarmacista extends InterfacciaPrincipale {
 
     public InterfacciaPrincipaleFarmacista(String nome, String cognome){
         super(nome + " "+cognome+" "+" Farmacia: "+ Main.idFarmacia);
+        Main.log.info("Gestione Farmaci");
     }
     @FXML
     protected void cliccaCercaFarmaco(){
