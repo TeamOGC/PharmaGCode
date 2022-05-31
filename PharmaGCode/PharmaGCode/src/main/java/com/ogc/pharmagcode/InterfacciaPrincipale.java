@@ -1,5 +1,7 @@
 package com.ogc.pharmagcode;
 
+import com.ogc.pharmagcode.GestioneAccount.GestoreModificaPassword;
+import com.ogc.pharmagcode.GestioneFarmaci.GestoreCercaFarmaco;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -26,6 +28,6 @@ public class InterfacciaPrincipale {
 
     @FXML
     protected void cliccaModificaPassword(){
-        //crea InterfacciaModificaPassword
+        new GestoreModificaPassword();
     }
 }

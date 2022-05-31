@@ -18,23 +18,46 @@ import java.util.Scanner;
 public class Orologio extends Thread{
     private Clock c=Clock.systemDefaultZone();
     private ZonedDateTime inizioTimer;
+
+    /**
+     *
+     * @return La stringa di orario formattato dd/MM/YY HH:mm:ss
+     */
     public String chiediOrarioFormattato(){
         DateTimeFormatter f=DateTimeFormatter.ofPattern("dd/MM/YYYY   HH:mm:ss");
         return f.format(chiediOrario());
     }
+
+    /**
+     *
+     * @return L'orario corrente (con offset di debug) rispetto alla Zona Temporale di default
+     */
     public ZonedDateTime chiediOrario(){
+
         return Instant.now(c).atZone(ZoneId.systemDefault());
     }
 
+    /**
+     *
+     * @param e la funzione da chiamare ogni secondo
+     */
     public void setOrologio(EventHandler<ActionEvent> e){
         Timeline clock=new Timeline(new KeyFrame(Duration.ZERO, e), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
     }
+
+    /**
+     * Salva il momento corrente per valutare il timer
+     */
     public void iniziaTimer(){
         inizioTimer=Instant.now(c).atZone(ZoneId.systemDefault());
     }
 
+    /**
+     *
+     * @return true se il timer è partito E sono passati più di 15 minuti, false altrimenti
+     */
     public boolean confrontaTimer(){
         if(inizioTimer==null){
             return false;
