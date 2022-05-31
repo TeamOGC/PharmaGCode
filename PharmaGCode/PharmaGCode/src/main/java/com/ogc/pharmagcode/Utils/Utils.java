@@ -3,10 +3,21 @@ package com.ogc.pharmagcode.Utils;
 import com.ogc.pharmagcode.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.util.function.UnaryOperator;
+
 public class Utils {
+
+    public static UnaryOperator<TextFormatter.Change> integerFilter = change -> {
+        String newText = change.getControlNewText();
+        if (newText.matches("-?([0-9]*)?")) {
+            return change;
+        }
+        return null;
+    };
     public static FXMLLoader creaLoader(String path){
         FXMLLoader loader=new FXMLLoader(Main.class.getResource(path));
         return loader;
