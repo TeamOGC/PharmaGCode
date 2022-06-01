@@ -21,17 +21,25 @@ public class InterfacciaVisualizzaOrdini {
     @FXML
     protected void initialize(){
         listaOrdini.setFixedCellSize(55);
-        EventHandler<ActionEvent> e=new EventHandler<ActionEvent>() {
+        EventHandler<ActionEvent> carica = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Carica");
+                cliccaCarica();
             }
         };
+
+        EventHandler<ActionEvent> modifica = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                cliccaModifica();
+            }
+        };
+
         ol=FXCollections.observableArrayList(
-                new VoceOrdine("Tachipirina", "Paracetamolo", "10","10/10/10", "15/10/10", "Carica", e),
-                new VoceOrdine("Tachipirina", "Paracetamolo", "10","10/10/10", "15/10/10", "Carica", e),
-                new VoceOrdine("Tachipirina", "Paracetamolo", "10","10/10/10", "15/10/10", "Carica", e),
-                new VoceOrdine("Tachipirina", "Paracetamolo", "10","10/10/10", "15/10/10", "Carica", e)
+                new VoceOrdine("Tachipirina", "Consegnato", "10","10/05/22", "", modifica),
+                new VoceOrdine("Gaviscon", "In lavorazione", "10","10/06/22", "Modifica", modifica),
+                new VoceOrdine("Oki", "Corretto", "10","22/05/22", "", modifica),
+                new VoceOrdine("Moment", "In spedizione", "10","01/06/22", "Carica", carica)
         );
 
         listaOrdini.setItems(ol);
@@ -44,4 +52,10 @@ public class InterfacciaVisualizzaOrdini {
     public void cliccaAnnulla(){
 
     }
+
+    @FXML
+    public void cliccaCarica(){ new GestoreCaricoMerci(); }
+
+    @FXML
+    public void cliccaModifica(){ new GestoreModificaOrdine(); }
 }

@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneConsegna.InterfacciaFirmaConsegne">
    <children>
       <GridPane prefHeight="800.0" prefWidth="1280.0">
         <columnConstraints>
@@ -27,7 +27,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="67.0" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Label fx:id="textMessage" prefHeight="57.0" prefWidth="384.0" text="Inserire Nome e Cognome del Farmacista per firmare correttamente:" textAlignment="CENTER" wrapText="true">
+                  <Label prefHeight="57.0" prefWidth="384.0" text="Inserire Nome e Cognome del Farmacista per firmare correttamente:" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -49,7 +49,7 @@
                   </TextField>
                </children>
             </VBox>
-            <Label fx:id="title" alignment="CENTER" prefHeight="59.0" prefWidth="287.0" text="Riepilogo" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label alignment="CENTER" prefHeight="59.0" prefWidth="287.0" text="Riepilogo" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font name="SansSerif Regular" size="35.0" />
                </font>
@@ -59,9 +59,9 @@
                   <Font name="SansSerif Bold" size="17.0" />
                </font>
             </Button>
-            <HBox fx:id="riepilogoCollo" alignment="CENTER" prefHeight="93.0" prefWidth="551.0" styleClass="entries" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <HBox alignment="CENTER" prefHeight="93.0" prefWidth="551.0" styleClass="entries" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <Label fx:id="nomeCollo" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="200.0" text="Collo 1">
+                  <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="200.0" text="Collo 1">
                      <font>
                         <Font name="SansSerif Regular" size="15.0" />
                      </font>
@@ -69,7 +69,7 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <VBox fx:id="farmaciCollo" alignment="CENTER" prefHeight="91.0" prefWidth="200.0">
+                  <VBox alignment="CENTER" prefHeight="91.0" prefWidth="200.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="200.0" text="Tachipirina">
                            <font>
@@ -91,7 +91,7 @@
                         <Insets left="20.0" right="20.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox fx:id="quantitaFarmaci" alignment="CENTER" prefHeight="91.0" prefWidth="200.0">
+                  <VBox alignment="CENTER" prefHeight="91.0" prefWidth="200.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="200.0" text="10">
                            <font>
