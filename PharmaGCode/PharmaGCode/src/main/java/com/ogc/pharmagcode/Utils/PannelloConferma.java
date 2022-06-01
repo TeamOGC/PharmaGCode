@@ -10,6 +10,7 @@ public class PannelloConferma extends Pannello{
     }
     @FXML
     protected void conferma(){
+        s=(Stage) messaggio.getScene().getWindow();
         s.close();
     }
 }

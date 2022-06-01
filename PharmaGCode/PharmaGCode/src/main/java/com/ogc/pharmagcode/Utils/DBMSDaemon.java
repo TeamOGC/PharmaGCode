@@ -65,6 +65,21 @@ public class DBMSDaemon {
 
 
 // -- Query Farmacia
+    public static boolean creaUtente(String nome, String cognome, String email, String password){
+        String query="INSERT INTO Farmacista(nome, cognome, email, password, id_farmacia) VALUES (?,?,?,?,?)";
+        try(PreparedStatement stmt=connFarmacia.prepareStatement(query)){
+            stmt.setString(1,nome);
+            stmt.setString(2,cognome);
+            stmt.setString(3,email);
+            stmt.setString(4,password);
+            stmt.setInt(5,Main.idFarmacia);
+            stmt.executeQuery();
+            return true;
+        }catch (SQLException e){
+            erroreComunicazioneDBMS(e);
+        }
+        return false;
+    }
 
     /**
      * Controlla Credenziali utenza farmacista

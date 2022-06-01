@@ -15,19 +15,24 @@ public class GestoreAutenticazione {
     }
     public void controlloCredenziali(String email, String password, Stage s) {
         if (Main.sistema == 0) {
-            Utils.cambiaInterfaccia("GestioneFarmaci/InterfacciaFarmacista.fxml", s
+            utente=DBMSDaemon.F_ControllaCredenziali(email,Utils.hash(password));
+            if(utente!=null)
+                Utils.cambiaInterfaccia("GestioneFarmaci/InterfacciaFarmacista.fxml", s
                     , c -> {
-                        return new InterfacciaPrincipaleFarmacista("Francesco", "Giorgio");
+                        return new InterfacciaPrincipaleFarmacista(GestoreAutenticazione.utente.nome(),GestoreAutenticazione.utente.cognome());
                     });
+            else
+                Utils.creaPannelloErrore("Credenziali non corrette");
+
         } else if (Main.sistema == 1) {
             Utils.cambiaInterfaccia("GestioneConsegna/InterfacciaCorriere.fxml", s
                     , c -> {
-                        return new InterfacciaPrincipaleCorriere("Francesco", "Giorgio", "22");
+                        return new InterfacciaPrincipaleCorriere(GestoreAutenticazione.utente.nome(),GestoreAutenticazione.utente.cognome(), "22");
                     });
         } else if (Main.sistema == 2) {
             Utils.cambiaInterfaccia("GestioneProduzione/InterfacciaImpiegato.fxml", s
                     , c -> {
-                        return new InterfacciaPrincipaleCorriere("Biagio", "Conte", "11");
+                        return new InterfacciaPrincipaleCorriere(GestoreAutenticazione.utente.nome(),GestoreAutenticazione.utente.cognome(), "11");
                     });
         }
     }

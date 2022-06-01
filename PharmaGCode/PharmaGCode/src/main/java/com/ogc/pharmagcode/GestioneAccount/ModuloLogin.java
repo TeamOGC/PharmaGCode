@@ -28,11 +28,11 @@ public class ModuloLogin {
     @FXML
     protected void cliccaRecuperaCredenziali(){
         System.out.println("Funziona");
-        gestoreAutenticazione.creaPannelloErrore();
+        //gestoreAutenticazione.creaPannelloErrore();
+        new GestoreRecuperaCredenziali();
     }
     @FXML
     protected void cliccaRegistrati(){
-        s = (Stage) email.getScene().getWindow();
-        new GestoreRegistrazione(s);
+        new GestoreRegistrazione(new Stage());
     }
 }

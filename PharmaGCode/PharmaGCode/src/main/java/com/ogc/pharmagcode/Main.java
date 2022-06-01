@@ -48,6 +48,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         risolviSistema(args);
         orologio.start();
+        DBMSDaemon.connect();
         launch();
         try {
             orologio.join();

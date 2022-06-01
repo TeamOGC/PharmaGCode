@@ -18,6 +18,5 @@ public class Pannello {
     @FXML
     protected void initialize(){
         messaggio.setText(messaggioText);
-
     }
 }
