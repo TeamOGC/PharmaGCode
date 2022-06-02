@@ -1,5 +1,6 @@
 package com.ogc.pharmagcode.GestioneFarmaci;
 
+import com.ogc.pharmagcode.Utils.RecordLista;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 public class InterfacciaListaOrdiniPeriodici {
     GestoreListaOrdiniPeriodici gestoreListaOrdiniPeriodici;
     @FXML
-    private ListView<VoceOrdine> listaOrdiniPeriodici;
+    private ListView<RecordLista> listaOrdiniPeriodici;
 
-    ObservableList<VoceOrdine> ol;
+    ObservableList<RecordLista> ol;
     public InterfacciaListaOrdiniPeriodici(GestoreListaOrdiniPeriodici gestoreListaOrdiniPeriodici){
         this.gestoreListaOrdiniPeriodici = gestoreListaOrdiniPeriodici;
     }
@@ -33,15 +34,15 @@ public class InterfacciaListaOrdiniPeriodici {
         };
 
         ol= FXCollections.observableArrayList(
-                new VoceOrdine("Tachipirina", "Consegnato", "10","10/05/22", "Modifica", modifica),
-                new VoceOrdine("Gaviscon", "In lavorazione", "10","10/06/22", "Modifica", modifica),
-                new VoceOrdine("Oki", "Corretto", "10","22/05/22", "Modifica", modifica),
-                new VoceOrdine("Moment", "In spedizione", "10","01/06/22", "Modifica", modifica)
+                new RecordLista(modifica,984,"Tachipirina", "Consegnato", "10","10/05/22", "Modifica"),
+                new RecordLista(modifica,984,"Gaviscon", "In lavorazione", "10","10/06/22", "Modifica"),
+                new RecordLista(modifica,984,"Oki", "Corretto", "10","22/05/22", "Modifica"),
+                new RecordLista(modifica,984,"Moment", "In spedizione", "10","01/06/22", "Modifica")
         );
 
         listaOrdiniPeriodici.setItems(ol);
     }
-    public void AggiornaOrdini(ArrayList<VoceOrdine> vo){
+    public void AggiornaOrdini(ArrayList<RecordLista> vo){
         ol=FXCollections.observableArrayList(vo);
         listaOrdiniPeriodici.setItems(ol);
     }

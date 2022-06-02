@@ -18,6 +18,8 @@ public class InterfacciaFirmaConsegne {
         this.gestoreFirmaConsegne = gestoreFirmaConsegne;
     }
 
+
     public void firmaConsegna(ActionEvent actionEvent) {
+
     }
 }
