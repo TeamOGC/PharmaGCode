@@ -682,14 +682,20 @@ public class DBMSDaemon {
     /**
      * Query per chiedere tutti gli ordini periodici
      *
-     * @return ResultSet con tutti i dati degli ordini periodici dell'azienda
+     * @return {@link OrdinePeriodico}[] contenente tutti gli ordini periodici.
+     * Ritorna null se ci sono stati errori o non sono stati trovati risultati.
+     * con tutti i dati degli ordini peri´dici dell'azienda
      */
-    public static ResultSet queryOrdiniPeriodici(){
+    public static OrdinePeriodico[] queryOrdiniPeriodici(){
         connectAzienda();
         String query = "SELECT OrdinePeriodico.* FROM OrdinePeriodico";
+        ArrayList<OrdinePeriodico> ordini = new ArrayList<>();
         try(PreparedStatement stmt =connAzienda.prepareStatement(query)){
             var r =stmt.executeQuery();
-            return r;
+            while(r.next()){
+                ordini.add(OrdinePeriodico.createFromDB(r));
+            }
+            return ordini.toArray(new OrdinePeriodico[0]);
         } catch (SQLException e){
             erroreComunicazioneDBMS(e);
         }
@@ -699,14 +705,19 @@ public class DBMSDaemon {
     /**
      * Query per chiedere tutti gli ordini con stato in attesa da parte dell'azienda
      *
-     * @return tutti gli ordini in attesa
+     * @return {@link Ordine}[] tutti gli ordini in attesa. {@code null} se non
+     * sono stati trovati risultati o erroreComunicazioneDBMS
      */
-    public static ResultSet queryOrdiniInAttesa(){
+    public static Ordine[] queryOrdiniInAttesa(){
         connectAzienda();
         String query ="SELECT Ordine.* FROM Ordine WHERE LOWER(Ordine.stato)='in attesa'";
+        ArrayList<Ordine> ordini = new ArrayList<>();
         try(PreparedStatement stmt =connAzienda.prepareStatement(query)){
             var r = stmt.executeQuery();
-            return r;
+            while(r.next()){
+                ordini.add(Ordine.createFromDB(r));
+            }
+            return ordini.toArray(new Ordine[0]);
         } catch (SQLException e){
             erroreComunicazioneDBMS(e);
         }
@@ -763,11 +774,14 @@ public class DBMSDaemon {
      */
     public static Ordine[] queryVisualizzaOrdiniAzienda(){
         connectAzienda();
-        String query= "SELECT Ordine.* FROM Ordine";
+        String query= "SELECT Ordine.* FROM Ordine ORDER BY Ordine.data_consegna DESC";
+        ArrayList<Ordine> ordini = new ArrayList<>();
         try(PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             var r = stmt.executeQuery();
-            if (r.next())
-                return r;
+            while(r.next()){
+                ordini.add(Ordine.createFromDB(r));
+            }
+            return ordini.toArray(new Ordine[0]);
         } catch (SQLException e){
             erroreComunicazioneDBMS(e);
         }
@@ -829,17 +843,21 @@ public class DBMSDaemon {
     /**
      * Query che consente a una farmacia di visualizzare gli ordini effettuati
      *
+     * @return {@link Ordine}[] contenente gli ordini effettuati.
+     * {@code null} se non sono stati trovati risultati o errore
      * @param id_farmacia id della farmacia che fa la richiesta
-     * @return resultSet contenente gli ordini effettuati ( le colonne corrispondono alle colonne della tabella ordine)
      */
     public static Ordine[] queryVisualizzaOrdiniFarmacia(int id_farmacia){
         connectAzienda();
         String query = "SELECT Ordine.* FROM Ordine WHERE Ordine.id_farmacia=?";
-        try(PreparedStatement stmt = connAzienda.prepareStatement(query)){
+        ArrayList<Ordine> ordini = new ArrayList<>();
+        try(PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setInt(1, id_farmacia);
             var r = stmt.executeQuery();
-            if (r.next())
-                return r;
+            while(r.next()){
+                ordini.add(Ordine.createFromDB(r));
+            }
+            return ordini.toArray(new Ordine[0]);
         } catch (SQLException e){
             erroreComunicazioneDBMS(e);
         }
