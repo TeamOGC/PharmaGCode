@@ -1,5 +1,6 @@
 package com.ogc.pharmagcode.GestioneFarmaci;
 
+import com.ogc.pharmagcode.Utils.RecordLista;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,9 +13,9 @@ import java.util.ArrayList;
 
 public class InterfacciaVisualizzaOrdini {
     @FXML
-    private ListView<VoceOrdine> listaOrdini;
+    private ListView<RecordLista> listaOrdini;
 
-    ObservableList<VoceOrdine> ol;
+    ObservableList<RecordLista> ol;
     public InterfacciaVisualizzaOrdini(){
 
     }
@@ -36,15 +37,15 @@ public class InterfacciaVisualizzaOrdini {
         };
 
         ol=FXCollections.observableArrayList(
-                new VoceOrdine("Tachipirina", "Consegnato", "10","10/05/22", "", modifica),
-                new VoceOrdine("Gaviscon", "In lavorazione", "10","10/06/22", "Modifica", modifica),
-                new VoceOrdine("Oki", "Corretto", "10","22/05/22", "", modifica),
-                new VoceOrdine("Moment", "In spedizione", "10","01/06/22", "Carica", carica)
+                new RecordLista(modifica,984,"Tachipirina", "Consegnato", "10","10/05/22", ""),
+                new RecordLista(modifica,984, "Gaviscon", "In lavorazione", "10","10/06/22", "Modifica"),
+                new RecordLista(modifica,984, "Oki", "Corretto", "10","22/05/22", ""),
+                new RecordLista(carica,984, "Moment", "In spedizione", "10","01/06/22", "Carica")
         );
 
         listaOrdini.setItems(ol);
     }
-    public void AggiornaOrdini(ArrayList<VoceOrdine> vo){
+    public void AggiornaOrdini(ArrayList<RecordLista> vo){
         ol=FXCollections.observableArrayList(vo);
         listaOrdini.setItems(ol);
     }

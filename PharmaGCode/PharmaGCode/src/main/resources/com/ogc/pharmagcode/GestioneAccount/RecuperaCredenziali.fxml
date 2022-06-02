@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../../../../../../../../../../../Desktop/UNIPA/IngSw/PharmaGCode/Mockup-20220525T193959Z-001/Mockup/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneAccount.ModuloRecuperaCredenziali">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneAccount.ModuloRecuperaCredenziali">
    <children>
       <GridPane layoutY="-14.0" prefHeight="800.0" prefWidth="1280.0">
         <columnConstraints>

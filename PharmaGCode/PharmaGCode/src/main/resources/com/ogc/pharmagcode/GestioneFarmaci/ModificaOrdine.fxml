@@ -24,7 +24,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="381.0" prefWidth="1280.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
-                  <Label prefHeight="57.0" prefWidth="544.0" text="Inserisci la nuova data di consegna o la nuova quantità:" textAlignment="CENTER" wrapText="true">
+                  <Label prefHeight="57.0" prefWidth="544.0" text="Inserisci la nuova quantità e/o la nuova data di consegna:" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
