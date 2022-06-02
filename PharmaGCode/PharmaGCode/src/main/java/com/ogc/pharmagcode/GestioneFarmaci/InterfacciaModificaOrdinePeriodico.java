@@ -6,12 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 
-public class InterfacciaScaricoMerci {
-
-    private GestoreScaricoMerci gestoreScaricoMerci;
-
-    @FXML
-    private TextField lotto;
+public class InterfacciaModificaOrdinePeriodico {
+    GestoreModificaOrdinePeriodico gestoreModificaOrdinePeriodico;
 
     @FXML
     private TextField quantita;
@@ -21,8 +17,8 @@ public class InterfacciaScaricoMerci {
         this.quantita.setTextFormatter(new TextFormatter<>(Utils.integerFilter));
     }
 
-    public InterfacciaScaricoMerci(GestoreScaricoMerci gestoreScaricoMerci){
-        this.gestoreScaricoMerci = gestoreScaricoMerci;
+    public InterfacciaModificaOrdinePeriodico(GestoreModificaOrdinePeriodico gestoreModificaOrdinePeriodico){
+        this.gestoreModificaOrdinePeriodico = gestoreModificaOrdinePeriodico;
     }
 
     public void conferma(ActionEvent actionEvent) {

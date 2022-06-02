@@ -12,10 +12,10 @@ import javafx.scene.layout.Priority;
 import java.util.function.Function;
 
 public class VoceOrdine extends HBox {
-    private Label[] labels=new Label[5];
+    private Label[] labels=new Label[4];
     private Button button=new Button();
 
-    public VoceOrdine(String field1, String field2, String field3, String field4, String field5, String bottone,
+    public VoceOrdine(String field1, String field2, String field3, String field4, String bottone,
                       EventHandler<ActionEvent> eventHandler){
         setMinHeight(50);
 
@@ -28,8 +28,6 @@ public class VoceOrdine extends HBox {
         labels[2].setMaxWidth(Double.MAX_VALUE);
         labels[3]=new Label(field4);
         labels[3].setMaxWidth(Double.MAX_VALUE);
-        labels[4]=new Label(field5);
-        labels[4].setMaxWidth(Double.MAX_VALUE);
         if(bottone.isBlank()){
             button.setVisible(false);
         }
