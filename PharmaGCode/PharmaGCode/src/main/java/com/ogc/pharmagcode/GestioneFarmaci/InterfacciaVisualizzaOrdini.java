@@ -25,7 +25,7 @@ public class InterfacciaVisualizzaOrdini {
         EventHandler<ActionEvent> carica = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                cliccaCarica();
+                cliccaCarica(-1);
             }
         };
 
@@ -40,7 +40,7 @@ public class InterfacciaVisualizzaOrdini {
                 new RecordLista(modifica,984,"Tachipirina", "Consegnato", "10","10/05/22", ""),
                 new RecordLista(modifica,984, "Gaviscon", "In lavorazione", "10","10/06/22", "Modifica"),
                 new RecordLista(modifica,984, "Oki", "Corretto", "10","22/05/22", ""),
-                new RecordLista(carica,984, "Moment", "In spedizione", "10","01/06/22", "Carica")
+                new RecordLista(e->{cliccaCarica(1);},984, "Moment", "In spedizione", "10","01/06/22", "Carica")
         );
 
         listaOrdini.setItems(ol);
@@ -55,7 +55,7 @@ public class InterfacciaVisualizzaOrdini {
     }
 
     @FXML
-    public void cliccaCarica(){ new GestoreCaricoMerci(); }
+    public void cliccaCarica(int id_ordine){ new GestoreCaricoMerci( id_ordine); }
 
     @FXML
     public void cliccaModifica(){ new GestoreModificaOrdine(); }
