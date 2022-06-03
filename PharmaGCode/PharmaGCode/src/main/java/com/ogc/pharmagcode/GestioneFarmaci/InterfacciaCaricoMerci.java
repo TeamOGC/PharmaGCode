@@ -27,5 +27,6 @@ public class InterfacciaCaricoMerci {
     }
 
     public void conferma(ActionEvent actionEvent) {
+        Utils.creaPannelloConferma("Sono stati correttamente caricati "+quantita.getText()+" del lotto "+lotto.getText());
     }
 }

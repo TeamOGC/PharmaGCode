@@ -1,5 +1,6 @@
 package com.ogc.pharmagcode.GestioneFarmaci;
 
+import com.ogc.pharmagcode.Utils.RecordLista;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -14,7 +15,7 @@ public class InterfacciaCercaFarmaco {
     @FXML
     private TextField princAttivo;
     @FXML
-    private ListView<VoceFarmaco> listaFarmaci;
+    private ListView<RecordLista> listaFarmaci;
     public InterfacciaCercaFarmaco(GestoreCercaFarmaco gestoreCercaFarmaco){
         this.gestoreCercaFarmaco=gestoreCercaFarmaco;
     }
@@ -27,7 +28,7 @@ public class InterfacciaCercaFarmaco {
         gestoreCercaFarmaco.cercaFarmaci(nomeFarmaco.getText(),princAttivo.getText());
     }
 
-    public void aggiornaFarmaci(ObservableList<VoceFarmaco> ol){
+    public void aggiornaFarmaci(ObservableList<RecordLista> ol){
         listaFarmaci.setItems(ol);
     }
 }

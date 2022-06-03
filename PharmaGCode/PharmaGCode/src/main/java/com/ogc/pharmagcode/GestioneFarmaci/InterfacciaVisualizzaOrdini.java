@@ -14,10 +14,11 @@ import java.util.ArrayList;
 public class InterfacciaVisualizzaOrdini {
     @FXML
     private ListView<RecordLista> listaOrdini;
+    GestoreVisualizzaOrdini gestoreVisualizzaOrdini;
 
     ObservableList<RecordLista> ol;
-    public InterfacciaVisualizzaOrdini(){
-
+    public InterfacciaVisualizzaOrdini(GestoreVisualizzaOrdini gestoreVisualizzaOrdini){
+        this.gestoreVisualizzaOrdini=gestoreVisualizzaOrdini;
     }
     @FXML
     protected void initialize(){
@@ -36,12 +37,7 @@ public class InterfacciaVisualizzaOrdini {
             }
         };
 
-        ol=FXCollections.observableArrayList(
-                new RecordLista(modifica,984,"Tachipirina", "Consegnato", "10","10/05/22", ""),
-                new RecordLista(modifica,984, "Gaviscon", "In lavorazione", "10","10/06/22", "Modifica"),
-                new RecordLista(modifica,984, "Oki", "Corretto", "10","22/05/22", ""),
-                new RecordLista(e->{cliccaCarica(1);},984, "Moment", "In spedizione", "10","01/06/22", "Carica")
-        );
+        ol=FXCollections.observableArrayList( gestoreVisualizzaOrdini.chiediOrdini());
 
         listaOrdini.setItems(ol);
     }
@@ -58,5 +54,5 @@ public class InterfacciaVisualizzaOrdini {
     public void cliccaCarica(int id_ordine){ new GestoreCaricoMerci( id_ordine); }
 
     @FXML
-    public void cliccaModifica(){ new GestoreModificaOrdine(); }
+    public void cliccaModifica(){ }
 }

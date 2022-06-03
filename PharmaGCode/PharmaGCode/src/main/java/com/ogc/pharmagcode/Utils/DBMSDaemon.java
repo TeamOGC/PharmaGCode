@@ -551,6 +551,22 @@ public class DBMSDaemon {
     }
 
     /**
+     * Consente di aggiornare la quantità consegnata dell'ordine appena caricato
+     * @param id_ordine
+     * @param qty
+     */
+    public static void queryAggiornaQuantitaConsegnataORdine(int id_ordine, int qty){
+        connectAzienda();
+        String query="UPDATE Ordine.quantita_consegnata SET Ordine.quantita_consegnata=Ordine.quantita_consegnata + ? WHERE Ordine.id_faramco=?";
+        try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
+            stmt.setInt(1,qty);
+            stmt.setInt(2,id_ordine);
+        }catch(SQLException e){
+            erroreComunicazioneDBMS(e);
+        }
+    }
+
+    /**
      * Consente di effettuare lo scarico di un farmaco appena venduto
      *
      * @param id_lotto id del lotto che viene scaricato
@@ -795,6 +811,11 @@ public class DBMSDaemon {
      * @return true if ordine creato correttamente, false if error
      */
     public static boolean queryCreaOrdine(Ordine ordine){
+        //Deve: chiedere i lotti, scegliere quali lotti verranno scelti
+        // per quell'ordine, rimuovere i farmaci
+        // e caricare ordine e composizione ordini
+        //SE la quantità totale è inferiore alla quantità richiesta, ritorna false
+
         connectAzienda();
         String query="INSERT INTO Ordine(id_farmacia, id_farmaco, data_consegna, stato, quantita) VALUES (?,?,?,?,?)";
         try(PreparedStatement stmt= connAzienda.prepareStatement(query)){
@@ -811,6 +832,116 @@ public class DBMSDaemon {
         }
         return false;
     }
+
+    private static Lotto[] queryLotti(int id_farmaco, boolean accettaInScadenza){
+        connectAzienda();
+        String query="SELECT Lotto.* FROM Lotto WHERE Lotto.id_farmaco=? AND Lotto.data_scadenza>?";
+        LocalDate d=Main.orologio.chiediOrario().toLocalDate();
+        ArrayList<Lotto> lotti=new ArrayList<>();
+        if(!accettaInScadenza){
+            d.plusMonths(2);
+        }
+        Date data=Date.valueOf(d);
+        try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
+            stmt.setInt(1,id_farmaco);
+            stmt.setDate(2,data);
+            ResultSet r=stmt.executeQuery();
+            while(r.next()){
+                lotti.add(new Lotto(r.getInt(2),r.getInt(1),r.getInt(4)));
+            }
+        }catch(SQLException e){
+            erroreComunicazioneDBMS(e);
+        }
+        return lotti.toArray(new Lotto[0]);
+    }
+
+    private static Lotto[] queryScegliLotti(Lotto[] lotti, int quantita){
+        String query="UPDATE Lotto SET quantita=quantita-? WHERE Lotto.id_lotto=?";
+        ArrayList<Lotto> temp=new ArrayList<>();
+        for(Lotto l:lotti){
+            if (quantita > l.getQuantita()){
+                quantita-=l.getQuantita();
+                temp.add(new Lotto(l));
+                l.setQuantita(0);
+            }else{
+                Lotto l1=new Lotto(l);
+                l1.setQuantita(quantita);
+                temp.add(l1);
+                l.setQuantita(l.getQuantita()-quantita);
+                quantita=0;
+            }
+        }
+        if(quantita>0){
+            return new Lotto[0];
+        }
+        try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
+            for(Lotto l : temp){
+                stmt.setInt(1,l.getQuantita());
+                stmt.setInt(2,l.getId_lotto());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+        }catch (SQLException e) {
+            erroreComunicazioneDBMS(e);
+        }
+        return temp.toArray(new Lotto[0]);
+    }
+
+    private static Lotto[] creaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza){
+        Lotto[] lotti=queryScegliLotti(queryLotti(id_farmaco,accettaScadenza), quantita);
+        return lotti;
+    }
+
+    private static boolean queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, int id_ordine){
+        String query="INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?)";
+        try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
+            Lotto[] composizione=creaComposizioneOrdini(id_farmaco, quantita, accettaScadenza);
+            if(composizione.length==0)
+                return false;
+            connAzienda.setAutoCommit(false);
+            for(Lotto l:composizione){
+                stmt.setInt(1,id_ordine);
+                stmt.setInt(2,l.getId_lotto());
+                stmt.setInt(3,l.getQuantita());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+            connAzienda.commit();
+            connAzienda.setAutoCommit(true);
+        }catch(SQLException e){
+            erroreComunicazioneDBMS(e);
+        }
+        return true;
+    }
+
+    public static boolean queryCreaOrdineTemp(Ordine ordine, boolean accettaScadenza){
+        //Deve: chiedere i lotti, scegliere quali lotti verranno scelti
+        // per quell'ordine, rimuovere i farmaci
+        // e caricare ordine e composizione ordini
+        //SE la quantità totale è inferiore alla quantità richiesta, ritorna false
+        queryCreaOrdine(ordine);
+        connectAzienda();
+        String query="INSERT INTO Ordine(id_farmacia, id_farmaco, data_consegna, stato, quantita) VALUES (?,?,?,?,?)";
+
+        try(PreparedStatement stmt= connAzienda.prepareStatement(query)){
+            stmt.setInt(1,ordine.getId_farmacia());
+            stmt.setInt(2,ordine.getId_farmaco());
+            stmt.setDate(3, Date.valueOf(ordine.getData_consegna()));
+            stmt.setString(4,ordine.getStato());
+            stmt.setInt(5, ordine.getQuantita());
+            ResultSet id_ordine=stmt.getGeneratedKeys();
+            int r=stmt.executeUpdate();
+            while(id_ordine.next()){
+                if(queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), accettaScadenza,id_ordine.getInt(1)))
+                    return true;
+            }
+            return false;
+        }catch(SQLException e){
+            erroreComunicazioneDBMS(e);
+        }
+        return false;
+    }
+
 
     /**
      * query che consente a un impiegato di correggere un ordine
@@ -849,7 +980,7 @@ public class DBMSDaemon {
      */
     public static Ordine[] queryVisualizzaOrdiniFarmacia(int id_farmacia){
         connectAzienda();
-        String query = "SELECT Ordine.* FROM Ordine WHERE Ordine.id_farmacia=?";
+        String query = "SELECT Ordine.*,Farmaco.nome FROM Ordine,Farmaco WHERE Ordine.id_farmacia=? and Ordine.id_farmaco=Farmaco.id_farmaco";
         ArrayList<Ordine> ordini = new ArrayList<>();
         try(PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setInt(1, id_farmacia);
@@ -877,6 +1008,21 @@ public class DBMSDaemon {
         try(PreparedStatement stmt = connAzienda.prepareStatement(query)){
             stmt.setInt(1, nuova_qty);
             stmt.setInt(2, ordine.getId_ordine());
+            var r = stmt.executeUpdate();
+            if (r != 0)
+                return r;
+        } catch (SQLException e){
+            erroreComunicazioneDBMS(e);
+        }
+        return -1;
+    }
+
+    public static int queryAggiornaQuantitaOrdine(int idOrdine, int nuova_qty){
+        connectAzienda();
+        String query = "UPDATE Ordine SET Ordine.quantita=? WHERE Ordine.id_ordine=?";
+        try(PreparedStatement stmt = connAzienda.prepareStatement(query)){
+            stmt.setInt(1, nuova_qty);
+            stmt.setInt(2, idOrdine);
             var r = stmt.executeUpdate();
             if (r != 0)
                 return r;
@@ -943,7 +1089,7 @@ public class DBMSDaemon {
         String query = "SELECT Farmaco.* FROM Farmaco WHERE LOWER(Farmaco.nome) LIKE ? AND LOWER(Farmaco.principio_attivo) LIKE ?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)){
             stmt.setString(1, "%" + nome.toLowerCase() + "%");
-            stmt.setString(1, "%" + nome.toLowerCase() + "%");
+            stmt.setString(2, "%" + principio_attivo.toLowerCase() + "%");
             var r = stmt.executeQuery();
             ArrayList<Farmaco> farmaci = new ArrayList<>();
             while(r.next()){

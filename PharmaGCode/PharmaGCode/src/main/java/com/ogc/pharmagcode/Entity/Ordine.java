@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class Ordine {
     private final int id_ordine;
     private final int id_farmaco;
+    private final String nome_farmaco;
     private final int id_farmacia;
     private LocalDate data_consegna;
     private String stato;
@@ -14,9 +15,10 @@ public class Ordine {
     private String firma;
 
 
-    public Ordine(int id_ordine, int id_farmaco, int id_farmacia, LocalDate data_consegna, String stato, int quantita) {
+    public Ordine(int id_ordine,int id_farmaco,String nome_farmaco,  int id_farmacia, LocalDate data_consegna, String stato, int quantita) {
         this.id_ordine = id_ordine;
         this.id_farmaco = id_farmaco;
+        this.nome_farmaco=nome_farmaco;
         this.id_farmacia = id_farmacia;
         this.data_consegna = data_consegna;
         this.stato = stato;
@@ -34,6 +36,10 @@ public class Ordine {
 
     public int getId_farmaco() {
         return id_farmaco;
+    }
+
+    public String getNome_farmaco() {
+        return nome_farmaco;
     }
 
     public int getId_farmacia() {
@@ -68,7 +74,8 @@ public class Ordine {
             int quantita = r.getInt(5);
             String stato = r.getString(6);
             String firma = r.getString(7);
-            Ordine ord = new Ordine(id_ordine, id_farmaco, id_farmacia, data_consegna, stato, quantita);
+            String nome_farmaco=r.getString(8);
+            Ordine ord = new Ordine(id_ordine, id_farmaco, nome_farmaco, id_farmacia, data_consegna, stato, quantita);
             if(firma!=null && !firma.isBlank() && !firma.isEmpty()){
                 ord.setFirma(firma);
             }
