@@ -17,7 +17,7 @@ public class GestoreCaricoMerci {
 
     public void caricaFarmaco(int codiceLotto, int quantita){
         DBMSDaemon.queryCaricaFarmaco(codiceLotto, Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate(), quantita);
-        DBMSDaemon.queryAggiornaQuantitaConsegnataORdine(id_ordine,quantita);
+        DBMSDaemon.aggiornaQuantitaConsegnataOrdine(id_ordine, codiceLotto, quantita);
     }
 
 }

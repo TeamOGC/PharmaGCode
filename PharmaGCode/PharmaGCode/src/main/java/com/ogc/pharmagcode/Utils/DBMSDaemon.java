@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+@SuppressWarnings({"unused", "UnusedReturnValue", "DuplicatedCode"})
 public class DBMSDaemon {
     private static final String baseUrl = "beverlylab.duckdns.org";
     private static final int port = 11051;
@@ -88,10 +89,10 @@ public class DBMSDaemon {
      * Se {@code Main.sistema == 0} allora {@link #queryRegistraFarmacista(int, String, String, String, String) queryRegistraFarmacista(Main.idFarmacia)} <br>
      * Se {@code Main.sistema == 1} allora {@link #queryRegistraCorriere(String, String, String, String) queryRegistraCorriere()}<br>
      * Se {@code Main.sistema == 2} allora {@link #queryRegistraImpiegato(String, String, String, String) queryRegistraImpiegato()}<br>
-     * @param nome
-     * @param cognome
-     * @param email
-     * @param password
+     * @param nome nome utente
+     * @param cognome cognome utente
+     * @param email email utente
+     * @param password password utente hashata
      * @return {@code true} se la registrazione ha avuto successo, {@code false} se non ha avuto successo
      */
     public static boolean queryRegistraUtente(String nome, String cognome, String email, String password){
@@ -108,7 +109,7 @@ public class DBMSDaemon {
      * Se {@code Main.sistema == 1} allora {@link #queryVerificaEsistenzaMailCorriere(String) queryVerificaEsistenzaMailCorriere()} <br>
      * Se {@code Main.sistema == 2} allora {@link #queryVerificaEsistenzaMailImpiegato(String) queryVerificaEsistenzaMailImpiegato()} <br>
      * @param mail mail da verificare
-     * @return
+     * @return true o false se esiste o meno
      */
     public static boolean queryVerificaEsistenzaMail(String mail){
         if(Main.sistema==0) return queryVerificaEsistenzaMailFarmacista(mail);
@@ -362,11 +363,11 @@ public class DBMSDaemon {
     /**
      * Inserisci una nuova entry nella tabella Farmacista
      *
-     * @param id_farmacia
-     * @param nome
-     * @param cognome
-     * @param email
-     * @param password
+     * @param id_farmacia id farmacia
+     * @param nome nome farmacista
+     * @param cognome cognome farmacista
+     * @param email mail farmacista
+     * @param password password hashata
      * @return true if success, false if error
      */
     public static boolean queryRegistraFarmacista(int id_farmacia, String nome, String cognome, String email, String password){
@@ -378,8 +379,7 @@ public class DBMSDaemon {
             stmt.setString(3, cognome);
             stmt.setString(4, email);
             stmt.setString(5, password);
-            var r= stmt.executeQuery();
-            return true;
+            return stmt.executeUpdate()>0;
         } catch (SQLException e){
             erroreComunicazioneDBMS(e);
         }
@@ -389,10 +389,10 @@ public class DBMSDaemon {
     /**
      * query per registrare un impiegato nel db
      *
-     * @param nome
-     * @param cognome
-     * @param email
-     * @param password
+     * @param nome nome impiegato
+     * @param cognome cognome impiegato
+     * @param email mail impiegato
+     * @param password password hashata
      * @return true if success, false if error
      */
     public static boolean queryRegistraImpiegato(String nome, String cognome, String email, String password){
@@ -403,8 +403,8 @@ public class DBMSDaemon {
             stmt.setString(2, cognome);
             stmt.setString(3, email);
             stmt.setString(4, password);
-            var r= stmt.executeQuery();
-            return true;
+            return stmt.executeUpdate() > 0;
+
         } catch (SQLException e){
             erroreComunicazioneDBMS(e);
         }
@@ -414,11 +414,11 @@ public class DBMSDaemon {
     /**
      * query per registrare un corriere all'interno del db
      *
-     * @param nome
-     * @param cognome
-     * @param email
-     * @param password
-     * @return
+     * @param nome nome corriere
+     * @param cognome cognome corriere
+     * @param email mail corriere
+     * @param password password hashata
+     * @return true o false se la registrazione va a buon fine o meno
      */
     public static boolean queryRegistraCorriere(String nome, String cognome, String email, String password){
         connectAzienda();
@@ -428,8 +428,7 @@ public class DBMSDaemon {
             stmt.setString(2, cognome);
             stmt.setString(3, email);
             stmt.setString(4, password);
-            var r= stmt.executeQuery();
-            return true;
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e){
             erroreComunicazioneDBMS(e);
         }
@@ -463,7 +462,7 @@ public class DBMSDaemon {
     /**
      * query per verificare l'esistenza della mail di un impiegato nel db in fase di registrazione e di recupero credenziali
      *
-     * @param mail
+     * @param mail mail da verificare
      * @return true if mail in db, false if not
      */
     public static boolean queryVerificaEsistenzaMailImpiegato(String mail){
@@ -552,18 +551,23 @@ public class DBMSDaemon {
 
     /**
      * Consente di aggiornare la quantità consegnata dell'ordine appena caricato
-     * @param id_ordine
-     * @param qty
+     * @param id_ordine id dell'ordine appena caricato
+     * @param id_lotto id del lotto appena caricato
+     * @param qty quantità caricata
+     * @return true se aggiorna almeno un record
      */
-    public static void queryAggiornaQuantitaConsegnataORdine(int id_ordine, int qty){
+    public static boolean aggiornaQuantitaConsegnataOrdine(int id_ordine, int id_lotto, int qty){
         connectAzienda();
-        String query="UPDATE Ordine.quantita_consegnata SET Ordine.quantita_consegnata=Ordine.quantita_consegnata + ? WHERE Ordine.id_faramco=?";
+        String query="UPDATE DB_Azienda.ComposizioneOrdine SET ComposizioneOrdine.quantita_consegnata=ComposizioneOrdine.quantita_consegnata + ? WHERE ComposizioneOrdine.id_ordine=? AND ComposizioneOrdine.id_lotto = ?";
         try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
             stmt.setInt(1,qty);
             stmt.setInt(2,id_ordine);
+            stmt.setInt(3,id_lotto);
+            return stmt.executeUpdate() > 0;
         }catch(SQLException e){
             erroreComunicazioneDBMS(e);
         }
+        return false;
     }
 
     /**
@@ -582,7 +586,7 @@ public class DBMSDaemon {
             stmt.setInt(2, qty);
             stmt.setInt(3, id_lotto);
             stmt.setInt(4, id_farmacia);
-            var r = stmt.executeUpdate();
+            stmt.executeUpdate();
             var squery = "SELECT Lotto.quantita FROM DB_Farmacie.Lotto WHERE Lotto.id_lotto=?";
             try (PreparedStatement sstmt= connFarmacia.prepareStatement(squery)) {
                 sstmt.setInt(1, id_lotto);
@@ -657,7 +661,7 @@ public class DBMSDaemon {
     /**
      * Controlla se un farmaco esiste nel db per poterne modificare la produzione
      *
-     * @param nome_farmaco
+     * @param nome_farmaco nome del farmaco
      * @return true if exists, false if not
      */
     public static boolean queryControlloEsistenzaFarmaco(String nome_farmaco){
@@ -835,11 +839,11 @@ public class DBMSDaemon {
 
     private static Lotto[] queryLotti(int id_farmaco, boolean accettaInScadenza){
         connectAzienda();
-        String query="SELECT Lotto.* FROM Lotto WHERE Lotto.id_farmaco=? AND Lotto.data_scadenza>?";
+        String query="SELECT Lotto.* FROM Lotto WHERE Lotto.id_farmaco=? AND Lotto.data_scadenza>? ORDER BY Lotto.data_scadenza ASC";
         LocalDate d=Main.orologio.chiediOrario().toLocalDate();
         ArrayList<Lotto> lotti=new ArrayList<>();
         if(!accettaInScadenza){
-            d.plusMonths(2);
+            d = d.plusMonths(2);
         }
         Date data=Date.valueOf(d);
         try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
@@ -856,6 +860,7 @@ public class DBMSDaemon {
     }
 
     private static Lotto[] queryScegliLotti(Lotto[] lotti, int quantita){
+        connectAzienda();
         String query="UPDATE Lotto SET quantita=quantita-? WHERE Lotto.id_lotto=?";
         ArrayList<Lotto> temp=new ArrayList<>();
         for(Lotto l:lotti){
@@ -888,8 +893,7 @@ public class DBMSDaemon {
     }
 
     private static Lotto[] creaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza){
-        Lotto[] lotti=queryScegliLotti(queryLotti(id_farmaco,accettaScadenza), quantita);
-        return lotti;
+        return queryScegliLotti(queryLotti(id_farmaco,accettaScadenza), quantita);
     }
 
     private static boolean queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, int id_ordine){
@@ -919,7 +923,6 @@ public class DBMSDaemon {
         // per quell'ordine, rimuovere i farmaci
         // e caricare ordine e composizione ordini
         //SE la quantità totale è inferiore alla quantità richiesta, ritorna false
-        queryCreaOrdine(ordine);
         connectAzienda();
         String query="INSERT INTO Ordine(id_farmacia, id_farmaco, data_consegna, stato, quantita) VALUES (?,?,?,?,?)";
 
@@ -929,13 +932,11 @@ public class DBMSDaemon {
             stmt.setDate(3, Date.valueOf(ordine.getData_consegna()));
             stmt.setString(4,ordine.getStato());
             stmt.setInt(5, ordine.getQuantita());
-            ResultSet id_ordine=stmt.getGeneratedKeys();
             int r=stmt.executeUpdate();
-            while(id_ordine.next()){
-                if(queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), accettaScadenza,id_ordine.getInt(1)))
-                    return true;
+            ResultSet id_ordine=stmt.getGeneratedKeys();
+            if(id_ordine.next()){
+                return queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), accettaScadenza, id_ordine.getInt(1));
             }
-            return false;
         }catch(SQLException e){
             erroreComunicazioneDBMS(e);
         }
