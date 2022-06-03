@@ -20,14 +20,14 @@ public class GestoreRegistrazione {
     public void controllaValiditaPassword(){}
     public void controllaMail(String mail){}
     public void inviaMailOTP(String mail){
-        if(!DBMSDaemon.verificaEsistenzaMail(mail)) {
+        if(!DBMSDaemon.queryVerificaEsistenzaMail(mail)) {
             otp=""+(int)(Math.random()*1000000);
             MailUtils.inviaMail("Il tuo codice OTP è: "+otp, mail, "Codice OTP");
         }
     }
     public void inserisciOTP(String otp){
         if(controllaValiditaOTP(otp)) {
-            if(DBMSDaemon.creaUtente(nome,cognome,email,Utils.hash(password))) {
+            if(DBMSDaemon.queryRegistraUtente(nome,cognome,email,Utils.hash(password))) {
                 Utils.creaPannelloConferma("Utente registrato correttamente");
                 s.close();
             }
@@ -46,7 +46,7 @@ public class GestoreRegistrazione {
         return password.equals(re_pwd);
     }
     public boolean registraAccount(String nome,String cognome, String email, String password,String re_pwd){
-        if(DBMSDaemon.verificaEsistenzaMail(email)){
+        if(DBMSDaemon.queryVerificaEsistenzaMail(email)){
             Utils.creaPannelloErrore("Esiste già un account collegato a questa e-mail");
             return false;
         }
