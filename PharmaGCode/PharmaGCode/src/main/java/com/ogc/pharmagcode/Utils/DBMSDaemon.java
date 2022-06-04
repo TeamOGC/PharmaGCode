@@ -730,7 +730,7 @@ public class DBMSDaemon {
      */
     public static Ordine[] queryOrdiniInAttesa(){
         connectAzienda();
-        String query ="SELECT Ordine.* FROM Ordine WHERE LOWER(Ordine.stato)='in attesa'";
+        String query ="SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco WHERE LOWER(Ordine.stato)='in attesa'";
         ArrayList<Ordine> ordini = new ArrayList<>();
         try(PreparedStatement stmt =connAzienda.prepareStatement(query)){
             var r = stmt.executeQuery();
@@ -794,7 +794,7 @@ public class DBMSDaemon {
      */
     public static Ordine[] queryVisualizzaOrdiniAzienda(){
         connectAzienda();
-        String query= "SELECT Ordine.* FROM Ordine ORDER BY Ordine.data_consegna DESC";
+        String query= "SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco ORDER BY Ordine.data_consegna DESC";
         ArrayList<Ordine> ordini = new ArrayList<>();
         try(PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             var r = stmt.executeQuery();
@@ -981,7 +981,7 @@ public class DBMSDaemon {
      */
     public static Ordine[] queryVisualizzaOrdiniFarmacia(int id_farmacia){
         connectAzienda();
-        String query = "SELECT Ordine.*,Farmaco.nome FROM Ordine,Farmaco WHERE Ordine.id_farmacia=? and Ordine.id_farmaco=Farmaco.id_farmaco";
+        String query = "SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco WHERE Ordine.id_farmacia=?";
         ArrayList<Ordine> ordini = new ArrayList<>();
         try(PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setInt(1, id_farmacia);
@@ -1136,7 +1136,7 @@ public class DBMSDaemon {
     public static Collo[] queryVisualizzaConsegne(LocalDate data){
         connectAzienda();
         HashMap<Integer, Collo> colli = new HashMap<>();
-        String query = "SELECT O.* FROM Ordine O WHERE O.data_consegna = ?";
+        String query = "SELECT O.*, F.nome FROM Ordine O INNER JOIN Farmaco F on O.id_farmaco = F.id_farmaco WHERE O.data_consegna = ?";
         try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
             stmt.setDate(1, Date.valueOf(data));
             var r= stmt.executeQuery();
@@ -1265,7 +1265,7 @@ public class DBMSDaemon {
      */
     public static Ordine[] queryOrdiniDiUnaFarmaciaUnaData(int id_farmacia, LocalDate data){
         connectAzienda();
-        String query="SELECT Ordine.* FROM Ordine WHERE Ordine.id_farmacia=? AND Ordine.data_consegna=?";
+        String query="SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco WHERE Ordine.id_farmacia=? AND Ordine.data_consegna=?";
         try(PreparedStatement stmt= connAzienda.prepareStatement(query)){
             stmt.setInt(1, id_farmacia);
             stmt.setDate(2, Date.valueOf(data));
