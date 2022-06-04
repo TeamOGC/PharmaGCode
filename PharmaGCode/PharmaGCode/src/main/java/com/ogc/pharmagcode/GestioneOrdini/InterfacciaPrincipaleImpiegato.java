@@ -1,7 +1,8 @@
-package com.ogc.pharmagcode.GestioneProduzione;
+package com.ogc.pharmagcode.GestioneOrdini;
 
-import com.ogc.pharmagcode.GestioneConsegna.InterfacciaPrincipaleCorriere;
+import com.ogc.pharmagcode.GestioneProduzione.GestoreModificaProduzione;
 import com.ogc.pharmagcode.InterfacciaPrincipale;
+import com.ogc.pharmagcode.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -13,13 +14,14 @@ public class InterfacciaPrincipaleImpiegato extends InterfacciaPrincipale {
     }
 
     @FXML
-    public void cliccaVisualizzaOrdiniAzienda(){
+    public void cliccaVisualizzaOrdini(ActionEvent actionEvent) {
+        Main.log.debug("Impiegato ha cliccato su visualizza ordini azienda");
+
         new GestoreVisualizzaOrdiniAzienda();
     }
 
-    public void cliccaVisualizzaOrdini(ActionEvent actionEvent) {
-    }
-
     public void cliccaModificaProduzione(ActionEvent actionEvent) {
+        Main.log.debug("Impiegato ha cliccato su modifica produzione");
+        new GestoreModificaProduzione();
     }
 }
