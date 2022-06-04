@@ -32,7 +32,7 @@
                      <font>
                         <Font size="17.0" />
                      </font></TextField>
-                  <PasswordField fx:id="password" prefHeight="42.0" prefWidth="512.0" promptText="Password" styleClass="textbox">
+                  <PasswordField fx:id="password" onAction="#cliccaAccedi" prefHeight="42.0" prefWidth="512.0" promptText="Password" styleClass="textbox">
                      <VBox.margin>
                         <Insets top="7.0" />
                      </VBox.margin>
