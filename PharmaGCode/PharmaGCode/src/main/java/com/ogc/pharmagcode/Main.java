@@ -18,6 +18,7 @@ public class Main extends Application {
 
     public static Orologio orologio=new Orologio();
     public static int sistema,idFarmacia;
+    public static boolean debug;
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("PharmaGC");
@@ -39,6 +40,9 @@ public class Main extends Application {
             if (args.length >= 2) {
                 idFarmacia = Integer.parseInt(args[1]);
             }
+            if (args.length >= 3) {
+                debug=Integer.parseInt(args[2])==1;
+            }
         }catch (NumberFormatException e){
             System.err.println(e.getMessage());
             exit(1);
@@ -48,6 +52,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         risolviSistema(args);
         orologio.start();
+        DBMSDaemon.connect();
         launch();
         try {
             orologio.join();

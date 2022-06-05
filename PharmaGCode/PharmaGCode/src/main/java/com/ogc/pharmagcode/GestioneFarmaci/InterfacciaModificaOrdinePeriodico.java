@@ -3,16 +3,11 @@ package com.ogc.pharmagcode.GestioneFarmaci;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 
-public class InterfacciaCaricoMerci {
-
-    private GestoreCaricoMerci gestoreCaricoMerci;
-
-    @FXML
-    private TextField lotto;
+public class InterfacciaModificaOrdinePeriodico {
+    GestoreModificaOrdinePeriodico gestoreModificaOrdinePeriodico;
 
     @FXML
     private TextField quantita;
@@ -22,11 +17,10 @@ public class InterfacciaCaricoMerci {
         this.quantita.setTextFormatter(new TextFormatter<>(Utils.integerFilter));
     }
 
-    public InterfacciaCaricoMerci(GestoreCaricoMerci gestoreCaricoMerci){
-        this.gestoreCaricoMerci = gestoreCaricoMerci;
+    public InterfacciaModificaOrdinePeriodico(GestoreModificaOrdinePeriodico gestoreModificaOrdinePeriodico){
+        this.gestoreModificaOrdinePeriodico = gestoreModificaOrdinePeriodico;
     }
 
     public void conferma(ActionEvent actionEvent) {
-        Utils.creaPannelloConferma("Sono stati correttamente caricati "+quantita.getText()+" del lotto "+lotto.getText());
     }
 }

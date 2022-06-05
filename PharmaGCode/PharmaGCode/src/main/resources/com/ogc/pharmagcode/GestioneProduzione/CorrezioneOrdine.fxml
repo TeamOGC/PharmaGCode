@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.net.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../../../../../../../../../../../Desktop/UNIPA/IngSw/PharmaGCode/Mockup-20220525T193959Z-001/Mockup/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane prefHeight="800.0" prefWidth="1280.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.5" minWidth="10.0" percentWidth="30.0" prefWidth="181.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.0" minWidth="10.0" percentWidth="40.0" prefWidth="237.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" percentWidth="30.0" prefWidth="182.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="161.0" minHeight="10.0" percentHeight="20.0" prefHeight="80.5" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="161.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="163.5" minHeight="0.0" prefHeight="133.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="159.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="161.0" minHeight="0.0" prefHeight="81.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="321.0" minHeight="10.0" percentHeight="20.0" prefHeight="188.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox alignment="CENTER" prefHeight="67.0" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <Label prefHeight="57.0" prefWidth="452.0" text="Inserire la quantita di farmaci consegnati e la quantita di farmaci che si vuole integrare:" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="46.0" prefWidth="384.0">
+                     <children>
+                        <TextField fx:id="email" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantità Consegnata" styleClass="textbox">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <TextField fx:id="email1" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantita da integrare" styleClass="textbox">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Label alignment="CENTER" prefHeight="59.0" prefWidth="287.0" text="Riepilogo" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="SansSerif Regular" size="35.0" />
+               </font>
+            </Label>
+            <Button fx:id="LoginButton" mnemonicParsing="false" onAction="#login" prefHeight="42.0" prefWidth="132.0" styleClass="btn" text="Conferma" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <font>
+                  <Font name="SansSerif Bold" size="17.0" />
+               </font>
+            </Button>
+            <HBox alignment="CENTER" prefHeight="93.0" prefWidth="551.0" styleClass="entries" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="114.0" text="Farmaco 1">
+                     <font>
+                        <Font name="SansSerif Regular" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="137.0" text="Farmacia 1">
+                     <font>
+                        <Font name="SansSerif Regular" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="89.0" text="20">
+                     <font>
+                        <Font name="SansSerif Regular" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="49.0" prefWidth="320.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" styleClass="backbtn" text="Indietro">
+                     <font>
+                        <Font name="SansSerif Bold" size="17.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" styleClass="backbtn" text="Annulla">
+                     <font>
+                        <Font name="SansSerif Bold" size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <Label prefHeight="30.0" prefWidth="108.0" text="Giovanni" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="SansSerif Bold" size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="213.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <font>
+                  <Font name="SansSerif Bold" size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+      </GridPane>
+   </children>
+</Pane>

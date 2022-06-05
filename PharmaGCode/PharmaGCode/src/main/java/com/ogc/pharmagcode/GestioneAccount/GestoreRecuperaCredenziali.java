@@ -7,9 +7,10 @@ import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
 
 public class GestoreRecuperaCredenziali {
-
+    private Stage s;
     public GestoreRecuperaCredenziali(){
-        Utils.cambiaInterfaccia("GestioneAccount/RecuperaCredenziali.fxml",new Stage(),c->{return new ModuloRecuperaCredenziali(this);});
+        s=new Stage();
+        Utils.cambiaInterfaccia("GestioneAccount/RecuperaCredenziali.fxml",s,c->{return new ModuloRecuperaCredenziali(this);});
     }
     private String generaPassword(){
         StringBuilder sb=new StringBuilder();
@@ -20,11 +21,13 @@ public class GestoreRecuperaCredenziali {
         return sb.toString();
     }
     public void verificaMail(String email){
-        if(DBMSDaemon.verificaEsistenzaMail(email)){
+        if(DBMSDaemon.queryVerificaEsistenzaMail(email)){
             String new_pwd=generaPassword();
-            DBMSDaemon.aggiornaPassword(email,Utils.hash(new_pwd));
+            DBMSDaemon.queryAggiornaPassword(email,Utils.hash(new_pwd));
             Main.log.info(new_pwd);
             MailUtils.inviaMail("La nuova password è "+new_pwd,email,"Nuova Password PharmaGC");
+            Utils.creaPannelloConferma("E' stata inviata una mail con la nuova password all'indirizzo: "+email);
+            s.close();
         }
     }
 }

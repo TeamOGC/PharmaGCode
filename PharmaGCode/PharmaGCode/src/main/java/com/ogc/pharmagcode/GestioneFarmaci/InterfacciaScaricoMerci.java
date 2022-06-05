@@ -1,8 +1,10 @@
 package com.ogc.pharmagcode.GestioneFarmaci;
 
+import com.ogc.pharmagcode.Utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 
 public class InterfacciaScaricoMerci {
 
@@ -13,6 +15,11 @@ public class InterfacciaScaricoMerci {
 
     @FXML
     private TextField quantita;
+
+    @FXML
+    public void initialize(){
+        this.quantita.setTextFormatter(new TextFormatter<>(Utils.integerFilter));
+    }
 
     public InterfacciaScaricoMerci(GestoreScaricoMerci gestoreScaricoMerci){
         this.gestoreScaricoMerci = gestoreScaricoMerci;

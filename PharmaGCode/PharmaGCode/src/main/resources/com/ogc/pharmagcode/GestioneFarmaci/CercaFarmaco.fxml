@@ -18,23 +18,13 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="319.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="319.0" minHeight="10.0" percentHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="586.0" minHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="586.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="586.0" minHeight="10.0" prefHeight="316.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="376.0" minHeight="10.0" prefHeight="82.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="30.0" prefWidth="213.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="SansSerif Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="108.0" text="Francesco" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="SansSerif Bold" size="17.0" />
-               </font>
-            </Label>
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="1024.0" styleClass="attributi" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="61.0" style="-fx-font-weight: bold;" styleClass="attributi" text="Nome">
@@ -76,15 +66,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="BOTTOM_LEFT" prefHeight="49.0" prefWidth="320.0" GridPane.columnIndex="1">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" styleClass="backbtn" text="Annulla">
-                     <font>
-                        <Font name="SansSerif Bold" size="17.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="49.0" prefWidth="320.0" GridPane.columnIndex="1" />
             <HBox alignment="CENTER" prefHeight="102.0" prefWidth="1024.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <children>
                   <Label>

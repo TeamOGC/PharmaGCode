@@ -34,8 +34,12 @@ public class ModuloRegistrazione {
     @FXML
     protected void cliccaRegistrati(){
         System.out.println("cliccaRegistrati");
-        gestoreRegistrazione.inviaMailOTP(email.getText());
-        moduloOTP.setVisible(true);
+        if(gestoreRegistrazione.registraAccount(nome.getText(),cognome.getText(),email.getText(),password.getText(),confermaPassword.getText())){
+            moduloOTP.setVisible(true);
+        }else{
+            password.setText("");
+            confermaPassword.setText("");
+        }
     }
     @FXML
     protected void annulla(){
@@ -44,7 +48,7 @@ public class ModuloRegistrazione {
     }
     @FXML
     protected void cliccaConferma(){
-        gestoreRegistrazione.controllaValiditaOTP(campoOTP.getText());
+        gestoreRegistrazione.inserisciOTP(campoOTP.getText());
         // Metodo Verifica OTP
     }
 }

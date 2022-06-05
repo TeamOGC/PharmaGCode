@@ -39,14 +39,6 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#cliccaCaricoMerci" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Carico Merci" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                     <font>
-                        <Font name="SansSerif Bold" size="20.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Button>
                   <Button mnemonicParsing="false" onAction="#cliccaScaricoMerci" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Scarico Merci" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="SansSerif Bold" size="20.0" />
@@ -60,12 +52,20 @@
                         <Font name="SansSerif Bold" size="20.0" />
                      </font>
                      <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#cliccaModificaOrdinePeriodico" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Modifica Ordine Periodico" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="SansSerif Bold" size="20.0" />
+                     </font>
+                     <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <Label prefHeight="30.0" prefWidth="214.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" fx:id="orologio">
+            <Label fx:id="orologio" prefHeight="30.0" prefWidth="214.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font name="SansSerif Bold" size="17.0" />
                </font>

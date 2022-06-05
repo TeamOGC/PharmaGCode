@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneFarmaci.InterfacciaVisualizzaOrdini">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneFarmaci.InterfacciaListaOrdiniPeriodici">
    <children>
       <GridPane prefHeight="800.0" prefWidth="1280.0">
         <columnConstraints>
@@ -19,7 +19,7 @@
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="319.0" minHeight="10.0" percentHeight="7.0" prefHeight="112.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="586.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="586.0" minHeight="10.0" percentHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="586.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="586.0" minHeight="10.0" prefHeight="426.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="376.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />
@@ -64,39 +64,12 @@
             <HBox alignment="BOTTOM_LEFT" prefHeight="49.0" prefWidth="320.0" GridPane.columnIndex="1" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <children>
-                  <Label prefHeight="21.0" prefWidth="114.0" text="Ordina per:">
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="SansSerif Bold" size="17.0" />
-                     </font>
-                  </Label>
                   <Label>
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <RadioButton mnemonicParsing="false" text="Piu Recente">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="filterBy" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Meno Recente" toggleGroup="$filterBy">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets right="50.0" />
-                     </HBox.margin>
-                  </RadioButton>
-                  <Label prefHeight="21.0" prefWidth="100.0" text="Filtra per:">
+                  <Label prefHeight="21.0" prefWidth="100.0" text="Cerca:">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
@@ -104,7 +77,7 @@
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="25.0" prefWidth="191.0" promptText="nome farmaco" styleClass="textbox">
+                  <TextField prefHeight="29.0" prefWidth="382.0" promptText="nome farmaco" styleClass="textbox">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
@@ -112,10 +85,9 @@
                         <Font name="SansSerif Regular" size="15.0" />
                      </font>
                   </TextField>
-                  <DatePicker promptText="data di consegna" styleClass="datepicker" />
                </children>
             </HBox>
-            <ListView fx:id="listaOrdini" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+            <ListView fx:id="listaOrdiniPeriodici" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>
