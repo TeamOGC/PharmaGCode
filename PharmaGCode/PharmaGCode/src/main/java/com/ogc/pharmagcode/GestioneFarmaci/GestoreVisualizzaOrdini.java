@@ -3,8 +3,7 @@ package com.ogc.pharmagcode.GestioneFarmaci;
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
-import com.ogc.pharmagcode.Utils.RecordLista;
-import com.ogc.pharmagcode.Utils.RecordOrdine;
+import com.ogc.pharmagcode.Utils.TableEntities.RecordOrdine;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,7 +11,6 @@ import javafx.stage.Stage;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class GestoreVisualizzaOrdini {

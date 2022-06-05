@@ -168,10 +168,11 @@
 
 /** color the scroll bar background and thumb */
 .table-view .scroll-bar {
-  -fx-background-color: #c3ff4a;
+  -fx-background-color: transparent;
 }
 .table-view .scroll-bar .thumb {
-  -fx-background-color: blue;
+  -fx-background-color: #c4c4c4;
+  -fx-background-radius: 32px;
 }
 
 .table-column {
