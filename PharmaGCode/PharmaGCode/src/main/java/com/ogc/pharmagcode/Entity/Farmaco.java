@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public final class Farmaco {
+public class Farmaco {
     private final int id_farmaco;
     private final String nome;
     private final String principio_attivo;
