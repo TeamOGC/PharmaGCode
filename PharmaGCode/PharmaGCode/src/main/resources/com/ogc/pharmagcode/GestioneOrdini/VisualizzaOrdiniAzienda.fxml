@@ -49,7 +49,7 @@
                           <PropertyValueFactory property="data_consegna" />
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" text="Correggi">
+                  <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="bottone" />
                       </cellValueFactory>
