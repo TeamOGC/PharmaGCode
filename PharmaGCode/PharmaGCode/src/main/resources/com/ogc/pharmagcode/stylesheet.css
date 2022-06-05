@@ -147,7 +147,40 @@
 }
 .date-picker-popup .spinner .button .left-arrow,
 .date-picker-popup .spinner .button .right-arrow {
+  -fx-background-color: #f4f4f4;
+}
+
+.table-view {
+  -fx-background-color: #f4f4f4;
+}
+
+.table-view .column-header, .column-header .label,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+  -fx-background-color: #20e0a0;
+  -fx-border-color: transparent;
+  -fx-text-fill: white;
+}
+
+.table-view .column-header .arrow {
   -fx-background-color: white;
+}
+
+/** color the scroll bar background and thumb */
+.table-view .scroll-bar {
+  -fx-background-color: transparent;
+}
+.table-view .scroll-bar .thumb {
+  -fx-background-color: #c4c4c4;
+  -fx-background-radius: 32px;
+}
+
+.table-column {
+  -fx-alignment: CENTER;
+}
+
+.table-row-cell{
+  -fx-cell-size: 30px;
 }
 
 .check-box .box {
@@ -178,11 +211,3 @@
   -fx-background-insets: 5, 5, 5;
   -fx-background-radius: 32px;
 }
-
-/*.list-view .scroll-bar:horizontal {*/
-/*  -fx-scale-x: 0;*/
-/*}*/
-
-/*.scroll-bar > .corner {*/
-/*  -fx-background-color: #ff0038;*/
-/*}*/

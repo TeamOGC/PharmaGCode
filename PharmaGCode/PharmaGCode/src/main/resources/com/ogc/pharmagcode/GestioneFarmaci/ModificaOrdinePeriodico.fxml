@@ -31,7 +31,7 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="46.0" prefWidth="384.0">
                      <children>
-                        <TextField fx:id="quantita" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantita" styleClass="textbox">
+                        <TextField fx:id="quantita" onAction="#conferma" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantita" styleClass="textbox">
                            <font>
                               <Font size="17.0" />
                            </font>

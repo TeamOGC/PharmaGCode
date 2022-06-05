@@ -5,6 +5,7 @@ import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.RecordLista;
+import com.ogc.pharmagcode.Utils.TableEntities.RecordFarmaco;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,18 +27,20 @@ public class GestoreCercaFarmaco {
         EventHandler<ActionEvent> e=new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Ordina");
+                Main.log.info("Clickato su Ordina");
             }
         };
         Farmaco[] farmaci= DBMSDaemon.querycercaFarmaco(nomeFarmaco,princAttivo);
         DBMSDaemon.queryQuantitaFarmaci(farmaci, Main.idFarmacia);
-        ArrayList<RecordLista> listaFarmaci=new ArrayList<RecordLista>();
+        ArrayList<RecordFarmaco> listaFarmaci=new ArrayList<>();
 
         for(Farmaco f:farmaci){
-            listaFarmaci.add(new RecordLista(e,984, f.getNome(),f.getPrincipio_attivo(),f.getQuantitaFarmaci()+"","Ordine"));
+            EventHandler<ActionEvent> callback = ordina -> {Main.log.info("CLICCATO SU ORDINA FARMACO " + f.getNome());};
+            listaFarmaci.add(
+                    RecordFarmaco.fromFarmaco(f, "Ordina", callback)
+            );
         }
-        ObservableList<RecordLista> ol= FXCollections.observableArrayList(listaFarmaci);
-        i.aggiornaFarmaci(ol);
-    }
+        i.aggiornaFarmaci(listaFarmaci);
+    };
 
 }

@@ -21,6 +21,13 @@ public class Utils {
         }
         return null;
     };
+    public static UnaryOperator<TextFormatter.Change> positiveIntegerFilter = change -> {
+        String newText = change.getControlNewText();
+        if (newText.matches("([0-9]*)?")) {
+            return change;
+        }
+        return null;
+    };
 
     public static String hash(String pwd){
         byte[] encoded;

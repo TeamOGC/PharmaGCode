@@ -4,7 +4,7 @@ import com.ogc.pharmagcode.Entity.Corriere;
 import com.ogc.pharmagcode.Entity.Impiegato;
 import com.ogc.pharmagcode.GestioneConsegna.InterfacciaPrincipaleCorriere;
 import com.ogc.pharmagcode.GestioneFarmaci.InterfacciaPrincipaleFarmacista;
-import com.ogc.pharmagcode.GestioneProduzione.InterfacciaPrincipaleImpiegato;
+import com.ogc.pharmagcode.GestioneOrdini.InterfacciaPrincipaleImpiegato;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Entity.Utente;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
@@ -51,7 +51,7 @@ public class GestoreAutenticazione {
                     });
         } else if (Main.sistema == 2) {
             Impiegato impiegato=(Impiegato) utente;
-            Utils.cambiaInterfaccia("GestioneProduzione/InterfacciaAzienda.fxml", s
+            Utils.cambiaInterfaccia("GestioneOrdini/InterfacciaAzienda.fxml", s
                     , c -> {
                         return new InterfacciaPrincipaleImpiegato(impiegato.nome(),impiegato.cognome(), impiegato.getId_impiegato()+"");
                     });

@@ -1,34 +1,37 @@
 package com.ogc.pharmagcode.GestioneFarmaci;
 
 import com.ogc.pharmagcode.Utils.RecordLista;
+import com.ogc.pharmagcode.Utils.TableEntities.RecordFarmaco;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
 public class InterfacciaCercaFarmaco {
-    private GestoreCercaFarmaco gestoreCercaFarmaco;
+    private final GestoreCercaFarmaco gestoreCercaFarmaco;
     @FXML
     private TextField nomeFarmaco;
     @FXML
     private TextField princAttivo;
     @FXML
-    private ListView<RecordLista> listaFarmaci;
+    private TableView<RecordFarmaco> listaFarmaci;
     public InterfacciaCercaFarmaco(GestoreCercaFarmaco gestoreCercaFarmaco){
         this.gestoreCercaFarmaco=gestoreCercaFarmaco;
     }
     @FXML
     protected void initialize(){
-        listaFarmaci.setFixedCellSize(55);
+//        listaFarmaci.setFixedCellSize(55);
     }
     @FXML
     protected void conferma(){
         gestoreCercaFarmaco.cercaFarmaci(nomeFarmaco.getText(),princAttivo.getText());
     }
 
-    public void aggiornaFarmaci(ObservableList<RecordLista> ol){
-        listaFarmaci.setItems(ol);
+    public void aggiornaFarmaci(ArrayList<RecordFarmaco> ol){
+        listaFarmaci.setItems(FXCollections.observableArrayList(ol));
     }
 }
