@@ -1,4 +1,4 @@
-package com.ogc.pharmagcode.Utils;
+package com.ogc.pharmagcode.Utils.TableEntities;
 
 import com.ogc.pharmagcode.Entity.Ordine;
 import javafx.event.ActionEvent;
@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 
 import java.time.LocalDate;
 
+/**
+ * Questa classe viene utilizzata esclusivamente all'interno dentro una TableView
+ */
 public class RecordOrdine extends Ordine {
     private final String nomeBottone;
     private final EventHandler<ActionEvent> callback;

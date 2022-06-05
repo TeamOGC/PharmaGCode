@@ -2,17 +2,12 @@ package com.ogc.pharmagcode.GestioneOrdini;
 
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.Main;
-import com.ogc.pharmagcode.Utils.RecordLista;
-import com.ogc.pharmagcode.Utils.RecordOrdine;
+import com.ogc.pharmagcode.Utils.TableEntities.RecordOrdine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
