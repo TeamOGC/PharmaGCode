@@ -51,7 +51,7 @@ public class GestoreAutenticazione {
                     });
         } else if (Main.sistema == 2) {
             Impiegato impiegato=(Impiegato) utente;
-            Utils.cambiaInterfaccia("GestioneProduzione/InterfacciaAzienda.fxml", s
+            Utils.cambiaInterfaccia("GestioneOrdini/InterfacciaAzienda.fxml", s
                     , c -> {
                         return new InterfacciaPrincipaleImpiegato(impiegato.nome(),impiegato.cognome(), impiegato.getId_impiegato()+"");
                     });
