@@ -147,5 +147,37 @@
 }
 .date-picker-popup .spinner .button .left-arrow,
 .date-picker-popup .spinner .button .right-arrow {
+  -fx-background-color: #f4f4f4;
+}
+
+.table-view {
+  -fx-background-color: #f4f4f4;
+}
+
+.table-view .column-header, .column-header .label,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+  -fx-background-color: #20e0a0;
+  -fx-border-color: transparent;
+  -fx-text-fill: white;
+}
+
+.table-view .column-header .arrow {
   -fx-background-color: white;
+}
+
+/** color the scroll bar background and thumb */
+.table-view .scroll-bar {
+  -fx-background-color: #c3ff4a;
+}
+.table-view .scroll-bar .thumb {
+  -fx-background-color: blue;
+}
+
+.table-column {
+  -fx-alignment: CENTER;
+}
+
+.table-row-cell{
+  -fx-cell-size: 30px;
 }

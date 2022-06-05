@@ -1,28 +1,52 @@
 package com.ogc.pharmagcode.GestioneOrdini;
 
+import com.ogc.pharmagcode.Entity.Ordine;
+import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.RecordLista;
+import com.ogc.pharmagcode.Utils.RecordOrdine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class InterfacciaVisualizzaOrdiniAzienda {
 
-    @FXML
-    public ListView<RecordLista> listaOrdiniAzienda;
+    public Ordine[] listaOrdiniAzienda;
 
-    private final ArrayList<RecordLista> ordini;
+    private List<RecordOrdine> ordini;
+    public TableView<RecordOrdine> tableViewOrdini;
 
-    public InterfacciaVisualizzaOrdiniAzienda(ArrayList<RecordLista> listaOrdiniAzienda){
-        this.ordini = listaOrdiniAzienda;
+    public InterfacciaVisualizzaOrdiniAzienda(Ordine[] listaOrdiniAzienda){
+        this.listaOrdiniAzienda = listaOrdiniAzienda;
     }
     @FXML
     public void initialize(){
-        listaOrdiniAzienda.setFixedCellSize(55);
-        ObservableList<RecordLista> ol= FXCollections.observableArrayList(this.ordini);
-        this.listaOrdiniAzienda.setItems(ol);
+//        listaOrdiniAzienda.setFixedCellSize(55);
+        this.ordini = Arrays.stream(listaOrdiniAzienda).map(ordine -> {
+            if(ordine.getStato().equalsIgnoreCase("da verificare")){
+                return RecordOrdine.fromOrdine(
+                        ordine,
+                        "Correggi",
+                        correggi->{
+                            Main.log.info("Cliccato sul bottone correggi");
+                            new GestoreCorrezioneOrdine(ordine);
+                        }
+                );
+
+            }
+            else return RecordOrdine.fromOrdine(ordine);
+        }).collect(Collectors.toList());
+        ObservableList<RecordOrdine> ol= FXCollections.observableArrayList(this.ordini);
+        this.tableViewOrdini.setItems(ol);
+
     }
 
 

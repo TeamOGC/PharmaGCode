@@ -48,8 +48,8 @@ public class GestoreVisualizzaOrdiniAzienda {
         }
         else Main.log.warn("Non sono stati trovati ordini");
 
-        this.i=(InterfacciaVisualizzaOrdiniAzienda) Utils.cambiaInterfaccia("GestioneProduzione/VisualizzaOrdiniAzienda.fxml",
+        this.i=(InterfacciaVisualizzaOrdiniAzienda) Utils.cambiaInterfaccia("GestioneOrdini/VisualizzaOrdiniAzienda.fxml",
                 new Stage(),
-                c->{return new InterfacciaVisualizzaOrdiniAzienda(listaOrdiniAzienda);});
+                c->{return new InterfacciaVisualizzaOrdiniAzienda(ordini);});
     }
 }
