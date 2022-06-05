@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 public class GestoreModificaPassword {
     public GestoreModificaPassword(){
-        Utils.cambiaInterfaccia("GestioneAccount/ModificaPassword.FXML",new Stage(),e->{return new ModuloModificaPassword(this);});
+        Utils.cambiaInterfaccia("GestioneAccount/ModificaPassword.fxml",new Stage(),e->{return new ModuloModificaPassword(this);});
     }
 
     private boolean controllaPassword(String new_pwd, String re_pwd){
