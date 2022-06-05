@@ -708,7 +708,7 @@ public class DBMSDaemon {
      */
     public static OrdinePeriodico[] queryOrdiniPeriodici(){
         connectAzienda();
-        String query = "SELECT OrdinePeriodico.* FROM OrdinePeriodico";
+        String query = "SELECT OrdinePeriodico.*, F.nome, F2.nome FROM OrdinePeriodico, Farmacia F2 , Farmaco F WHERE F.id_farmaco = OrdinePeriodico.id_farmaco AND OrdinePeriodico.id_farmacia = F2.id_farmacia";
         ArrayList<OrdinePeriodico> ordini = new ArrayList<>();
         try(PreparedStatement stmt =connAzienda.prepareStatement(query)){
             var r =stmt.executeQuery();
@@ -1063,7 +1063,7 @@ public class DBMSDaemon {
      */
     public static OrdinePeriodico[] queryOrdiniPeriodici(int id_farmacia){
         connectAzienda();
-        String query= "SELECT OrdinePeriodico.* FROM OrdinePeriodico WHERE OrdinePeriodico.id_farmacia=?";
+        String query= "SELECT OrdinePeriodico.*, F.nome, F2.nome FROM OrdinePeriodico, Farmacia F2 , Farmaco F WHERE F.id_farmaco = OrdinePeriodico.id_farmaco AND OrdinePeriodico.id_farmacia = F2.id_farmacia AND OrdinePeriodico.id_farmacia=?";
         try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
             stmt.setInt(1, id_farmacia);
             var r= stmt.executeQuery();
