@@ -19,6 +19,7 @@ public class InterfacciaScaricoMerci {
     @FXML
     public void initialize(){
         this.quantita.setTextFormatter(new TextFormatter<>(Utils.integerFilter));
+        this.lotto.setTextFormatter(new TextFormatter<>(Utils.integerFilter));
     }
 
     public InterfacciaScaricoMerci(GestoreScaricoMerci gestoreScaricoMerci){
