@@ -815,10 +815,6 @@ public class DBMSDaemon {
      * @return true if ordine creato correttamente, false if error
      */
     public static boolean queryCreaOrdine(Ordine ordine){
-        //Deve: chiedere i lotti, scegliere quali lotti verranno scelti
-        // per quell'ordine, rimuovere i farmaci
-        // e caricare ordine e composizione ordini
-        //SE la quantità totale è inferiore alla quantità richiesta, ritorna false
 
         connectAzienda();
         String query="INSERT INTO Ordine(id_farmacia, id_farmaco, data_consegna, stato, quantita) VALUES (?,?,?,?,?)";
@@ -859,7 +855,7 @@ public class DBMSDaemon {
         return lotti.toArray(new Lotto[0]);
     }
 
-    private static Lotto[] queryScegliLotti(Lotto[] lotti, int quantita){
+    private static int queryScegliLotti(Lotto[] lotti, int quantita, ArrayList<Lotto> composizione){
         connectAzienda();
         String query="UPDATE Lotto SET quantita=quantita-? WHERE Lotto.id_lotto=?";
         ArrayList<Lotto> temp=new ArrayList<>();
@@ -877,7 +873,7 @@ public class DBMSDaemon {
             }
         }
         if(quantita>0){
-            return new Lotto[0];
+            return quantita;
         }
         try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
             for(Lotto l : temp){
@@ -886,23 +882,25 @@ public class DBMSDaemon {
                 stmt.addBatch();
             }
             stmt.executeBatch();
+            return 0;
         }catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
-        return temp.toArray(new Lotto[0]);
+        return -1;
     }
 
-    private static Lotto[] creaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza){
-        return queryScegliLotti(queryLotti(id_farmaco,accettaScadenza), quantita);
+    private static int creaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, ArrayList<Lotto> composizione){
+        int quantitaRimanente=queryScegliLotti(queryLotti(id_farmaco,accettaScadenza), quantita, composizione);
+        return quantitaRimanente;
     }
 
-    private static boolean queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, int id_ordine){
+    private static int queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, int id_ordine){
         String query="INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?)";
+        ArrayList<Lotto> composizione=new ArrayList<>();
         try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
-            Lotto[] composizione=creaComposizioneOrdini(id_farmaco, quantita, accettaScadenza);
-            if(composizione.length==0)
-                return false;
-            connAzienda.setAutoCommit(false);
+            int quantitaRimanente=creaComposizioneOrdini(id_farmaco, quantita, accettaScadenza, composizione);
+            if(quantitaRimanente>0)
+                return quantitaRimanente;
             for(Lotto l:composizione){
                 stmt.setInt(1,id_ordine);
                 stmt.setInt(2,l.getId_lotto());
@@ -910,15 +908,28 @@ public class DBMSDaemon {
                 stmt.addBatch();
             }
             stmt.executeBatch();
-            connAzienda.commit();
-            connAzienda.setAutoCommit(true);
         }catch(SQLException e){
             erroreComunicazioneDBMS(e);
+            return -1;
         }
-        return true;
+        return 0;
     }
 
-    public static boolean queryCreaOrdineTemp(Ordine ordine, boolean accettaScadenza){
+    private static int queryQuantitaFarmaco(int id_farmaco){
+        connectAzienda();
+        String query="SELECT id_farmaco, sum(quantita) FROM Lotto WHERE id_farmaco=? GROUP BY id_farmaco";
+        try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
+            stmt.setInt(1,id_farmaco);
+            ResultSet r=stmt.executeQuery();
+            if(r.next()){
+                return r.getInt(2);
+            }
+        }catch (SQLException e){
+            erroreComunicazioneDBMS(e);
+        }
+        return -1;
+    }
+    public static int queryCreaOrdineTemp(Ordine ordine, boolean accettaScadenza){
         //Deve: chiedere i lotti, scegliere quali lotti verranno scelti
         // per quell'ordine, rimuovere i farmaci
         // e caricare ordine e composizione ordini
@@ -926,23 +937,43 @@ public class DBMSDaemon {
         connectAzienda();
         String query="INSERT INTO Ordine(id_farmacia, id_farmaco, data_consegna, stato, quantita) VALUES (?,?,?,?,?)";
 
-        try(PreparedStatement stmt= connAzienda.prepareStatement(query)){
+        try(PreparedStatement stmt= connAzienda.prepareStatement(query,Statement.RETURN_GENERATED_KEYS)){
+            connAzienda.setAutoCommit(false);
             stmt.setInt(1,ordine.getId_farmacia());
             stmt.setInt(2,ordine.getId_farmaco());
             stmt.setDate(3, Date.valueOf(ordine.getData_consegna()));
             stmt.setString(4,ordine.getStato());
             stmt.setInt(5, ordine.getQuantita());
             int r=stmt.executeUpdate();
+            if(ordine.getStato().equalsIgnoreCase("In Attesa di disponibilita")){
+                connAzienda.commit();
+                connAzienda.setAutoCommit(true);
+                return 0;
+            }
             ResultSet id_ordine=stmt.getGeneratedKeys();
             if(id_ordine.next()){
-                return queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), accettaScadenza, id_ordine.getInt(1));
+                int quantitaRimanente=queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), accettaScadenza, id_ordine.getInt(1));
+                if(quantitaRimanente==0){
+                    connAzienda.commit();
+                    connAzienda.setAutoCommit(true);
+                    return 0;
+                }
+                else{
+                    connAzienda.rollback();
+                    return quantitaRimanente;
+                }
             }
+            return -1;
         }catch(SQLException e){
             erroreComunicazioneDBMS(e);
+            return -1;
         }
-        return false;
     }
 
+    public static int queryCreaOrdine(Ordine ordine, String statoOrdine, boolean accettaInScadenza){
+        ordine.setStato(statoOrdine);
+        return queryCreaOrdineTemp(ordine,accettaInScadenza);
+    }
 
     /**
      * query che consente a un impiegato di correggere un ordine

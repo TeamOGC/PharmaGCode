@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneFarmaci.PannelloAvvisoDisponibilita">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="213.0" layoutY="105.0" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: #e00; -fx-background-radius: 32;" text="ATTENZIONE!" textFill="WHITE">
          <font>
@@ -20,7 +20,7 @@
       </Label>
       <HBox alignment="TOP_CENTER" layoutX="108.0" layoutY="234.0" prefHeight="35.0" prefWidth="386.0">
          <children>
-            <Button mnemonicParsing="false" styleClass="btn" text="Consegna Singola">
+            <Button fx:id="cliccaConsegnaSingola" mnemonicParsing="false"  styleClass="btn" text="Consegna Singola">
                <font>
                   <Font size="17.0" />
                </font>
@@ -28,7 +28,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </Button>
-            <Button layoutX="76.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn" text="Consegna Multipla">
+            <Button fx:id="cliccaConsegnaMultipla" layoutX="76.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn" text="Consegna Multipla">
                <font>
                   <Font size="17.0" />
                </font>

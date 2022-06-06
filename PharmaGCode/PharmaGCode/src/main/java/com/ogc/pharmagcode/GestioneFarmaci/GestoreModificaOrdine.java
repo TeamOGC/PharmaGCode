@@ -16,6 +16,7 @@ public class GestoreModificaOrdine {
     }
 
     public void modificaOrdine(int nuovaQuantita){
-        DBMSDaemon.queryAggiornaQuantitaOrdine(ordine,nuovaQuantita);
+        if(DBMSDaemon.queryAggiornaQuantitaOrdine(ordine,nuovaQuantita)==-1)
+            Utils.creaPannelloErrore("Errore");
     }
 }
