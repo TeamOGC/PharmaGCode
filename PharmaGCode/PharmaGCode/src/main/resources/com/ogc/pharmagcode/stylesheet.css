@@ -17,16 +17,32 @@
   -fx-background-radius: 32px;
   -fx-font-size: 17px;
   -fx-font-family: SansSerif;
-  -fx-font-style: Bold;
+  -fx-font-style: bold;
   -fx-border-radius: 32px;
   -fx-border-color: #20e0a0;
-
 }
-.btn:hover {
+.btnlist:hover {
   -fx-text-fill:  #20e0a0;
   -fx-background-color:  #f4f4f4;
   /*-fx-border-radius: 32px;*/
   /*-fx-border-color: #20e0a0;*/
+}
+
+.btnlist{
+  -fx-background-color:  #20e0a0;
+  -fx-text-fill: #fff;
+  -fx-background-radius: 32px;
+  -fx-font-size: 15px;
+  -fx-font-family: SansSerif;
+  -fx-font-style: bold;
+  -fx-border-radius: 32px;
+  -fx-border-color: #20e0a0;
+  -fx-min-height: 30px;
+  -fx-max-height: 30px;
+}
+.btn:hover {
+  -fx-text-fill:  #20e0a0;
+  -fx-background-color:  #f4f4f4;
 }
 
 
@@ -157,7 +173,7 @@
 .table-view .column-header, .column-header .label,
 .table-view .column-header .filler,
 .table-view .column-header-background .filler {
-  -fx-background-color: #20e0a0;
+  -fx-background-color: #000;
   -fx-border-color: transparent;
   -fx-text-fill: white;
 }
@@ -180,7 +196,7 @@
 }
 
 .table-row-cell{
-  -fx-cell-size: 30px;
+  -fx-cell-size: 50px;
 }
 
 .check-box .box {

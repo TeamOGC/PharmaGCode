@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -14,7 +20,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneFarmaci.InterfacciaCercaFarmaco">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneFarmaci.InterfacciaCercaFarmaco">
    <children>
       <GridPane prefHeight="800.0" prefWidth="1280.0">
         <columnConstraints>
@@ -24,8 +30,8 @@
             <ColumnConstraints />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="586.0" minHeight="10.0" percentHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="586.0" minHeight="10.0" percentHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="586.0" minHeight="10.0" percentHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="586.0" minHeight="10.0" percentHeight="10.0" prefHeight="103.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="586.0" minHeight="10.0" prefHeight="451.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="376.0" minHeight="10.0" percentHeight="5.0" prefHeight="82.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -64,7 +70,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <HBox alignment="CENTER" prefHeight="102.0" prefWidth="1024.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+            <HBox alignment="TOP_CENTER" prefHeight="102.0" prefWidth="1024.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <children>
                   <Label>
                      <font>
@@ -73,7 +79,7 @@
                   </Label>
                   <TextField fx:id="nomeFarmaco" prefHeight="30.0" prefWidth="191.0" promptText="nome farmaco" styleClass="textbox">
                      <HBox.margin>
-                        <Insets right="20.0" />
+                        <Insets right="20.0" top="2.0" />
                      </HBox.margin>
                      <font>
                         <Font name="SansSerif Regular" size="17.0" />
@@ -84,10 +90,10 @@
                         <Font name="SansSerif Regular" size="17.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="20.0" />
+                        <Insets right="20.0" top="2.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#conferma" prefHeight="30.0" prefWidth="76.0" styleClass="btn" text="Cerca" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" onAction="#conferma" prefHeight="35.0" prefWidth="76.0" styleClass="btn" text="Cerca" textAlignment="CENTER" />
                </children>
             </HBox>
          </children>
