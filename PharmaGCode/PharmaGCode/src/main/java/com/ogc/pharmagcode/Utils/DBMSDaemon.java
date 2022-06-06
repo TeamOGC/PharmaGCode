@@ -750,9 +750,9 @@ public class DBMSDaemon {
      * @param ordine {@link Ordine} ordine di cui modificare la quantità
      * @return 1 if success, -1 if error
      */
-    public static int queryAggiornaQuantitaOrdine(Ordine ordine) {
+    public static int queryAggiornaQuantitaOrdine(Ordine ordine, int nuova_qty) {
         connectAzienda();
-        if (ordine.getQuantita() == 0) {
+        if (nuova_qty == 0) {
             String query = "DELETE FROM Ordine WHERE id_ordine=?";
             try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
                 stmt.setInt(1, ordine.getId_ordine());
@@ -1008,42 +1008,6 @@ public class DBMSDaemon {
         return null;
     }
 
-    /**
-     * query per modificare la quantità del farmaco di un ordine da parte di un farmacista
-     *
-     * @param ordine ordine di cui aggiornare la quantita
-     * @param nuova_qty nuova quantita scelta dal farmacista
-     * @return 1 if success, -1 if error
-     */
-    public static int queryAggiornaQuantitaOrdine(Ordine ordine, int nuova_qty){
-        connectAzienda();
-        String query = "UPDATE Ordine SET Ordine.quantita=? WHERE Ordine.id_ordine=?";
-        try(PreparedStatement stmt = connAzienda.prepareStatement(query)){
-            stmt.setInt(1, nuova_qty);
-            stmt.setInt(2, ordine.getId_ordine());
-            var r = stmt.executeUpdate();
-            if (r != 0)
-                return r;
-        } catch (SQLException e){
-            erroreComunicazioneDBMS(e);
-        }
-        return -1;
-    }
-
-    public static int queryAggiornaQuantitaOrdine(int idOrdine, int nuova_qty){
-        connectAzienda();
-        String query = "UPDATE Ordine SET Ordine.quantita=? WHERE Ordine.id_ordine=?";
-        try(PreparedStatement stmt = connAzienda.prepareStatement(query)){
-            stmt.setInt(1, nuova_qty);
-            stmt.setInt(2, idOrdine);
-            var r = stmt.executeUpdate();
-            if (r != 0)
-                return r;
-        } catch (SQLException e){
-            erroreComunicazioneDBMS(e);
-        }
-        return -1;
-    }
 
     /**
      * query che permette di modificare la data di consegna di un ordine da parte di un farmacista
