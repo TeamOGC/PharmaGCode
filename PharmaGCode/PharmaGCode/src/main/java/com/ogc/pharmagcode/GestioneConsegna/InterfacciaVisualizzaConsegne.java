@@ -20,4 +20,13 @@ public class InterfacciaVisualizzaConsegne {
         this.gestoreVisualizzaConsegne = gestoreVisualizzaConsegne;
     }
 
+    public void initialize(){
+        this.listaConsegne.setItems(gestoreVisualizzaConsegne.observableColli);
+    }
+
+    public void refreshTable(){
+        this.listaConsegne.setItems(gestoreVisualizzaConsegne.observableColli);
+        this.listaConsegne.refresh();
+    }
+
 }

@@ -1136,10 +1136,13 @@ public class DBMSDaemon {
     public static Collo[] queryVisualizzaConsegne(LocalDate data){
         connectAzienda();
         ArrayList<Collo> colli = new ArrayList<>();
-        String queryPrendiColli = "SELECT C.* FROM Collo C WHERE data_consegna = ?";
+        String queryPrendiColli = "SELECT C.*, Farmacia.nome, Farmacia.indirizzo FROM Collo C, Farmacia WHERE Farmacia.id_farmacia = C.id_farmacia AND C.data_consegna = ?";
         String queryPrendiOrdini = "SELECT O.*, F.nome " +
                                     "FROM Ordine O, Collo C, Farmaco F " +
-                                    "WHERE F.id_farmaco = O.id_farmaco AND O.data_consegna = C.data_consegna AND O.id_farmacia=C.id_farmacia AND C.id_collo = ?";
+                                    "WHERE F.id_farmaco = O.id_farmaco " +
+                                        "AND O.data_consegna = C.data_consegna " +
+                                        "AND O.id_farmacia=C.id_farmacia " +
+                                        "AND C.id_collo = ?";
         try(PreparedStatement stmt=connAzienda.prepareStatement(queryPrendiColli)){
             stmt.setDate(1, Date.valueOf(data));
             var r= stmt.executeQuery();
@@ -1161,6 +1164,7 @@ public class DBMSDaemon {
 
     /**
      * query necessaria per firmare un collo
+     * Aggiorna anche i relativi ordini con lo stato "Consegnato"
      *
      * @param firma concatenazione di nome e cognome del firmante
      * @param collo collo da firmare
@@ -1169,11 +1173,17 @@ public class DBMSDaemon {
     public static boolean queryFirmaCollo(String firma, Collo collo){
         connectAzienda();
         String query = "UPDATE Collo C SET C.firma = ? WHERE C.id_collo = ?";
+        String updateStatoOrdini = "UPDATE Ordine O SET O.stato = ? WHERE O.data_consegna = ? AND O.id_farmacia = ?";
         try(PreparedStatement stmt = connAzienda.prepareStatement(query)){
             stmt.setString(1, firma);
             stmt.setInt(2, collo.getId_collo());
             var res = stmt.executeUpdate();
-            return res >= 1;
+            var stmtUpdateOrdini = connAzienda.prepareStatement(updateStatoOrdini);
+            stmtUpdateOrdini.setString(1, "Consegnato");
+            stmtUpdateOrdini.setDate(2, Date.valueOf(collo.getData_consegna()));
+            stmtUpdateOrdini.setInt(3, collo.getId_farmacia());
+            var updated = stmtUpdateOrdini.executeUpdate();
+            return res >= 1 && updated >= 1;
         }catch (SQLException e){
             erroreComunicazioneDBMS(e);
         }

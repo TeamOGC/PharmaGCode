@@ -14,14 +14,19 @@ public class Collo {
 
     private final int id_collo;
     private final int id_farmacia;
+    private String nome_farmacia = "";
+    private String indirizzo_farmacia = "";
+
     private ArrayList<Ordine> ordini = new ArrayList<>();
     private final LocalDate data_consegna;
 
-    private SimpleStringProperty firma = new SimpleStringProperty();
+    private SimpleStringProperty firma = new SimpleStringProperty("");
 
-    public Collo(int id_collo, int id_farmacia, LocalDate data_consegna, String firma, Ordine... ordini){
+    public Collo(int id_collo, int id_farmacia, LocalDate data_consegna, String firma, String nome_farmacia, String  indirizzo_farmacia, Ordine... ordini){
         this(id_collo, id_farmacia, data_consegna, ordini);
         this.firma.set(firma);
+        this.nome_farmacia=nome_farmacia;
+        this.indirizzo_farmacia=indirizzo_farmacia;
     }
     public Collo(int id_collo, int id_farmacia, LocalDate data_consegna, Ordine... ordini){
         this.id_collo=id_collo;
@@ -59,19 +64,38 @@ public class Collo {
     }
 
     public String getFirma() {
-        return firma.get();
+        return firma.get() == null ? "" : firma.get();
     }
 
     public void setFirma(String firma) {
         this.firma.set(firma);
     }
 
+    public String getNome_farmacia() {
+        return nome_farmacia;
+    }
+
+    public String getIndirizzo_farmacia() {
+        return indirizzo_farmacia;
+    }
+
+    /**
+     * Converte i risultati di una query con il seguente SELECT
+     * SELECT Collo.*, Farmacia.nome, Farmacia.indirizzo
+     *
+     *
+     * @param row risultati della query
+     * @return Collo corrispondente
+     * @throws SQLException
+     */
     public static Collo createFromDB(ResultSet row) throws SQLException {
         return new Collo(
                 row.getInt(1),
                 row.getInt(2),
                 row.getDate(3).toLocalDate(),
-                row.getString(4)
+                row.getString(4),
+                row.getString(5),
+                row.getString(6)
         );
     }
 }
