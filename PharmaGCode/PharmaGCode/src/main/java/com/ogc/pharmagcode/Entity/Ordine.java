@@ -12,7 +12,6 @@ public class Ordine {
     private LocalDate data_consegna;
     private String stato;
     private int quantita;
-    private String firma;
 
 
     public Ordine(int id_ordine,int id_farmaco,String nome_farmaco,  int id_farmacia, LocalDate data_consegna, String stato, int quantita) {
@@ -23,7 +22,6 @@ public class Ordine {
         this.data_consegna = data_consegna;
         this.stato = stato;
         this.quantita = quantita;
-        this.firma = null;
     }
 
     public int getQuantita() {
@@ -62,10 +60,6 @@ public class Ordine {
         this.quantita=quantita;
     }
 
-    public void setFirma(String firma){
-        this.firma=firma;
-    }
-
     public static Ordine createFromDB(ResultSet r) throws SQLException {
             int id_ordine = r.getInt(1);
             int id_farmaco = r.getInt(2);
@@ -73,12 +67,8 @@ public class Ordine {
             LocalDate data_consegna = r.getDate(4).toLocalDate();
             int quantita = r.getInt(5);
             String stato = r.getString(6);
-            String firma = r.getString(7);
-            String nome_farmaco=r.getString(8);
+            String nome_farmaco=r.getString(7);
             Ordine ord = new Ordine(id_ordine, id_farmaco, nome_farmaco, id_farmacia, data_consegna, stato, quantita);
-            if(firma!=null && !firma.isBlank() && !firma.isEmpty()){
-                ord.setFirma(firma);
-            }
             return ord;
     }
 }
