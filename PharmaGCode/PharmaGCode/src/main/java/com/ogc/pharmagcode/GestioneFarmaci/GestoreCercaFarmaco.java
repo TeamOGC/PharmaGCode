@@ -35,7 +35,7 @@ public class GestoreCercaFarmaco {
         ArrayList<RecordFarmaco> listaFarmaci=new ArrayList<>();
 
         for(Farmaco f:farmaci){
-            EventHandler<ActionEvent> callback = ordina -> {Main.log.info("CLICCATO SU ORDINA FARMACO " + f.getNome());};
+            EventHandler<ActionEvent> callback = ordina -> {new GestoreOrdinaFarmaco(f);};
             listaFarmaci.add(
                     RecordFarmaco.fromFarmaco(f, "Ordina", callback)
             );
