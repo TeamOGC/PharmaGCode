@@ -12,7 +12,7 @@ public class GestoreModificaProduzione {
 
 //    public static final Logger log = LogManager.getLogger(GestoreModificaProduzione.class);
     public GestoreModificaProduzione(){
-        Utils.cambiaInterfaccia("GestioneProduzione/ModificaProduzione.fxml",new Stage(), c-> new InterfacciaModificaProduzione(this));
+        Utils.cambiaInterfaccia("GestioneProduzione/ModificaProduzione.fxml",new Stage(), c-> new InterfacciaModificaProduzione(this), 600, 400);
 
     }
 

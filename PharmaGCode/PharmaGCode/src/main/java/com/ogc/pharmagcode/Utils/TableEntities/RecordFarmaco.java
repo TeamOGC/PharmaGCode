@@ -28,7 +28,7 @@ public class RecordFarmaco extends Farmaco {
         if(nomeBottone != null && !nomeBottone.isBlank()) {
             bottone = new Button(nomeBottone);
             bottone.setOnAction(callback);
-            bottone.getStyleClass().add("btn");
+            bottone.getStyleClass().add("btnlist");
             bottone.setMaxHeight(10);
         }
     }
