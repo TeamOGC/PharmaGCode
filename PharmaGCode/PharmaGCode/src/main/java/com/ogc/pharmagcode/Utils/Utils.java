@@ -4,7 +4,9 @@ import com.ogc.pharmagcode.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextFormatter;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Callback;
 
 import java.nio.charset.StandardCharsets;
@@ -45,6 +47,12 @@ public class Utils {
         return loader;
     }
     public static void creaInterfaccia(FXMLLoader loader, int w, int h, Stage stage){
+        if(Main.mainStage != null) {
+            try {
+                stage.initOwner(Main.mainStage);
+                stage.initModality(Modality.APPLICATION_MODAL);
+            }catch(Exception e){}
+        }
         stage.setResizable(false);
         try{
             Scene s=new Scene(loader.load(),w,h);
@@ -68,6 +76,7 @@ public class Utils {
     /**
      * Crea un nuovo pannello di conferma
      * @param messaggio il messaggio da mostrare
+     * TODO: Spostarlo nel costruttore del pannello
      */
     public static void creaPannelloConferma(String messaggio){
         Stage stage=new Stage();
