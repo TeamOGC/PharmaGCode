@@ -635,7 +635,7 @@ public class DBMSDaemon {
      * @param id_farmacia id della farmacia che fa la richiesta
      */
     public static boolean queryQuantitaFarmaci(Farmaco[] listaFarmaci, int id_farmacia){
-        connectAzienda();
+        connectFarmacia();
         String query = "SELECT Lotto.id_farmaco, SUM(Lotto.quantita) FROM DB_Farmacie.Lotto WHERE Lotto.id_farmacia= ? GROUP BY Lotto.id_farmaco" ;
         try(PreparedStatement stmt = connFarmacia.prepareStatement(query)){
             stmt.setInt(1, id_farmacia);
