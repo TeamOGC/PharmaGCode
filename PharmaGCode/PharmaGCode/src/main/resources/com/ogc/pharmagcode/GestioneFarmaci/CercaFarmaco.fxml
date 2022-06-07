@@ -42,7 +42,7 @@
                           <PropertyValueFactory property="principio_attivo" />
                       </cellValueFactory>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" text="Disponibilità">
+                  <TableColumn editable="false" prefWidth="75.0" text="Disponibilità in magazzino">
                       <cellValueFactory>
                           <PropertyValueFactory property="quantitaFarmaci" />
                       </cellValueFactory>
@@ -71,7 +71,7 @@
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="nomeFarmaco" prefHeight="30.0" prefWidth="191.0" promptText="nome farmaco" styleClass="textbox">
+                  <TextField fx:id="nomeFarmaco" onAction="#conferma" prefHeight="30.0" prefWidth="191.0" promptText="nome farmaco" styleClass="textbox">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
@@ -79,7 +79,7 @@
                         <Font name="SansSerif Regular" size="17.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="princAttivo" layoutX="477.0" layoutY="62.0" prefHeight="30.0" prefWidth="191.0" promptText="principio attivo" styleClass="textbox">
+                  <TextField fx:id="princAttivo" onAction="#conferma" layoutX="477.0" layoutY="62.0" prefHeight="30.0" prefWidth="191.0" promptText="principio attivo" styleClass="textbox">
                      <font>
                         <Font name="SansSerif Regular" size="17.0" />
                      </font>
