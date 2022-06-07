@@ -1,21 +1,32 @@
 package com.ogc.pharmagcode.GestioneConsegna;
 
 import com.ogc.pharmagcode.GestioneFarmaci.GestoreModificaOrdine;
+import com.ogc.pharmagcode.Utils.TableEntities.RecordCollo;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 
 public class InterfacciaVisualizzaConsegne {
     GestoreVisualizzaConsegne gestoreVisualizzaConsegne;
 
-//    @FXML
-//    ListView<VoceConsegna> listaConsegne;
+    @FXML
+    TableView<RecordCollo> listaConsegne;
 
     public InterfacciaVisualizzaConsegne(GestoreVisualizzaConsegne gestoreVisualizzaConsegne){
         this.gestoreVisualizzaConsegne = gestoreVisualizzaConsegne;
+    }
+
+    public void initialize(){
+        this.listaConsegne.setItems(gestoreVisualizzaConsegne.observableColli);
+    }
+
+    public void refreshTable(){
+        this.listaConsegne.setItems(gestoreVisualizzaConsegne.observableColli);
+        this.listaConsegne.refresh();
     }
 
 }

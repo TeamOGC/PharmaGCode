@@ -635,7 +635,7 @@ public class DBMSDaemon {
      * @param id_farmacia id della farmacia che fa la richiesta
      */
     public static boolean queryQuantitaFarmaci(Farmaco[] listaFarmaci, int id_farmacia){
-        connectAzienda();
+        connectFarmacia();
         String query = "SELECT Lotto.id_farmaco, SUM(Lotto.quantita) FROM DB_Farmacie.Lotto WHERE Lotto.id_farmacia= ? GROUP BY Lotto.id_farmaco" ;
         try(PreparedStatement stmt = connFarmacia.prepareStatement(query)){
             stmt.setInt(1, id_farmacia);
@@ -835,7 +835,7 @@ public class DBMSDaemon {
 
     private static Lotto[] queryLotti(int id_farmaco, boolean accettaInScadenza){
         connectAzienda();
-        String query="SELECT Lotto.* FROM Lotto WHERE Lotto.id_farmaco=? AND Lotto.data_scadenza>? ORDER BY Lotto.data_scadenza ASC";
+        String query="SELECT Lotto.* FROM Lotto WHERE Lotto.id_farmaco=? AND Lotto.data_scadenza>? ORDER BY Lotto.data_scadenza";
         LocalDate d=Main.orologio.chiediOrario().toLocalDate();
         ArrayList<Lotto> lotti=new ArrayList<>();
         if(!accettaInScadenza){
@@ -1166,30 +1166,36 @@ public class DBMSDaemon {
      */
     public static Collo[] queryVisualizzaConsegne(LocalDate data){
         connectAzienda();
-        HashMap<Integer, Collo> colli = new HashMap<>();
-        String query = "SELECT O.*, F.nome FROM Ordine O INNER JOIN Farmaco F on O.id_farmaco = F.id_farmaco WHERE O.data_consegna = ?";
-        try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
+        ArrayList<Collo> colli = new ArrayList<>();
+        String queryPrendiColli = "SELECT C.*, Farmacia.nome, Farmacia.indirizzo FROM Collo C, Farmacia WHERE Farmacia.id_farmacia = C.id_farmacia AND C.data_consegna = ?";
+        String queryPrendiOrdini = "SELECT O.*, F.nome " +
+                                    "FROM Ordine O, Collo C, Farmaco F " +
+                                    "WHERE F.id_farmaco = O.id_farmaco " +
+                                        "AND O.data_consegna = C.data_consegna " +
+                                        "AND O.id_farmacia=C.id_farmacia " +
+                                        "AND C.id_collo = ?";
+        try(PreparedStatement stmt=connAzienda.prepareStatement(queryPrendiColli)){
             stmt.setDate(1, Date.valueOf(data));
             var r= stmt.executeQuery();
+            PreparedStatement stmtGetOrdini = connAzienda.prepareStatement(queryPrendiOrdini);
             while(r.next()){
-                Ordine ord = Ordine.createFromDB(r);
-                if(!colli.containsKey(ord.getId_farmacia())){
-                    Collo c = new Collo(ord.getId_farmacia(), data);
-                    c.aggiungiOrdine(ord);
-                    colli.put(ord.getId_farmacia(), c);
-                }
-                else{
-                    colli.get(ord.getId_farmacia()).aggiungiOrdine(ord);
+                Collo c = Collo.createFromDB(r);
+                colli.add(c);
+                stmtGetOrdini.setInt(1, c.getId_collo());
+                var rOrdini = stmtGetOrdini.executeQuery();
+                while(rOrdini.next()){
+                    c.aggiungiOrdine(Ordine.createFromDB(rOrdini));
                 }
             }
-            return colli.values().toArray(new Collo[0]);
         }
-        catch(SQLException e){erroreComunicazioneDBMS(e);}
-        return null;
+        catch(SQLException e){erroreComunicazioneDBMS(e); return null;};
+        return colli.toArray(new Collo[0]);
+
     }
 
     /**
      * query necessaria per firmare un collo
+     * Aggiorna anche i relativi ordini con lo stato "Consegnato"
      *
      * @param firma concatenazione di nome e cognome del firmante
      * @param collo collo da firmare
@@ -1197,13 +1203,18 @@ public class DBMSDaemon {
      */
     public static boolean queryFirmaCollo(String firma, Collo collo){
         connectAzienda();
-        String query = "UPDATE Ordine O SET O.firma = ? WHERE O.id_ordine IN (SELECT C.id_ordine FROM Collo C Where C.data_consegna = ? AND C.id_farmacia = ?)";
+        String query = "UPDATE Collo C SET C.firma = ? WHERE C.id_collo = ?";
+        String updateStatoOrdini = "UPDATE Ordine O SET O.stato = ? WHERE O.data_consegna = ? AND O.id_farmacia = ?";
         try(PreparedStatement stmt = connAzienda.prepareStatement(query)){
             stmt.setString(1, firma);
-            stmt.setDate(2, Date.valueOf(collo.getData_consegna()));
-            stmt.setInt(3, collo.getId_farmacia());
+            stmt.setInt(2, collo.getId_collo());
             var res = stmt.executeUpdate();
-            return res >= 1;
+            var stmtUpdateOrdini = connAzienda.prepareStatement(updateStatoOrdini);
+            stmtUpdateOrdini.setString(1, "Consegnato");
+            stmtUpdateOrdini.setDate(2, Date.valueOf(collo.getData_consegna()));
+            stmtUpdateOrdini.setInt(3, collo.getId_farmacia());
+            var updated = stmtUpdateOrdini.executeUpdate();
+            return res >= 1 && updated >= 1;
         }catch (SQLException e){
             erroreComunicazioneDBMS(e);
         }

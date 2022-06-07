@@ -15,12 +15,13 @@ import static java.lang.System.exit;
 public class Main extends Application {
 
     public static final Logger log = LogManager.getLogger(Main.class);
-
+    public static Stage mainStage = null;
     public static Orologio orologio=new Orologio();
     public static int sistema,idFarmacia;
     public static boolean debug;
     @Override
     public void start(Stage stage) throws IOException {
+        mainStage = stage;
         stage.setTitle("PharmaGC");
         log.info("App partita");
         stage.setOnCloseRequest(c->{System.exit(0);});
@@ -52,7 +53,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         risolviSistema(args);
         orologio.start();
-        DBMSDaemon.connect();
+//        DBMSDaemon.connect(); potenzialmente inutile farlo qui, o comunque meglio in un altro thread?
+
         launch();
         try {
             orologio.join();
