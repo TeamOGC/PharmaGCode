@@ -1,4 +1,4 @@
-package com.ogc.pharmagcode.Utils;
+package com.ogc.pharmagcode.common.pannelli;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
