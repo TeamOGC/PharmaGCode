@@ -39,6 +39,10 @@ public class GestoreDiSistema implements Serializable{
         return false;
     }*/
 
+    public void creaOrdiniPeriodici(){
+
+    }
+
     public void serializza(){
         try {
             FileOutputStream fout=new FileOutputStream("gds.time");

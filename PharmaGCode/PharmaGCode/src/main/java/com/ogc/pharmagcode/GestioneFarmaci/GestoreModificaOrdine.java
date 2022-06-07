@@ -15,7 +15,7 @@ public class GestoreModificaOrdine {
         }, 600, 400);
     }
 
-    public void modificaOrdine(int nuovaQuantita){
+    public void modificaOrdine(int nuovaQuantita){ //LocalDate date
         if(DBMSDaemon.queryAggiornaQuantitaOrdine(ordine,nuovaQuantita)==-1)
             Utils.creaPannelloErrore("Errore");
     }
