@@ -53,7 +53,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         risolviSistema(args);
         orologio.start();
-//        DBMSDaemon.connect(); potenzialmente inutile farlo qui, o comunque meglio in un altro thread?
+//        DBMSDaemon.connect(); //potenzialmente inutile farlo qui, o comunque meglio in un altro thread?
 
         launch();
         try {
