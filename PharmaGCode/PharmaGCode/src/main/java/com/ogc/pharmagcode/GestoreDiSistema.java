@@ -1,11 +1,14 @@
 package com.ogc.pharmagcode;
 
+import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.GestioneFarmaci.AvvisoMancatoCaricamento;
+import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.time.Duration;
+import java.util.HashMap;
 
 public class GestoreDiSistema implements Serializable{
     private int giornoUltimaChiamata=0;
@@ -22,6 +25,7 @@ public class GestoreDiSistema implements Serializable{
                 Utils.cambiaInterfaccia("GestioneFarmaci/AvvisoMancatoCaricamento.fxml",new Stage(),600,400);
                 giornoUltimaChiamata=Main.orologio.chiediOrario().getDayOfMonth();
                 serializza();
+                //DBMSDaemon.queryOrdiniDiUnaFarmaciaUnaData(Main.idFarmacia,Main.orologio.chiediOrario().toLocalDate());
             }
 
             if(Main.orologio.confrontaTimer()){
@@ -30,6 +34,10 @@ public class GestoreDiSistema implements Serializable{
             }
         }
     }
+
+    /*public boolean confrontaOrdiniMerce(HashMap<Integer,Integer> merceCaricata, Ordine[] ordini){
+        return false;
+    }*/
 
     public void serializza(){
         try {
