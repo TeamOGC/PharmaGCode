@@ -32,6 +32,6 @@ public class InterfacciaOrdinaFarmaco {
     }
     @FXML
     protected void conferma(){
-        gof.ordina(Integer.parseInt(quantita.getText()), dataDiConsegna.getValue(),checkboxScadenza.isSelected());
+        gof.creaOrdine(Integer.parseInt(quantita.getText()), dataDiConsegna.getValue(),checkboxScadenza.isSelected());
     }
 }

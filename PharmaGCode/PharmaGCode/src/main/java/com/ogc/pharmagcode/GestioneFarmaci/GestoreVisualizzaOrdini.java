@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class GestoreVisualizzaOrdini {
     private InterfacciaVisualizzaOrdini i;
-    private final ArrayList<RecordOrdine> listaOrdini=new ArrayList<>();
     private LocalDate d;
     public GestoreVisualizzaOrdini(){
         d=Main.orologio.chiediOrario().toLocalDate();
@@ -25,6 +24,7 @@ public class GestoreVisualizzaOrdini {
     }
 
     public ArrayList<RecordOrdine> chiediOrdini(){
+        ArrayList<RecordOrdine> listaOrdini=new ArrayList<>();
         Ordine[] ordini=DBMSDaemon.queryVisualizzaOrdiniFarmacia(Main.idFarmacia);
         if(ordini != null){
             for(Ordine o:ordini){

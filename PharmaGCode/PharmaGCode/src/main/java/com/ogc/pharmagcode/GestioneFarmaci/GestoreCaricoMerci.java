@@ -19,6 +19,7 @@ public class GestoreCaricoMerci {
         Main.log.info("Caricando lotto (" + codiceLotto + ") quantita (" + quantita +")  --- DB È COMMENTATO");
 //        DBMSDaemon.queryCaricaFarmaco(codiceLotto, Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate(), quantita);
 //        DBMSDaemon.aggiornaQuantitaConsegnataOrdine(id_ordine, codiceLotto, quantita);
+        Utils.creaPannelloConferma("Merce Caricata Correttamente");
     }
 
 }

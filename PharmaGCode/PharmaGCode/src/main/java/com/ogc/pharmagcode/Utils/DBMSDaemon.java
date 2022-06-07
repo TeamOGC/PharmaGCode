@@ -1071,7 +1071,7 @@ public class DBMSDaemon {
      * @param nuova_data nuova data di consegna scelta dal farmacista
      * @return 1 if success, -1 if error
      */
-    public static int queryAggiornaDataConsegnaOrdine(Ordine ordine, LocalDate nuova_data){
+    public static int queryAggiornaData(Ordine ordine, LocalDate nuova_data){
         connectAzienda();
         String query = "UPDATE Ordine SET Ordine.data_consegna=? WHERE Ordine.id_ordine=?";
         try(PreparedStatement stmt = connAzienda.prepareStatement(query)){
@@ -1294,7 +1294,7 @@ public class DBMSDaemon {
      * @param data data richiesta
      * @return {@link Ordine}[]
      */
-    public static Ordine[] queryOrdiniDiUnaFarmaciaUnaData(int id_farmacia, LocalDate data){
+    public static Ordine[] queryOrdini(int id_farmacia, LocalDate data){
         connectAzienda();
         String query="SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco WHERE Ordine.id_farmacia=? AND Ordine.data_consegna=?";
         try(PreparedStatement stmt= connAzienda.prepareStatement(query)){

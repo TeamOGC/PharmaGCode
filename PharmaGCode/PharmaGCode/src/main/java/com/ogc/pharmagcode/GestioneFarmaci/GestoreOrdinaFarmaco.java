@@ -19,7 +19,7 @@ public class GestoreOrdinaFarmaco {
         i=(InterfacciaOrdinaFarmaco) Utils.cambiaInterfaccia("GestioneFarmaci/OrdinaFarmaco.fxml",s,c->{return new InterfacciaOrdinaFarmaco(f,this);});
     }
 
-    public void ordina(int quantita, LocalDate d,boolean accettaInScadenza){
+    public void creaOrdine(int quantita, LocalDate d,boolean accettaInScadenza){
         Ordine o=new Ordine(-1,
                 f.getId_farmaco(),
                 f.getNome(), Main.idFarmacia, d, "In Lavorazione",quantita);
@@ -30,12 +30,17 @@ public class GestoreOrdinaFarmaco {
         }else if(q>0){
             Stage s=new Stage();
             Utils.cambiaInterfaccia("GestioneFarmaci/ModalitaConsegnaPopup.fxml", s, c-> {
-                return new PannelloAvvisoDisponibilita(stessaData->{DBMSDaemon.queryCreaOrdine(o, "In Attesa Di Disponibilita", accettaInScadenza);
+                return new PannelloAvvisoDisponibilita(stessaData->{ordinaStessaData(o,accettaInScadenza,quantita);
                                                                     s.close();},
                                                         dateDiverse->{ordinaDateSeparate(o,accettaInScadenza,quantita,q);
                                                                         s.close();});
             });
         }
+    }
+
+    private void ordinaStessaData(Ordine o, boolean accettaInScadenza, int quantita){
+        o.setQuantita(quantita);
+        DBMSDaemon.queryCreaOrdine(o, "In Attesa Di Disponibilita", accettaInScadenza);
     }
 
     private void ordinaDateSeparate(Ordine o, boolean accettaInScadenza, int quantita, int q){
@@ -46,6 +51,7 @@ public class GestoreOrdinaFarmaco {
         o.setQuantita(q);
         DBMSDaemon.queryCreaOrdine(o, "In Attesa Di Disponibilita", accettaInScadenza);
     }
+
 
 
 }
