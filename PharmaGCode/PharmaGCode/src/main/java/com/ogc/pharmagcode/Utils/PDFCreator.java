@@ -21,22 +21,22 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class PDFCreator {
-    private static Font fontTitolo = new Font(Font.FontFamily.HELVETICA, 24, Font.BOLD, BaseColor.BLACK);
-    private static Font fontSottotitolo = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD, BaseColor.BLACK);
-    private static Font fontCorpo = new Font(Font.FontFamily.TIMES_ROMAN, 13, Font.NORMAL, BaseColor.BLACK);
+    private static final Font fontTitolo = new Font(Font.FontFamily.HELVETICA, 24, Font.BOLD, BaseColor.BLACK);
+    private static final Font fontSottotitolo = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD, BaseColor.BLACK);
+    private static final Font fontCorpo = new Font(Font.FontFamily.TIMES_ROMAN, 13, Font.NORMAL, BaseColor.BLACK);
 
 
 
     public static void creaPDF(Collo collo) throws IOException, DocumentException {
         Document document = new Document(PageSize.A4, 20, 20, 20, 20);
         String foo = String.valueOf(collo.getId_collo());
-        PdfWriter.getInstance(document, new FileOutputStream("PharmaGCode/PharmaGCode/pdf/"+foo+".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream("PharmaGCode/PharmaGCode/pdf/Ricevuta di consegna n."+foo+".pdf"));
         document.open();
         aggiungiMetadati(document);
         aggiungiTitolo(document,collo);
         creaTabella(document, collo);
         document.close();
-        File file = new File("PharmaGCode/PharmaGCode/pdf/"+foo+".pdf");
+        File file = new File("PharmaGCode/PharmaGCode/pdf/Ricevuta di consegna n."+foo+".pdf");
         openFile(file);
 
     }
