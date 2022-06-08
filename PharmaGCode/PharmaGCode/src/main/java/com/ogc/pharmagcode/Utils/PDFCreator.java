@@ -30,13 +30,13 @@ public class PDFCreator {
     public static void creaPDF(Collo collo) throws IOException, DocumentException {
         Document document = new Document(PageSize.A4, 20, 20, 20, 20);
         String foo = String.valueOf(collo.getId_collo());
-        PdfWriter.getInstance(document, new FileOutputStream("/home/justlooller/Documents/PharmaGCode/PharmaGCode/PharmaGCode/pdf/"+foo+".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream("PharmaGCode/PharmaGCode/pdf/"+foo+".pdf"));
         document.open();
         aggiungiMetadati(document);
         aggiungiTitolo(document,collo);
         creaTabella(document, collo);
         document.close();
-        File file = new File("/home/justlooller/Documents/PharmaGCode/PharmaGCode/PharmaGCode/pdf/"+foo+".pdf");
+        File file = new File("PharmaGCode/PharmaGCode/pdf/"+foo+".pdf");
         openFile(file);
 
     }
