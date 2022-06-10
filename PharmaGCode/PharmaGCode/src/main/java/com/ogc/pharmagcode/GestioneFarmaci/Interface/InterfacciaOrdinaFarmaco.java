@@ -2,6 +2,8 @@ package com.ogc.pharmagcode.GestioneFarmaci.Interface;
 
 import com.ogc.pharmagcode.Entity.Farmaco;
 import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreOrdinaFarmaco;
+import com.ogc.pharmagcode.Main;
+import com.ogc.pharmagcode.Utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -30,10 +32,15 @@ public class InterfacciaOrdinaFarmaco {
     protected void initialize() {
         nomeFarmaco.setText(f.getNome());
         princAttivo.setText(f.getPrincipio_attivo());
+        dataDiConsegna.setValue(Main.orologio.chiediOrario().toLocalDate().plusDays(2));
     }
 
     @FXML
     protected void conferma() {
+        if(quantita.getText().isBlank() || dataDiConsegna.getValue().isBefore(Main.orologio.chiediOrario().toLocalDate().plusDays(2))){
+            Utils.creaPannelloErrore("Inserisci dati validi");
+            return;
+        }
         gof.creaOrdine(Integer.parseInt(quantita.getText()), dataDiConsegna.getValue(), checkboxScadenza.isSelected());
     }
 }

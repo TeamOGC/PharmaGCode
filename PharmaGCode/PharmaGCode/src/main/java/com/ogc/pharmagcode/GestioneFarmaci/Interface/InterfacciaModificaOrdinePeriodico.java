@@ -19,7 +19,7 @@ public class InterfacciaModificaOrdinePeriodico {
 
     @FXML
     public void initialize() {
-        this.quantita.setTextFormatter(new TextFormatter<>(Utils.positiveIntegerFilter));
+        this.quantita.setTextFormatter(new TextFormatter<>(Utils.nonZeroPositiveIntegerFilter));
     }
 
     public InterfacciaModificaOrdinePeriodico(GestoreModificaOrdinePeriodico gestoreModificaOrdinePeriodico, OrdinePeriodico ordinePeriodico) {
@@ -27,9 +27,10 @@ public class InterfacciaModificaOrdinePeriodico {
         this.ordinePeriodico = ordinePeriodico;
     }
 
-    public void conferma(ActionEvent actionEvent) {
-
-        if (quantita.getText().isBlank()) return;
+    public void conferma() {
+        if (quantita.getText().isBlank()){
+            Utils.creaPannelloErrore("Inserisci tutti i dati");
+        };
         int qta = Integer.parseInt(quantita.getText());
         this.gestoreModificaOrdinePeriodico.aggiornaQuantita(qta, ordinePeriodico);
         ((Stage) this.quantita.getScene().getWindow()).close();

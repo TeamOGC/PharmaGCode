@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.Common.PannelloAvviso">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="213.0" layoutY="35.0" prefHeight="25.0" prefWidth="175.0" style="-fx-background-color: #e00; -fx-background-radius: 32;" text="ATTENZIONE!" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="97.0" layoutY="75.0" prefHeight="117.0" prefWidth="405.0" text="Sei sicuro di voler ricevere farmaci con scadenza inferiore a due mesi?" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="SansSerif Regular" size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="exitBtn" layoutX="346.0" layoutY="238.0" mnemonicParsing="false" styleClass="btn" text="Annulla">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <tooltip>
+            <Tooltip text="Ritorna alla schermata precedente" />
+         </tooltip>
+      </Button>
+      <Button fx:id="confirmBtn" layoutX="144.0" layoutY="238.0" mnemonicParsing="false" styleClass="btn" text="Si, sono sicuro">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <tooltip>
+            <Tooltip text="Cliccando qui potranno essere ordinati farmaci con scadenza inferiore a due mesi" />
+         </tooltip>
+      </Button>
+   </children>
+</Pane>
