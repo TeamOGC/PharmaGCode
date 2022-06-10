@@ -992,7 +992,9 @@ public class DBMSDaemon {
      */
     private static int queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, Ordine ordine) {
         connectAzienda();
-        String query = "INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?)";
+        String query = "INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?) ON DUPLICATE KEY " +
+                "UPDATE quantita=quantita+? ";
+
         ArrayList<Lotto> composizione = new ArrayList<>();
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             connAzienda.setAutoCommit(false);
@@ -1008,6 +1010,7 @@ public class DBMSDaemon {
                 stmt.setInt(3, l.getQuantita());
                 stmt.addBatch();
             }
+
             stmt.executeBatch();
             connAzienda.commit();
             connAzienda.setAutoCommit(true);

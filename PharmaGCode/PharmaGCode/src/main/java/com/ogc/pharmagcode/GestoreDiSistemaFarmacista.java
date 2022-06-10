@@ -29,6 +29,10 @@ public class GestoreDiSistemaFarmacista implements Serializable {
             if (h == 20 && giornoUltimaChiamata != Main.orologio.chiediOrario().getDayOfMonth()) {
                 if (!confrontaOrdiniMerce()) {
                     Utils.cambiaInterfaccia("GestioneFarmaci/AvvisoMancatoCaricamento.fxml", new Stage(), 600, 400);
+                    OrdinePeriodico[] ordiniPeriodici;
+                    do {
+                        ordiniPeriodici = DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia);
+                    }while(!DBMSDaemon.queryCreaOrdini(ordiniPeriodici) || ordiniPeriodici==null); //Finche le query non vengono eseguite correttamente prova a rifarle
                     giornoUltimaChiamata = Main.orologio.chiediOrario().getDayOfMonth();
                     serializza();
                 }
