@@ -58,7 +58,7 @@ public class InterfacciaVisualizzaOrdiniAzienda {
             }
             else return RecordOrdine.fromOrdine(ordine);
         }).collect(Collectors.toList());
-        ObservableList<RecordOrdine> ol= FXCollections.observableArrayList(this.ordini);
+        ObservableList<RecordOrdine> ol= FXCollections.observableList(this.ordini);
         this.tableViewOrdini.setItems(ol);
 
     }

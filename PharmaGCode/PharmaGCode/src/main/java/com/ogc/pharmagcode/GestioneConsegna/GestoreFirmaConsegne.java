@@ -19,7 +19,7 @@ public class GestoreFirmaConsegne {
     public void firmaCollo(String firma){
         Main.log.info("Sto firmando il collo " + daFirmare.getId_collo() + " " + firma);
         DBMSDaemon.queryFirmaCollo(firma, daFirmare);
-        gestoreVisualizzaConsegne.fetchOrdini();
+        gestoreVisualizzaConsegne.chiediConsegne();
         ((Stage) this.boundary.listaOrdini.getScene().getWindow()).close();
     }
 }

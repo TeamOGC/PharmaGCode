@@ -23,11 +23,11 @@ public class GestoreVisualizzaConsegne {
         this.boundary = (InterfacciaVisualizzaConsegne) Utils.cambiaInterfaccia("GestioneConsegna/VisualizzaConsegne.fxml", s, c -> {
             return new InterfacciaVisualizzaConsegne(this);
         });
-        fetchOrdini();
+        chiediConsegne();
 
     }
 
-    public void fetchOrdini(){
+    public void chiediConsegne(){
         ArrayList<RecordCollo> records = new ArrayList<>();
         Collo[] colli = DBMSDaemon.queryVisualizzaConsegne(Main.orologio.chiediOrario().toLocalDate());
         if (colli != null) {
@@ -51,6 +51,6 @@ public class GestoreVisualizzaConsegne {
             }
         }
         observableColli = FXCollections.observableArrayList(records);
-        boundary.refreshTable();
+        boundary.aggiornaTabella();
     }
 }
