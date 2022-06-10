@@ -1,4 +1,4 @@
-package com.ogc.pharmagcode.GestioneFarmaci;
+package com.ogc.pharmagcode.GestioneFarmaci.Interface;
 
 import com.ogc.pharmagcode.Main;
 import javafx.fxml.FXML;

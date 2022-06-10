@@ -3,7 +3,7 @@ package com.ogc.pharmagcode.GestioneAccount;
 import com.ogc.pharmagcode.Entity.Corriere;
 import com.ogc.pharmagcode.Entity.Impiegato;
 import com.ogc.pharmagcode.GestioneConsegna.InterfacciaPrincipaleCorriere;
-import com.ogc.pharmagcode.GestioneFarmaci.InterfacciaPrincipaleFarmacista;
+import com.ogc.pharmagcode.GestioneFarmaci.Interface.InterfacciaPrincipaleFarmacista;
 import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaPrincipaleImpiegato;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Entity.Utente;

@@ -1,10 +1,10 @@
-package com.ogc.pharmagcode.GestioneFarmaci;
+package com.ogc.pharmagcode.GestioneFarmaci.Interface;
 
+import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreCaricoMerci;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 

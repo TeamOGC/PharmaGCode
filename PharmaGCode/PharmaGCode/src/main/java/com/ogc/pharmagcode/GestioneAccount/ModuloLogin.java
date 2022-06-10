@@ -1,9 +1,5 @@
 package com.ogc.pharmagcode.GestioneAccount;
 
-import com.ogc.pharmagcode.GestioneConsegna.InterfacciaPrincipaleCorriere;
-import com.ogc.pharmagcode.GestioneFarmaci.InterfacciaPrincipaleFarmacista;
-import com.ogc.pharmagcode.Main;
-import com.ogc.pharmagcode.Utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

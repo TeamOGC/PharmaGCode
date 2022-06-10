@@ -1,7 +1,7 @@
-package com.ogc.pharmagcode.GestioneFarmaci;
+package com.ogc.pharmagcode.GestioneFarmaci.Interface;
 
-import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.Entity.OrdinePeriodico;
+import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreModificaOrdinePeriodico;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

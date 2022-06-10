@@ -1,6 +1,7 @@
-package com.ogc.pharmagcode.GestioneFarmaci;
+package com.ogc.pharmagcode.GestioneFarmaci.Interface;
 
 import com.ogc.pharmagcode.Common.RecordOrdinePeriodico;
+import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreListaOrdiniPeriodici;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

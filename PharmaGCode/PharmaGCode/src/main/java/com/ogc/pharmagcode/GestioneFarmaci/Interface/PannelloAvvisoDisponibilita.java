@@ -1,4 +1,4 @@
-package com.ogc.pharmagcode.GestioneFarmaci;
+package com.ogc.pharmagcode.GestioneFarmaci.Interface;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

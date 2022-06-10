@@ -1,5 +1,6 @@
-package com.ogc.pharmagcode.GestioneFarmaci;
+package com.ogc.pharmagcode.GestioneFarmaci.Interface;
 
+import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreScaricoMerci;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

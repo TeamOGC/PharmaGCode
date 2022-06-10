@@ -1,6 +1,7 @@
-package com.ogc.pharmagcode.GestioneFarmaci;
+package com.ogc.pharmagcode.GestioneFarmaci.Interface;
 
 import com.ogc.pharmagcode.Common.RecordFarmaco;
+import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreCercaFarmaco;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;

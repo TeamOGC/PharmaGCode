@@ -1,7 +1,7 @@
-package com.ogc.pharmagcode.GestioneFarmaci;
+package com.ogc.pharmagcode.GestioneFarmaci.Interface;
 
 import com.ogc.pharmagcode.Entity.Farmaco;
-import com.ogc.pharmagcode.Entity.Ordine;
+import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreOrdinaFarmaco;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;

@@ -2,7 +2,6 @@ package com.ogc.pharmagcode.Common;
 
 import com.ogc.pharmagcode.BoundaryDiSistema;
 import com.ogc.pharmagcode.GestioneAccount.GestoreModificaPassword;
-import com.ogc.pharmagcode.GestioneFarmaci.GestoreCercaFarmaco;
 import com.ogc.pharmagcode.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
