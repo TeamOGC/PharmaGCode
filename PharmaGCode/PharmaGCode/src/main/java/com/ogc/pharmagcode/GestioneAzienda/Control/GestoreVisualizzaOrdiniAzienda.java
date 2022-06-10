@@ -1,8 +1,8 @@
-package com.ogc.pharmagcode.GestioneOrdini;
+package com.ogc.pharmagcode.GestioneAzienda.Control;
 
 import com.itextpdf.text.DocumentException;
 import com.ogc.pharmagcode.Entity.Ordine;
-import com.ogc.pharmagcode.GestioneOrdini.InterfacciaVisualizzaOrdiniAzienda;
+import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaVisualizzaOrdiniAzienda;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.PDFCreator;
@@ -13,7 +13,6 @@ import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class GestoreVisualizzaOrdiniAzienda {

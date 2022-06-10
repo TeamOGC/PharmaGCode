@@ -19,15 +19,17 @@ module com.ogc.pharmagcode {
     opens com.ogc.pharmagcode.GestioneAccount to javafx.fxml;
     exports com.ogc.pharmagcode.GestioneFarmaci;
     opens com.ogc.pharmagcode.GestioneFarmaci to javafx.fxml;
-    exports com.ogc.pharmagcode.GestioneProduzione;
     opens com.ogc.pharmagcode.GestioneProduzione to javafx.fxml;
     exports com.ogc.pharmagcode.GestioneConsegna;
     opens com.ogc.pharmagcode.GestioneConsegna to javafx.fxml;
     exports com.ogc.pharmagcode.Utils;
     opens com.ogc.pharmagcode.Utils to javafx.fxml;
     opens com.ogc.pharmagcode.GestioneOrdini to javafx.fxml;
-    exports com.ogc.pharmagcode.GestioneOrdini;
     opens com.ogc.pharmagcode.Pannelli to javafx.fxml;
     exports com.ogc.pharmagcode.Common;
     opens com.ogc.pharmagcode.Common to javafx.fxml;
+    exports com.ogc.pharmagcode.GestioneAzienda.Interface;
+    opens com.ogc.pharmagcode.GestioneAzienda.Interface to javafx.fxml;
+    exports com.ogc.pharmagcode.GestioneAzienda.Control;
+    opens com.ogc.pharmagcode.GestioneAzienda.Control to javafx.fxml;
 }

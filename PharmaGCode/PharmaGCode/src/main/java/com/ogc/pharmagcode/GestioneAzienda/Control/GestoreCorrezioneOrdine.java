@@ -1,6 +1,7 @@
-package com.ogc.pharmagcode.GestioneOrdini;
+package com.ogc.pharmagcode.GestioneAzienda.Control;
 
 import com.ogc.pharmagcode.Entity.Ordine;
+import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaCorrezioneOrdine;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;

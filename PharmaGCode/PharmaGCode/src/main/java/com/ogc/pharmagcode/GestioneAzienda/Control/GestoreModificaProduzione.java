@@ -1,7 +1,7 @@
-package com.ogc.pharmagcode.GestioneProduzione;
+package com.ogc.pharmagcode.GestioneAzienda.Control;
 
+import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaModificaProduzione;
 import com.ogc.pharmagcode.Main;
-import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
 //import org.apache.logging.log4j.LogManager;
@@ -22,7 +22,7 @@ public class GestoreModificaProduzione {
      * @param nome_farmaco Nome del farmaco di cui modificare la produzione
      * @param qta La nuova quantità da produrre periodicamente
      */
-    void modificaProduzione(String nome_farmaco, int qta){
+    public void modificaProduzione(String nome_farmaco, int qta){
 //        DBMSDaemon db = new DBMSDaemon();
         Main.log.info("Simulando la modifica di produzione: " + nome_farmaco + ": " + qta);
     }

@@ -1,6 +1,7 @@
-package com.ogc.pharmagcode.GestioneOrdini;
+package com.ogc.pharmagcode.GestioneAzienda.Interface;
 
-import com.ogc.pharmagcode.GestioneProduzione.GestoreModificaProduzione;
+import com.ogc.pharmagcode.GestioneAzienda.Control.GestoreVisualizzaOrdiniAzienda;
+import com.ogc.pharmagcode.GestioneAzienda.Control.GestoreModificaProduzione;
 import com.ogc.pharmagcode.Common.InterfacciaPrincipale;
 import com.ogc.pharmagcode.Main;
 import javafx.event.ActionEvent;
