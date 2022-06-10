@@ -93,7 +93,7 @@ public class PDFCreator {
 
     }
 
-    public static void openFile(File file) {
+    private static void openFile(File file) {
         if (Desktop.isDesktopSupported()) {
             new Thread(() -> {
                 try {

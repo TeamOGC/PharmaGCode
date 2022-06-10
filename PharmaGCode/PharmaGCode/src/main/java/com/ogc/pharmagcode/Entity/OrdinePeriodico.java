@@ -39,7 +39,7 @@ public class OrdinePeriodico {
         return periodicita;
     }
 
-    public void setQuantita(int qty) {
+    public void setQuantita(int quantita) {
         this.quantita = quantita;
     }
 
