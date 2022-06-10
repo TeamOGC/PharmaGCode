@@ -1,6 +1,7 @@
-package com.ogc.pharmagcode.GestioneConsegna;
+package com.ogc.pharmagcode.GestioneConsegna.Control;
 
 import com.ogc.pharmagcode.Entity.Collo;
+import com.ogc.pharmagcode.GestioneConsegna.Interface.InterfacciaFirmaConsegne;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;

@@ -1,6 +1,7 @@
-package com.ogc.pharmagcode.GestioneConsegna;
+package com.ogc.pharmagcode.GestioneConsegna.Interface;
 
 import com.ogc.pharmagcode.Common.RecordCollo;
+import com.ogc.pharmagcode.GestioneConsegna.Control.GestoreVisualizzaConsegne;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 

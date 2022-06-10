@@ -15,11 +15,9 @@ module com.ogc.pharmagcode {
     exports com.ogc.pharmagcode.Entity;
     opens com.ogc.pharmagcode to javafx.fxml;
     exports com.ogc.pharmagcode;
-    exports com.ogc.pharmagcode.GestioneAccount;
-    opens com.ogc.pharmagcode.GestioneAccount to javafx.fxml;
+    opens com.ogc.pharmagcode.Autenticazione to javafx.fxml;
     opens com.ogc.pharmagcode.GestioneFarmaci to javafx.fxml;
     opens com.ogc.pharmagcode.GestioneProduzione to javafx.fxml;
-    exports com.ogc.pharmagcode.GestioneConsegna;
     opens com.ogc.pharmagcode.GestioneConsegna to javafx.fxml;
     exports com.ogc.pharmagcode.Utils;
     opens com.ogc.pharmagcode.Utils to javafx.fxml;
@@ -35,4 +33,12 @@ module com.ogc.pharmagcode {
     opens com.ogc.pharmagcode.GestioneFarmaci.Interface to javafx.fxml;
     exports com.ogc.pharmagcode.GestioneFarmaci.Control;
     opens com.ogc.pharmagcode.GestioneFarmaci.Control to javafx.fxml;
+    exports com.ogc.pharmagcode.GestioneConsegna.Interface;
+    opens com.ogc.pharmagcode.GestioneConsegna.Interface to javafx.fxml;
+    exports com.ogc.pharmagcode.GestioneConsegna.Control;
+    opens com.ogc.pharmagcode.GestioneConsegna.Control to javafx.fxml;
+    exports com.ogc.pharmagcode.Autenticazione.Interface;
+    opens com.ogc.pharmagcode.Autenticazione.Interface to javafx.fxml;
+    exports com.ogc.pharmagcode.Autenticazione.Control;
+    opens com.ogc.pharmagcode.Autenticazione.Control to javafx.fxml;
 }

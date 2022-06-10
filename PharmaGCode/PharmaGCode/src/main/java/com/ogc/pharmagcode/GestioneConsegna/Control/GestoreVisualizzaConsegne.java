@@ -1,6 +1,7 @@
-package com.ogc.pharmagcode.GestioneConsegna;
+package com.ogc.pharmagcode.GestioneConsegna.Control;
 
 import com.ogc.pharmagcode.Entity.Collo;
+import com.ogc.pharmagcode.GestioneConsegna.Interface.InterfacciaVisualizzaConsegne;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Common.RecordCollo;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 
 public class GestoreVisualizzaConsegne {
 
-    ObservableList<RecordCollo> observableColli;
-    InterfacciaVisualizzaConsegne boundary;
+    public ObservableList<RecordCollo> observableColli;
+    private InterfacciaVisualizzaConsegne boundary;
 
     public GestoreVisualizzaConsegne(Stage s) {
         this.boundary = (InterfacciaVisualizzaConsegne) Utils.cambiaInterfaccia("GestioneConsegna/VisualizzaConsegne.fxml", s, c -> {
