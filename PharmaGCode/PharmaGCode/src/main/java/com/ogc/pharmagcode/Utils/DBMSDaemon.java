@@ -604,12 +604,12 @@ public class DBMSDaemon {
      *
      * @param id_farmacia      id della farmacia da cui parte la richiesta
      * @param data_caricamento {@link LocalDate} data in cui parte la richiesta
-     * @return {@link HashMap} che contiene come chiave {@code id_lotto} ({@link Integer}) e come valore la rispettiva {@code quantita} ({@link Integer}) caricata
+     * @return {@link HashMap} che contiene come chiave {@code id_ordine} ({@link Integer}) e come valore la rispettiva {@code quantita} ({@link Integer}) caricata
      */
     public static HashMap<Integer, Integer> queryMerceCaricata(int id_farmacia, LocalDate data_caricamento) {
         connectFarmacia();
         HashMap<Integer, Integer> foo = new HashMap<>();
-        String query = "SELECT Caricamenti.id_lotto, Caricamenti.quantita FROM Caricamenti WHERE Caricamenti.data_caricamento=? AND Caricamenti.id_farmacia=?";
+        String query = "SELECT Caricamenti.id_ordine, sum(Caricamenti.quantita) FROM Caricamenti WHERE Caricamenti.data_caricamento=? AND Caricamenti.id_farmacia=? GROUP BY id_ordine";
         try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
             stmt.setDate(1, Date.valueOf(data_caricamento));
             stmt.setInt(2, id_farmacia);
@@ -789,7 +789,9 @@ public class DBMSDaemon {
             stmt.setString(1, ordine.getStato());
             stmt.setInt(2, ordine.getId_ordine());
             var r = stmt.executeUpdate();
-            if (r != 0)
+            if (r != 0){
+                if(ordine.getStato().equalsIgnoreCase("In Lavorazione"))
+                    queryCreaComposizioneOrdini(ordine.getId_farmaco(),ordine.getQuantita(),false, ordine.getId_ordine());
                 return r;
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
@@ -925,7 +927,7 @@ public class DBMSDaemon {
         return 0;
     }
 
-    private static int queryQuantitaFarmaco(int id_farmaco) {
+    public static int queryQuantitaFarmaco(int id_farmaco){
         connectAzienda();
         String query = "SELECT id_farmaco, sum(quantita) FROM Lotto WHERE id_farmaco=? GROUP BY id_farmaco";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
@@ -940,7 +942,15 @@ public class DBMSDaemon {
         return -1;
     }
 
-    public static int queryCreaOrdineTemp(Ordine ordine, boolean accettaScadenza) {
+    /**
+     * Prova a creare un ordine, se l'ordine è da contrassegnare in lavorazione e non sono disponibili le quantità richieste
+     * l'ordine non viene effettuato e viene ritornata la quantita che non è stato possbile ordinare
+     * @param ordine
+     * @param accettaScadenza se si accettano farmaci in scadenza
+     * @return Quantita eccedente
+     */
+    public static int queryCreaOrdineTemp(Ordine ordine, boolean accettaScadenza){
+
         //Deve: chiedere i lotti, scegliere quali lotti verranno scelti
         // per quell'ordine, rimuovere i farmaci
         // e caricare ordine e composizione ordini
@@ -1327,6 +1337,23 @@ public class DBMSDaemon {
         return null;
     }
 
+    public static boolean queryCreaOrdini(OrdinePeriodico[] ordini){
+        LocalDate data=Main.orologio.chiediOrario().toLocalDate().plusDays(1);
+        connectAzienda();
+        try{
+            connAzienda.setAutoCommit(false);
+            for(OrdinePeriodico op :ordini){
+                Ordine o=new Ordine(-1, op.getId_farmaco(), op.getNomeFarmaco(), op.getId_farmacia(), data,"In Lavorazione",op.getQuantita());
+                DBMSDaemon.queryCreaOrdineTemp(o,false);
+            }
+            connAzienda.commit();
+            connAzienda.setAutoCommit(true);
+            return true;
+        }catch(SQLException e){
+            erroreComunicazioneDBMS(e);
+            return false;
+        }
+}
     public static int queryControllaQuantita(Ordine ordine) {
         String query = "SELECT CO.id_ordine, SUM(CO.quantita_consegnata) FROM ComposizioneOrdine CO WHERE CO.id_ordine=? GROUP BY CO.id_ordine";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {

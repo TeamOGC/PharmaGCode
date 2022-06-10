@@ -48,7 +48,7 @@ public class Utils {
         FXMLLoader loader=new FXMLLoader(Main.class.getResource(path));
         return loader;
     }
-    public static void creaInterfaccia(FXMLLoader loader, int w, int h, Stage stage){
+    private static void creaInterfaccia(FXMLLoader loader, int w, int h, Stage stage){
         if(Main.mainStage != null) {
             try {
                 stage.initOwner(Main.mainStage);

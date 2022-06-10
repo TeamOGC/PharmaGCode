@@ -20,7 +20,7 @@ public class GestoreRecuperaCredenziali {
         sb.append((int)(Math.random()*1000));
         return sb.toString();
     }
-    public void verificaMail(String email){
+    public void verificaMailEInvia(String email){
         if(DBMSDaemon.queryVerificaEsistenzaMail(email)){
             String new_pwd=generaPassword();
             DBMSDaemon.queryAggiornaPassword(email,Utils.hash(new_pwd));
