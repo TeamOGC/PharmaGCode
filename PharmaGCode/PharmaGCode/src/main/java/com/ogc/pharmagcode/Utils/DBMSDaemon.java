@@ -789,11 +789,12 @@ public class DBMSDaemon {
             stmt.setString(1, ordine.getStato());
             stmt.setInt(2, ordine.getId_ordine());
             var r = stmt.executeUpdate();
-            if (r != 0){
-                if(ordine.getStato().equalsIgnoreCase("In Lavorazione"))
-                    queryCreaComposizioneOrdini(ordine.getId_farmaco(),ordine.getQuantita(),false, ordine.getId_ordine());
+            if (r != 0) {
+                if (ordine.getStato().equalsIgnoreCase("In Lavorazione"))
+                    queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), false, ordine.getId_ordine());
                 return r;
-        } catch (SQLException e) {
+            }
+        }catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
         return -1;
