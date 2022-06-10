@@ -1,6 +1,7 @@
 package com.ogc.pharmagcode.GestioneAzienda.Interface;
 
 import com.ogc.pharmagcode.GestioneAzienda.Control.GestoreModificaProduzione;
+import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,7 +34,7 @@ public class InterfacciaModificaProduzione {
         try {
             String nome_farmaco = this.farmaco.getText();
             int quantita = Integer.parseInt(this.quantita.getText());
-//            GestoreModificaProduzione.log.debug("Confermato con " + nome_farmaco + " " + quantita);
+            Main.log.debug("Modificando produzione farmaco " + nome_farmaco + " " + quantita);
             control.modificaProduzione(nome_farmaco, quantita);
         } finally {
             // facciamo che puliamo i campi comunque vada

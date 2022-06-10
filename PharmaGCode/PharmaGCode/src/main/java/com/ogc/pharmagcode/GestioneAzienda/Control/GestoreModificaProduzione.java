@@ -4,16 +4,12 @@ import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaModificaProduzio
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
-
 
 public class GestoreModificaProduzione {
 
-    //    public static final Logger log = LogManager.getLogger(GestoreModificaProduzione.class);
     public GestoreModificaProduzione() {
-        Utils.cambiaInterfaccia("GestioneProduzione/ModificaProduzione.fxml", new Stage(), c -> new InterfacciaModificaProduzione(this), 600, 400);
-
+        Stage stage = new Stage();
+        Utils.cambiaInterfaccia("GestioneProduzione/ModificaProduzione.fxml", stage, c -> new InterfacciaModificaProduzione(this), 600, 400);
     }
 
     /**
@@ -23,8 +19,13 @@ public class GestoreModificaProduzione {
      * @param qta          La nuova quantità da produrre periodicamente
      */
     public void modificaProduzione(String nome_farmaco, int qta) {
-//        DBMSDaemon db = new DBMSDaemon();
         Main.log.info("Simulando la modifica di produzione: " + nome_farmaco + ": " + qta);
+        // TODO: Implementare Modifica Produzione
+        /*
+        Controllo Esistenza Farmaco(farmaco)
+            Se NO: PannelloErrore
+            Altrimenti: DB.ModificaProduzione(farmaco, qta)
+         */
     }
 
 }

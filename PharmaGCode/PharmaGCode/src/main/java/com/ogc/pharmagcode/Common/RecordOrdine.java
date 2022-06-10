@@ -1,10 +1,16 @@
 package com.ogc.pharmagcode.Common;
 
+import com.itextpdf.text.DocumentException;
 import com.ogc.pharmagcode.Entity.Ordine;
+import com.ogc.pharmagcode.GestioneAzienda.Control.GestoreCorrezioneOrdine;
+import com.ogc.pharmagcode.Main;
+import com.ogc.pharmagcode.Utils.DBMSDaemon;
+import com.ogc.pharmagcode.Utils.PDFCreator;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 /**
@@ -55,6 +61,26 @@ public class RecordOrdine extends Ordine {
     }
 
     public static RecordOrdine fromOrdine(Ordine ordine) {
+        String nomeBottone = "";
+        EventHandler<ActionEvent> callback = null;
+        if(ordine.getStato().equalsIgnoreCase("consegnato")){
+            nomeBottone = "Ricevuta";
+            callback = creaPDF -> {
+                try {
+                    PDFCreator.creaPDF((DBMSDaemon.queryCollo(ordine)));
+                } catch (IOException | DocumentException e) {
+                    Main.log.error("Problema con il PDF", e);
+                    throw new RuntimeException(e);
+                }
+                Main.log.info("Cliccato sul bottone Ricevuta");
+            };
+        } else if (ordine.getStato().equalsIgnoreCase("da verificare")) {
+            nomeBottone = "Correggi";
+            callback = correggi -> {
+                Main.log.info("Cliccato sul bottone correggi");
+                new GestoreCorrezioneOrdine(ordine);
+            };
+        }
         return new RecordOrdine(
                 ordine.getId_ordine(),
                 ordine.getId_farmaco(),
@@ -63,8 +89,8 @@ public class RecordOrdine extends Ordine {
                 ordine.getData_consegna(),
                 ordine.getStato(),
                 ordine.getQuantita(),
-                null,
-                null
+                nomeBottone,
+                callback
         );
     }
 }
