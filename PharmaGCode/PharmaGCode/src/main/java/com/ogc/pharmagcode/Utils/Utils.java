@@ -65,12 +65,17 @@ public class Utils {
         }
     }
     public static void creaPannelloErrore(String messaggio){
+        creaPannelloErrore(messaggio, null);
+    }
+
+    public static void creaPannelloErrore(String messaggio, Stage daDistruggere){
         Stage stage=new Stage();
         stage.setResizable(false);
         FXMLLoader loader=creaLoader("Pannelli/ErroreGenericoPopup.fxml");
-        loader.setControllerFactory(c->{return new PannelloErrore(messaggio, stage);});
+        loader.setControllerFactory(c->{return new PannelloErrore(messaggio, daDistruggere);});
         creaInterfaccia(loader,600,400,stage);
     }
+
     public static void creaPannelloAvviso(){
 
     }
@@ -81,9 +86,13 @@ public class Utils {
      * TODO: Spostarlo nel costruttore del pannello
      */
     public static void creaPannelloConferma(String messaggio){
+        creaPannelloConferma(messaggio, null);
+    }
+
+    public static void creaPannelloConferma(String messaggio, Stage daDistruggere){
         Stage stage=new Stage();
         FXMLLoader loader=creaLoader("Pannelli/ConfermaPopup.fxml");
-        loader.setControllerFactory(c->{return new PannelloConferma(messaggio, stage);});
+        loader.setControllerFactory(c->{return new PannelloConferma(messaggio, daDistruggere);});
         creaInterfaccia(loader,600,400,stage);
     }
 
