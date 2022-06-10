@@ -1,6 +1,7 @@
 package com.ogc.pharmagcode.Common;
 
 import com.ogc.pharmagcode.Entity.OrdinePeriodico;
+import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreModificaOrdinePeriodico;
 import com.ogc.pharmagcode.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -73,8 +74,10 @@ public class RecordOrdinePeriodico extends OrdinePeriodico {
                 ordinePeriodico.getPeriodicita(),
                 ordinePeriodico.getNomeFarmaco(),
                 ordinePeriodico.getNomeFarmacia(),
-                null,
-                null
+                "Modifica",
+                modifica -> {
+                    new GestoreModificaOrdinePeriodico(ordinePeriodico);
+                }
         );
     }
 }

@@ -25,18 +25,10 @@ public class GestoreListaOrdiniPeriodici {
         if (ordini != null) {
             for (OrdinePeriodico ordine : ordini) {
                 Main.log.info(ordine);
-                ordiniPeriodici.add(
-                        RecordOrdinePeriodico.fromOrdinePeriodico(
-                                ordine,
-                                "Modifica",
-                                modifica -> {
-                                    new GestoreModificaOrdinePeriodico(ordine);
-                                }
-                        )
-                );
+                ordiniPeriodici.add(RecordOrdinePeriodico.fromOrdinePeriodico(ordine));
             }
         }
-        recordOrdinePeriodicoObservableList = FXCollections.observableArrayList(ordiniPeriodici);
+        recordOrdinePeriodicoObservableList = FXCollections.observableList(ordiniPeriodici);
 
         i = (InterfacciaListaOrdiniPeriodici) Utils.cambiaInterfaccia("GestioneFarmaci/ListaOrdiniPeriodici.fxml", new Stage(), c -> {
             return new InterfacciaListaOrdiniPeriodici(this);

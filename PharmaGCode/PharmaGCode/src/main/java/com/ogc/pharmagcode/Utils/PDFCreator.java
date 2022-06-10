@@ -40,7 +40,7 @@ public class PDFCreator {
 
     private static void aggiungiTitolo(Document d, Collo c) throws DocumentException, IOException {
         Paragraph titolo = new Paragraph();
-        Image img = Image.getInstance("PharmaGCode/PharmaGCode/images/LOGO_UNIPA.png");
+        Image img = Image.getInstance("PharmaGCode/PharmaGCode/images/LOGO.png");
         img.setAlignment(Element.ALIGN_RIGHT);
         titolo.add(img);
         Paragraph p1 = (new Paragraph("Ricevuta di consegna ordine", fontTitolo));
@@ -93,7 +93,7 @@ public class PDFCreator {
 
     }
 
-    public static void openFile(File file) {
+    private static void openFile(File file) {
         if (Desktop.isDesktopSupported()) {
             new Thread(() -> {
                 try {

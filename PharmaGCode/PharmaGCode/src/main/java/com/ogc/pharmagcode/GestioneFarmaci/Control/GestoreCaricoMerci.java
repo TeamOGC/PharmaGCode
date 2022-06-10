@@ -9,10 +9,14 @@ import javafx.stage.Stage;
 public class GestoreCaricoMerci {
     private InterfacciaCaricoMerci i;
     private int id_ordine;
+    private Stage stage;
+
+
 
     public GestoreCaricoMerci(int id_ordine) {
+        this.stage= new Stage();
         this.id_ordine = id_ordine;
-        i = (InterfacciaCaricoMerci) Utils.cambiaInterfaccia("GestioneFarmaci/CaricaMerci.fxml", new Stage(), c -> {
+        i = (InterfacciaCaricoMerci) Utils.cambiaInterfaccia("GestioneFarmaci/CaricaMerci.fxml", this.stage, c -> {
             return new InterfacciaCaricoMerci(this);
         }, 600, 400);
     }
@@ -21,7 +25,7 @@ public class GestoreCaricoMerci {
         Main.log.info("Caricando lotto (" + codiceLotto + ") quantita (" + quantita + ")  --- DB NON zÈ COMMENTATO");
         DBMSDaemon.queryCaricaFarmaco(codiceLotto, Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate(), quantita);
         DBMSDaemon.aggiornaQuantitaConsegnataOrdine(id_ordine, codiceLotto, quantita);
-        Utils.creaPannelloConferma("Merce Caricata Correttamente");
+        Utils.creaPannelloConferma("Merce Caricata Correttamente", this.stage);
     }
 
 }
