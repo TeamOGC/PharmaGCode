@@ -17,6 +17,7 @@ public class GestoreCercaFarmaco {
         i = (InterfacciaCercaFarmaco) Utils.cambiaInterfaccia("GestioneFarmaci/CercaFarmaco.fxml", new Stage(), c -> {
             return new InterfacciaCercaFarmaco(this);
         });
+        cercaFarmaci("", "");
     }
 
     public void cercaFarmaci(String nomeFarmaco, String princAttivo) {
