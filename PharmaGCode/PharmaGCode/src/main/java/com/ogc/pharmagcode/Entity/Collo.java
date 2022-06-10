@@ -71,6 +71,9 @@ public class Collo {
         this.firma.set(firma);
     }
 
+    public void setNome_farmacia(String nome_farmacia){ this.nome_farmacia=nome_farmacia;}
+
+    public void setIndirizzo_farmacia(String indirizzo_farmacia){this.indirizzo_farmacia=indirizzo_farmacia;}
     public String getNome_farmacia() {
         return nome_farmacia;
     }
