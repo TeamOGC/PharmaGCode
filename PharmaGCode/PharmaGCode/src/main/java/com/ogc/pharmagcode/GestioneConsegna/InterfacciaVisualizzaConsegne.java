@@ -1,6 +1,6 @@
 package com.ogc.pharmagcode.GestioneConsegna;
 
-import com.ogc.pharmagcode.Utils.TableEntities.RecordCollo;
+import com.ogc.pharmagcode.Common.RecordCollo;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 

@@ -1,9 +1,6 @@
 package com.ogc.pharmagcode.GestioneConsegna;
 
-import com.ogc.pharmagcode.GestioneFarmaci.GestoreVisualizzaOrdini;
-import com.ogc.pharmagcode.GestioneFarmaci.InterfacciaPrincipaleFarmacista;
-import com.ogc.pharmagcode.InterfacciaPrincipale;
-import com.ogc.pharmagcode.Utils.Utils;
+import com.ogc.pharmagcode.Common.InterfacciaPrincipale;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 

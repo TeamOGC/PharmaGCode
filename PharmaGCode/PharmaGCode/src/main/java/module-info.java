@@ -27,9 +27,7 @@ module com.ogc.pharmagcode {
     opens com.ogc.pharmagcode.Utils to javafx.fxml;
     opens com.ogc.pharmagcode.GestioneOrdini to javafx.fxml;
     exports com.ogc.pharmagcode.GestioneOrdini;
-    exports com.ogc.pharmagcode.Utils.TableEntities;
-    opens com.ogc.pharmagcode.Utils.TableEntities to javafx.fxml;
-    exports com.ogc.pharmagcode.common.pannelli;
     opens com.ogc.pharmagcode.Pannelli to javafx.fxml;
-    opens com.ogc.pharmagcode.common.pannelli to javafx.fxml;
+    exports com.ogc.pharmagcode.Common;
+    opens com.ogc.pharmagcode.Common to javafx.fxml;
 }

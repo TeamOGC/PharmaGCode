@@ -1,14 +1,10 @@
 package com.ogc.pharmagcode.GestioneFarmaci;
 
 import com.ogc.pharmagcode.Entity.Farmaco;
-import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
-import com.ogc.pharmagcode.Utils.RecordLista;
-import com.ogc.pharmagcode.Utils.TableEntities.RecordFarmaco;
+import com.ogc.pharmagcode.Common.RecordFarmaco;
 import com.ogc.pharmagcode.Utils.Utils;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;

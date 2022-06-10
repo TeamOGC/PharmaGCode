@@ -3,7 +3,7 @@ package com.ogc.pharmagcode.GestioneFarmaci;
 import com.ogc.pharmagcode.Entity.OrdinePeriodico;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
-import com.ogc.pharmagcode.Utils.TableEntities.RecordOrdinePeriodico;
+import com.ogc.pharmagcode.Common.RecordOrdinePeriodico;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

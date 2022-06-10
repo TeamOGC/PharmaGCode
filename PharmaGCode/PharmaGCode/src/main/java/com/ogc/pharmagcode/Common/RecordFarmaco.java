@@ -1,4 +1,4 @@
-package com.ogc.pharmagcode.Utils.TableEntities;
+package com.ogc.pharmagcode.Common;
 
 import com.ogc.pharmagcode.Entity.Farmaco;
 import javafx.event.ActionEvent;

@@ -5,17 +5,15 @@ import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.PDFCreator;
-import com.ogc.pharmagcode.Utils.TableEntities.RecordOrdine;
+import com.ogc.pharmagcode.Common.RecordOrdine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class InterfacciaVisualizzaOrdiniAzienda {

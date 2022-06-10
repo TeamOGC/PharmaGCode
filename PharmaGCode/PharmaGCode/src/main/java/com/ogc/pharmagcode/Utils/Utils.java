@@ -1,14 +1,13 @@
 package com.ogc.pharmagcode.Utils;
 
 import com.ogc.pharmagcode.Main;
-import com.ogc.pharmagcode.common.pannelli.PannelloConferma;
-import com.ogc.pharmagcode.common.pannelli.PannelloErrore;
+import com.ogc.pharmagcode.Common.PannelloConferma;
+import com.ogc.pharmagcode.Common.PannelloErrore;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Callback;
 
 import java.nio.charset.StandardCharsets;

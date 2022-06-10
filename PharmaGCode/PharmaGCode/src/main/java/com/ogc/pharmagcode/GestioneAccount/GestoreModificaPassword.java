@@ -1,8 +1,5 @@
 package com.ogc.pharmagcode.GestioneAccount;
 
-import com.ogc.pharmagcode.GestioneFarmaci.InterfacciaPrincipaleFarmacista;
-import com.ogc.pharmagcode.InterfacciaPrincipale;
-import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;

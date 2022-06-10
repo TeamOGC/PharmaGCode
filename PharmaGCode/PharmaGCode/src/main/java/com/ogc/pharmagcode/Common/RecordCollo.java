@@ -1,4 +1,4 @@
-package com.ogc.pharmagcode.Utils.TableEntities;
+package com.ogc.pharmagcode.Common;
 
 import com.ogc.pharmagcode.Entity.Collo;
 import com.ogc.pharmagcode.Entity.Ordine;
@@ -7,7 +7,6 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class RecordCollo extends Collo {
 

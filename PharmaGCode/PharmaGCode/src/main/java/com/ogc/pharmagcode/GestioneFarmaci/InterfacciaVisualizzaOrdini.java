@@ -1,6 +1,6 @@
 package com.ogc.pharmagcode.GestioneFarmaci;
 
-import com.ogc.pharmagcode.Utils.TableEntities.RecordOrdine;
+import com.ogc.pharmagcode.Common.RecordOrdine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

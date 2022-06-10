@@ -1,6 +1,6 @@
 package com.ogc.pharmagcode.GestioneFarmaci;
 
-import com.ogc.pharmagcode.InterfacciaPrincipale;
+import com.ogc.pharmagcode.Common.InterfacciaPrincipale;
 import com.ogc.pharmagcode.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

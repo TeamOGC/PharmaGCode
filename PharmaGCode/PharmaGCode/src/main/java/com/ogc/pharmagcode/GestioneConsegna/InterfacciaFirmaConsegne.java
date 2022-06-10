@@ -1,10 +1,7 @@
 package com.ogc.pharmagcode.GestioneConsegna;
 
 import com.ogc.pharmagcode.Entity.Ordine;
-import com.ogc.pharmagcode.Main;
-import com.ogc.pharmagcode.Utils.TableEntities.RecordOrdine;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;

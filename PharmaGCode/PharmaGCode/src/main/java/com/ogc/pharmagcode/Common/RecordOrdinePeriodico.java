@@ -1,4 +1,4 @@
-package com.ogc.pharmagcode.Utils.TableEntities;
+package com.ogc.pharmagcode.Common;
 
 import com.ogc.pharmagcode.Entity.OrdinePeriodico;
 import com.ogc.pharmagcode.Main;

@@ -1,21 +1,13 @@
 package com.ogc.pharmagcode.GestioneFarmaci;
 
-import com.ogc.pharmagcode.Utils.RecordLista;
-import com.ogc.pharmagcode.Utils.TableEntities.RecordOrdinePeriodico;
-import com.ogc.pharmagcode.Utils.Utils;
+import com.ogc.pharmagcode.Common.RecordOrdinePeriodico;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class InterfacciaListaOrdiniPeriodici {
     @FXML

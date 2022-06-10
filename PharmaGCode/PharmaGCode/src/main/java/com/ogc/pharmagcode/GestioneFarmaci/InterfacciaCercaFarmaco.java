@@ -1,11 +1,8 @@
 package com.ogc.pharmagcode.GestioneFarmaci;
 
-import com.ogc.pharmagcode.Utils.RecordLista;
-import com.ogc.pharmagcode.Utils.TableEntities.RecordFarmaco;
+import com.ogc.pharmagcode.Common.RecordFarmaco;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 

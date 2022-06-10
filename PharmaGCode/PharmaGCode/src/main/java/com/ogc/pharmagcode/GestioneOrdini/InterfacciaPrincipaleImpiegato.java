@@ -1,11 +1,10 @@
 package com.ogc.pharmagcode.GestioneOrdini;
 
 import com.ogc.pharmagcode.GestioneProduzione.GestoreModificaProduzione;
-import com.ogc.pharmagcode.InterfacciaPrincipale;
+import com.ogc.pharmagcode.Common.InterfacciaPrincipale;
 import com.ogc.pharmagcode.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
 
 public class InterfacciaPrincipaleImpiegato extends InterfacciaPrincipale {
 

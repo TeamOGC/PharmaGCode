@@ -3,7 +3,7 @@ package com.ogc.pharmagcode.GestioneFarmaci;
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
-import com.ogc.pharmagcode.Utils.TableEntities.RecordOrdine;
+import com.ogc.pharmagcode.Common.RecordOrdine;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
