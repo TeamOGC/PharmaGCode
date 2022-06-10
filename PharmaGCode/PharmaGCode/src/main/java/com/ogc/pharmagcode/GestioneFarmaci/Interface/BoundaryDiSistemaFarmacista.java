@@ -1,23 +1,21 @@
-package com.ogc.pharmagcode;
+package com.ogc.pharmagcode.GestioneFarmaci.Interface;
+
+import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreDiSistemaFarmacista;
+import com.ogc.pharmagcode.GestioneAzienda.Control.GestoreDiSistemaImpiegato;
+import com.ogc.pharmagcode.Main;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-public class BoundaryDiSistema {
+public class BoundaryDiSistemaFarmacista {
     GestoreDiSistemaFarmacista gF = new GestoreDiSistemaFarmacista();
     GestoreDiSistemaImpiegato gI = new GestoreDiSistemaImpiegato();
 
-    public BoundaryDiSistema() {
-        GestoreDiSistemaFarmacista g1;
+    public BoundaryDiSistemaFarmacista() {
         try (ObjectInputStream o = new ObjectInputStream(new FileInputStream("gds.time"))) {
-            if (Main.sistema == 0) {
-                g1 = (GestoreDiSistemaFarmacista) o.readObject();
-                gF = g1;
-            } else if (Main.sistema == 2) {
-                gI = (GestoreDiSistemaImpiegato) o.readObject();
-            }
+                gF = (GestoreDiSistemaFarmacista) o.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("Gestore da creare");
         } catch (IOException e) {
@@ -28,9 +26,6 @@ public class BoundaryDiSistema {
     }
 
     public void chiediOrario() {
-        if (Main.sistema == 0)
-            gF.chiediOrario();
-        if (Main.sistema == 2)
-            gI.chiediData();
+        gF.chiediOrario();
     }
 }

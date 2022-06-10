@@ -10,12 +10,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class InterfacciaPrincipaleFarmacista extends InterfacciaPrincipale {
-
+    BoundaryDiSistemaFarmacista b=new BoundaryDiSistemaFarmacista();
     public InterfacciaPrincipaleFarmacista(String nome, String cognome) {
         super(nome + " " + cognome + " " + " Farmacia: " + Main.idFarmacia);
         Main.log.info("Gestione Farmaci");
     }
-
+    @FXML
+    public void initialize(){
+        Main.orologio.setOrologio(e->{
+            b.chiediOrario();
+        });
+    }
     @FXML
     protected void cliccaCercaFarmaco() {
         new GestoreCercaFarmaco();

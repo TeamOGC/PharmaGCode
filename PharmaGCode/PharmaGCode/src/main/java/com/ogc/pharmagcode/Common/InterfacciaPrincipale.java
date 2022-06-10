@@ -1,14 +1,14 @@
 package com.ogc.pharmagcode.Common;
 
 import com.ogc.pharmagcode.Autenticazione.Control.GestoreModificaPassword;
-import com.ogc.pharmagcode.BoundaryDiSistema;
+import com.ogc.pharmagcode.GestioneFarmaci.Interface.BoundaryDiSistemaFarmacista;
 import com.ogc.pharmagcode.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class InterfacciaPrincipale {
     String nomeMostrato;
-    BoundaryDiSistema b = new BoundaryDiSistema();
+    BoundaryDiSistemaFarmacista b = new BoundaryDiSistemaFarmacista();
     @FXML
     protected Label nomeUtente;
     @FXML
@@ -23,7 +23,7 @@ public class InterfacciaPrincipale {
         nomeUtente.setText(nomeMostrato);
         Main.orologio.setOrologio(e -> {
             orologio.setText(Main.orologio.chiediOrarioFormattato());
-            b.chiediOrario();
+            //b.chiediOrario();
         });
     }
 

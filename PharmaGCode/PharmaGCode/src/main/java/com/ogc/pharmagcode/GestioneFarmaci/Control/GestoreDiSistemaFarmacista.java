@@ -1,7 +1,8 @@
-package com.ogc.pharmagcode;
+package com.ogc.pharmagcode.GestioneFarmaci.Control;
 
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.Entity.OrdinePeriodico;
+import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
