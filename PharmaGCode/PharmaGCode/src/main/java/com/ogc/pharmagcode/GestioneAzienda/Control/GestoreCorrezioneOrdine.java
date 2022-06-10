@@ -19,18 +19,18 @@ public class GestoreCorrezioneOrdine {
                 c -> new InterfacciaCorrezioneOrdine(this, daCorreggere),
                 600,
                 400
-                );
+        );
         this.daCorreggere = daCorreggere;
     }
 
     public void correggiOrdine(int qtaDaAggiungere) {
         int qtaGiaCaricata = DBMSDaemon.queryControllaQuantita(daCorreggere);
-        if(qtaGiaCaricata == -1 ) {
+        if (qtaGiaCaricata == -1) {
             Main.log.error("Per qualche motivo la quantità caricata non è stata presa...");
             return;
         }
         Main.log.info("Quantità già caricata: " + qtaGiaCaricata);
-        if(qtaDaAggiungere > (daCorreggere.getQuantita() - qtaGiaCaricata)){
+        if (qtaDaAggiungere > (daCorreggere.getQuantita() - qtaGiaCaricata)) {
             // ho voluto aggiungere più farmaci di quanti ne mancano
             Utils.creaPannelloErrore("Non puoi correggere l'ordine inserendo più farmaci di quanti ne mancano");
             return;

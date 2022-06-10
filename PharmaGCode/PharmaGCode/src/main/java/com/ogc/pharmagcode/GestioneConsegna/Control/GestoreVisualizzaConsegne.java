@@ -1,10 +1,10 @@
 package com.ogc.pharmagcode.GestioneConsegna.Control;
 
+import com.ogc.pharmagcode.Common.RecordCollo;
 import com.ogc.pharmagcode.Entity.Collo;
 import com.ogc.pharmagcode.GestioneConsegna.Interface.InterfacciaVisualizzaConsegne;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
-import com.ogc.pharmagcode.Common.RecordCollo;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +25,7 @@ public class GestoreVisualizzaConsegne {
 
     }
 
-    public void chiediConsegne(){
+    public void chiediConsegne() {
         ArrayList<RecordCollo> records = new ArrayList<>();
         Collo[] colli = DBMSDaemon.queryVisualizzaConsegne(Main.orologio.chiediOrario().toLocalDate());
         if (colli != null) {

@@ -8,8 +8,9 @@ import javafx.stage.Stage;
 public class ModuloModificaPassword {
 
     GestoreModificaPassword gmp;
-    public  ModuloModificaPassword(GestoreModificaPassword gmp){
-        this.gmp=gmp;
+
+    public ModuloModificaPassword(GestoreModificaPassword gmp) {
+        this.gmp = gmp;
     }
 
     @FXML
@@ -20,12 +21,12 @@ public class ModuloModificaPassword {
     private PasswordField re_pwd;
 
     @FXML
-    protected void conferma(){
-        if(old_pwd.getText().isBlank() || new_pwd.getText().isBlank() || re_pwd.getText().isBlank()) return;
-        gmp.modificaPassword(old_pwd.getText(),new_pwd.getText(),re_pwd.getText());
+    protected void conferma() {
+        if (old_pwd.getText().isBlank() || new_pwd.getText().isBlank() || re_pwd.getText().isBlank()) return;
+        gmp.modificaPassword(old_pwd.getText(), new_pwd.getText(), re_pwd.getText());
     }
 
-    public Stage getStage(){
+    public Stage getStage() {
         return (Stage) old_pwd.getScene().getWindow();
     }
 

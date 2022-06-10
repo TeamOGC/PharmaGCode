@@ -19,8 +19,8 @@ public class GestoreModificaOrdinePeriodico {
         this.ordinePeriodico = ordinePeriodico;
     }
 
-    public void aggiornaQuantita(int qta, OrdinePeriodico ordinePeriodico){
-        Main.log.info("Aggiornando la quantità dell'ordine periodico (" + qta + ") di " + ordinePeriodico.getNomeFarmaco() + ";" );
+    public void aggiornaQuantita(int qta, OrdinePeriodico ordinePeriodico) {
+        Main.log.info("Aggiornando la quantità dell'ordine periodico (" + qta + ") di " + ordinePeriodico.getNomeFarmaco() + ";");
         DBMSDaemon.queryAggiornaOrdinePeriodico(qta, ordinePeriodico);
     }
 }

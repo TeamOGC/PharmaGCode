@@ -21,14 +21,14 @@ public class RecordCollo extends Collo {
         this.initializeButton();
     }
 
-    public RecordCollo(int id_collo, int id_farmacia, LocalDate data_consegna, String firma, String nome_farmacia, String indirizzo_farmacia,  Ordine[] ordini, String nomeBottone, EventHandler<ActionEvent> callback) {
+    public RecordCollo(int id_collo, int id_farmacia, LocalDate data_consegna, String firma, String nome_farmacia, String indirizzo_farmacia, Ordine[] ordini, String nomeBottone, EventHandler<ActionEvent> callback) {
         this(id_collo, id_farmacia, data_consegna, firma, nome_farmacia, indirizzo_farmacia, nomeBottone, callback);
         super.aggiungiOrdini(ordini);
     }
 
 
-    private void initializeButton(){
-        if(nomeBottone != null && !nomeBottone.isBlank()) {
+    private void initializeButton() {
+        if (nomeBottone != null && !nomeBottone.isBlank()) {
             bottone = new Button(nomeBottone);
             bottone.setOnAction(callback);
             bottone.getStyleClass().add("btnlist");
@@ -36,7 +36,7 @@ public class RecordCollo extends Collo {
         }
     }
 
-    public static RecordCollo fromCollo(Collo collo, String nomeBottone, EventHandler<ActionEvent> callback){
+    public static RecordCollo fromCollo(Collo collo, String nomeBottone, EventHandler<ActionEvent> callback) {
         return new RecordCollo(
                 collo.getId_collo(),
                 collo.getId_farmacia(),

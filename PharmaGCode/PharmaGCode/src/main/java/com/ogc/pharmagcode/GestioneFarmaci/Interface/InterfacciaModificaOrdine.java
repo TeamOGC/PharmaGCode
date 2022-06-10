@@ -15,15 +15,16 @@ public class InterfacciaModificaOrdine {
     private TextField quantita;
 
     private Ordine ordine;
-    public InterfacciaModificaOrdine(GestoreModificaOrdine gestoreModificaOrdine, Ordine ordine){
+
+    public InterfacciaModificaOrdine(GestoreModificaOrdine gestoreModificaOrdine, Ordine ordine) {
         this.gestoreModificaOrdine = gestoreModificaOrdine;
-        this.ordine=ordine;
+        this.ordine = ordine;
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.quantita.setTextFormatter(new TextFormatter<>(Utils.integerFilter));
-        quantita.setText(ordine.getQuantita()+"");
+        quantita.setText(ordine.getQuantita() + "");
 
     }
 

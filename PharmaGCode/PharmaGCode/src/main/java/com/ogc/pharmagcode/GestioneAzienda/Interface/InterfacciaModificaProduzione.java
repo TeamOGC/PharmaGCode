@@ -19,25 +19,23 @@ public class InterfacciaModificaProduzione {
     @FXML
     private TextField quantita;
 
-    public InterfacciaModificaProduzione(GestoreModificaProduzione control){
+    public InterfacciaModificaProduzione(GestoreModificaProduzione control) {
         this.control = control;
     }
 
 
-
-    public void initialize(){
+    public void initialize() {
         this.quantita.setTextFormatter(new TextFormatter<>(Utils.integerFilter));
     }
 
     public void conferma(ActionEvent actionEvent) {
         this.confermaModificaBtn.setDisable(true);
-        try{
+        try {
             String nome_farmaco = this.farmaco.getText();
-            int quantita =  Integer.parseInt(this.quantita.getText());
+            int quantita = Integer.parseInt(this.quantita.getText());
 //            GestoreModificaProduzione.log.debug("Confermato con " + nome_farmaco + " " + quantita);
             control.modificaProduzione(nome_farmaco, quantita);
-        }
-        finally {
+        } finally {
             // facciamo che puliamo i campi comunque vada
             this.confermaModificaBtn.setDisable(false);
             this.farmaco.clear();

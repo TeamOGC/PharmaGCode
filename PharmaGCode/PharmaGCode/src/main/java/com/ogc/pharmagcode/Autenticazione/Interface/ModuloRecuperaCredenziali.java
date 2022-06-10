@@ -10,11 +10,13 @@ public class ModuloRecuperaCredenziali {
 
     @FXML
     private TextField email;
-    public ModuloRecuperaCredenziali(GestoreRecuperaCredenziali grc){
-        this.grc=grc;
+
+    public ModuloRecuperaCredenziali(GestoreRecuperaCredenziali grc) {
+        this.grc = grc;
     }
+
     @FXML
-    protected void conferma(){
+    protected void conferma() {
         grc.verificaMailEInvia(email.getText());
     }
 }

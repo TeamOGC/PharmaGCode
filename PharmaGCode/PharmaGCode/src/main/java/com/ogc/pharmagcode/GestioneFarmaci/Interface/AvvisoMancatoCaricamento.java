@@ -8,8 +8,9 @@ import javafx.stage.Stage;
 public class AvvisoMancatoCaricamento {
     @FXML
     private Button conferma;
+
     @FXML
-    protected void conferma(){
+    protected void conferma() {
         Main.orologio.iniziaTimer();
         ((Stage) conferma.getScene().getWindow()).close();
     }

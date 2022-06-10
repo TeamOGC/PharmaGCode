@@ -17,19 +17,22 @@ public class InterfacciaCercaFarmaco {
     private TextField princAttivo;
     @FXML
     private TableView<RecordFarmaco> listaFarmaci;
-    public InterfacciaCercaFarmaco(GestoreCercaFarmaco gestoreCercaFarmaco){
-        this.gestoreCercaFarmaco=gestoreCercaFarmaco;
-    }
-    @FXML
-    protected void initialize(){
-//        listaFarmaci.setFixedCellSize(55);
-    }
-    @FXML
-    protected void conferma(){
-        gestoreCercaFarmaco.cercaFarmaci(nomeFarmaco.getText(),princAttivo.getText());
+
+    public InterfacciaCercaFarmaco(GestoreCercaFarmaco gestoreCercaFarmaco) {
+        this.gestoreCercaFarmaco = gestoreCercaFarmaco;
     }
 
-    public void aggiornaFarmaci(ArrayList<RecordFarmaco> ol){
+    @FXML
+    protected void initialize() {
+//        listaFarmaci.setFixedCellSize(55);
+    }
+
+    @FXML
+    protected void conferma() {
+        gestoreCercaFarmaco.cercaFarmaci(nomeFarmaco.getText(), princAttivo.getText());
+    }
+
+    public void aggiornaFarmaci(ArrayList<RecordFarmaco> ol) {
         listaFarmaci.setItems(FXCollections.observableArrayList(ol));
     }
 }

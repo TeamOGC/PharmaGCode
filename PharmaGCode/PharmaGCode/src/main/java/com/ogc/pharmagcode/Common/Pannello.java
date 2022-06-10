@@ -11,12 +11,13 @@ public class Pannello {
     protected String messaggioText;
     protected Stage s;
 
-    public Pannello(String messaggio, Stage s){
+    public Pannello(String messaggio, Stage s) {
         this.messaggioText = messaggio;
         this.s = s;
     }
+
     @FXML
-    protected void initialize(){
+    protected void initialize() {
         messaggio.setText(messaggioText);
     }
 }

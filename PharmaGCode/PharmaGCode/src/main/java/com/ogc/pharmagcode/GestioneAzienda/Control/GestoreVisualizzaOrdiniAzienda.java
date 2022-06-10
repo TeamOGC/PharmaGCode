@@ -19,7 +19,7 @@ public class GestoreVisualizzaOrdiniAzienda {
     private InterfacciaVisualizzaOrdiniAzienda i;
     private ArrayList<RecordLista> listaOrdiniAzienda = new ArrayList<>();
 
-    public GestoreVisualizzaOrdiniAzienda(){
+    public GestoreVisualizzaOrdiniAzienda() {
 
         Ordine[] ordini = DBMSDaemon.queryVisualizzaOrdiniAzienda();
         if (ordini != null) {
@@ -35,9 +35,8 @@ public class GestoreVisualizzaOrdiniAzienda {
                         new GestoreCorrezioneOrdine(ordine);
                     };
                     bottone = "Correggi";
-                }
-                else if (ordine.getStato().equalsIgnoreCase("consegnato")){
-                    e = creaPDF ->{
+                } else if (ordine.getStato().equalsIgnoreCase("consegnato")) {
+                    e = creaPDF -> {
                         try {
                             PDFCreator.creaPDF(DBMSDaemon.queryCollo(ordine));
                         } catch (IOException ex) {
@@ -61,11 +60,12 @@ public class GestoreVisualizzaOrdiniAzienda {
                 );
 
             }
-        }
-        else Main.log.warn("Non sono stati trovati ordini");
+        } else Main.log.warn("Non sono stati trovati ordini");
 
-        this.i=(InterfacciaVisualizzaOrdiniAzienda) Utils.cambiaInterfaccia("GestioneOrdini/VisualizzaOrdiniAzienda.fxml",
+        this.i = (InterfacciaVisualizzaOrdiniAzienda) Utils.cambiaInterfaccia("GestioneOrdini/VisualizzaOrdiniAzienda.fxml",
                 new Stage(),
-                c->{return new InterfacciaVisualizzaOrdiniAzienda(ordini);});
+                c -> {
+                    return new InterfacciaVisualizzaOrdiniAzienda(ordini);
+                });
     }
 }

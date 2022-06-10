@@ -10,7 +10,8 @@ import javafx.stage.Stage;
 
 public class ModuloRegistrazione {
     GestoreRegistrazione gestoreRegistrazione;
-    public ModuloRegistrazione(GestoreRegistrazione gestoreRegistrazione){
+
+    public ModuloRegistrazione(GestoreRegistrazione gestoreRegistrazione) {
         this.gestoreRegistrazione = gestoreRegistrazione;
     }
 
@@ -29,26 +30,30 @@ public class ModuloRegistrazione {
     private TextField campoOTP;
     @FXML
     private VBox moduloOTP;
+
     @FXML
-    protected void initialize(){
+    protected void initialize() {
         moduloOTP.setVisible(false);
     }
+
     @FXML
-    protected void cliccaRegistrati(){
-        if(gestoreRegistrazione.registraAccount(nome.getText(),cognome.getText(),email.getText(),password.getText(),confermaPassword.getText())){
+    protected void cliccaRegistrati() {
+        if (gestoreRegistrazione.registraAccount(nome.getText(), cognome.getText(), email.getText(), password.getText(), confermaPassword.getText())) {
             moduloOTP.setVisible(true);
-        }else{
+        } else {
             password.setText("");
             confermaPassword.setText("");
         }
     }
+
     @FXML
-    protected void annulla(){
+    protected void annulla() {
         s = (Stage) email.getScene().getWindow();
         new GestoreAutenticazione(s);
     }
+
     @FXML
-    protected void cliccaConferma(){
+    protected void cliccaConferma() {
         gestoreRegistrazione.inserisciOTP(campoOTP.getText());
     }
 }

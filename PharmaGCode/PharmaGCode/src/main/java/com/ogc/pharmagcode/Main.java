@@ -4,10 +4,10 @@ import com.ogc.pharmagcode.Autenticazione.Control.GestoreAutenticazione;
 import com.ogc.pharmagcode.Utils.Orologio;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
 
 import static java.lang.System.exit;
 
@@ -15,19 +15,22 @@ public class Main extends Application {
 
     public static final Logger log = LogManager.getLogger(Main.class);
     public static Stage mainStage = null;
-    public static Orologio orologio=new Orologio();
-    public static int sistema,idFarmacia;
+    public static Orologio orologio = new Orologio();
+    public static int sistema, idFarmacia;
     public static boolean debug;
+
     @Override
     public void start(Stage stage) throws IOException {
         mainStage = stage;
         stage.setTitle("PharmaGC");
         log.info("App partita");
-        stage.setOnCloseRequest(c->{System.exit(0);});
+        stage.setOnCloseRequest(c -> {
+            System.exit(0);
+        });
         new GestoreAutenticazione(stage);
     }
 
-    private static void risolviSistema(String[] args){
+    private static void risolviSistema(String[] args) {
         //Definisce quale tipo di sistema si sta usando (0 Farmacia, 1 Corriere, 2 Azienda)
         //e definisce un ID Farmacia (utilizzato solo se il sistema è destinato a una farmacia)
         try {
@@ -41,9 +44,9 @@ public class Main extends Application {
                 idFarmacia = Integer.parseInt(args[1]);
             }
             if (args.length >= 3) {
-                debug=Integer.parseInt(args[2])==1;
+                debug = Integer.parseInt(args[2]) == 1;
             }
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.err.println(e.getMessage());
             exit(1);
         }

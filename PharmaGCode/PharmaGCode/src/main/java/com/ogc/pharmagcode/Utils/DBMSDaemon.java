@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-@SuppressWarnings({"unused", "UnusedReturnValue", "DuplicatedCode"})
+@SuppressWarnings({"unused", "UnusedReturnValue", "DuplicatedCode", "SqlResolve"})
 public class DBMSDaemon {
     private static final String baseUrl = "beverlylab.duckdns.org";
     private static final int port = 11051;
@@ -746,43 +746,44 @@ public class DBMSDaemon {
 
     /**
      * Aggiorna la composizione degli ordini in seguito a una modifica della quantita dell'ordine
+     *
      * @param ordine
      * @param nuova_qty
      */
-    private static void queryAggiornaComposizioneOrdini(Ordine ordine, int nuova_qty){
-        int delta=nuova_qty-ordine.getQuantita();
+    private static void queryAggiornaComposizioneOrdini(Ordine ordine, int nuova_qty) {
+        int delta = nuova_qty - ordine.getQuantita();
         if (delta > 0) {
             queryCreaComposizioneOrdini(ordine.getId_farmaco(), delta, false, ordine);
             delta = 0;
             return;
         }
 
-        String query="SELECT ComposizioneOrdine.* FROM ComposizioneOrdine WHERE ComposizioneOrdine.id_ordine=?";
-        String query2="UPDATE ComposizioneOrdine SET quantita=? WHERE id_ordine=?";
-        String query3="UPDATE Lotto SET quantita=quantita+? WHERE id_lotto=?";
-        try(PreparedStatement stmt=connAzienda.prepareStatement(query);
-            PreparedStatement stmt2=connAzienda.prepareStatement(query2);
-            PreparedStatement stmt3=connAzienda.prepareStatement(query3)) {
-            stmt.setInt(1,ordine.getId_ordine());
-            ResultSet r=stmt.executeQuery();
-            stmt2.setInt(2,ordine.getId_ordine());
-            if(delta<0){
-                while(r.next()){
-                    stmt3.setInt(2,r.getInt("id_lotto"));
-                    stmt2.setInt(2,ordine.getId_ordine());
-                    int qty=r.getInt("quantita");
+        String query = "SELECT ComposizioneOrdine.* FROM ComposizioneOrdine WHERE ComposizioneOrdine.id_ordine=?";
+        String query2 = "UPDATE ComposizioneOrdine SET quantita=? WHERE id_ordine=?";
+        String query3 = "UPDATE Lotto SET quantita=quantita+? WHERE id_lotto=?";
+        try (PreparedStatement stmt = connAzienda.prepareStatement(query);
+             PreparedStatement stmt2 = connAzienda.prepareStatement(query2);
+             PreparedStatement stmt3 = connAzienda.prepareStatement(query3)) {
+            stmt.setInt(1, ordine.getId_ordine());
+            ResultSet r = stmt.executeQuery();
+            stmt2.setInt(2, ordine.getId_ordine());
+            if (delta < 0) {
+                while (r.next()) {
+                    stmt3.setInt(2, r.getInt("id_lotto"));
+                    stmt2.setInt(2, ordine.getId_ordine());
+                    int qty = r.getInt("quantita");
                     /* Fa l'update del lotto*/
-                    if(-delta>=qty){ // -delta=quantita da rimuovere, se è maggiore della quantita di lotto nell'ordine, rimuove totalmente il lotto dall'ordine e continua
-                        stmt2.setInt(1,0);
-                        delta=delta+qty;
+                    if (-delta >= qty) { // -delta=quantita da rimuovere, se è maggiore della quantita di lotto nell'ordine, rimuove totalmente il lotto dall'ordine e continua
+                        stmt2.setInt(1, 0);
+                        delta = delta + qty;
                         stmt2.addBatch();       //aggiunge alla batch la query di update della composizione
-                        stmt3.setInt(1,qty);
+                        stmt3.setInt(1, qty);
                         stmt3.addBatch();       //aggiunge alla batch la query di update della quantita del lotto
-                    }else{   //altrimenti la quantita da rimuovere viene settata a 0 e può uscire dal loop
-                        stmt2.setInt(1,qty+delta);
-                        delta=0;
+                    } else {   //altrimenti la quantita da rimuovere viene settata a 0 e può uscire dal loop
+                        stmt2.setInt(1, qty + delta);
+                        delta = 0;
                         stmt2.addBatch();       //aggiunge alla batch la query di update della composizione
-                        stmt3.setInt(1,-delta);
+                        stmt3.setInt(1, -delta);
                         stmt3.addBatch();       //aggiunge alla batch la query di update della quantita del lotto
                         break;
                     }
@@ -791,7 +792,7 @@ public class DBMSDaemon {
                 stmt3.executeBatch();
             }
 
-        }catch(SQLException e){
+        } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
     }
@@ -809,15 +810,15 @@ public class DBMSDaemon {
 
             try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
                 connAzienda.setAutoCommit(false);
-                if(ordine.getStato().equalsIgnoreCase("In Lavorazione"))
-                    queryAggiornaComposizioneOrdini(ordine,0);
+                if (ordine.getStato().equalsIgnoreCase("In Lavorazione"))
+                    queryAggiornaComposizioneOrdini(ordine, 0);
                 stmt.setInt(1, ordine.getId_ordine());
                 var r = stmt.executeUpdate();
                 if (r != 0) {
                     connAzienda.commit();
                     connAzienda.setAutoCommit(true);
                     return r;
-                }else{
+                } else {
                     connAzienda.rollback();
                     connAzienda.setAutoCommit(true);
                 }
@@ -830,16 +831,16 @@ public class DBMSDaemon {
             String query = "UPDATE Ordine SET Ordine.quantita=? WHERE Ordine.id_ordine=?";
             try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
                 connAzienda.setAutoCommit(false);
-                if(ordine.getStato().equalsIgnoreCase("In Lavorazione"))
+                if (ordine.getStato().equalsIgnoreCase("In Lavorazione"))
                     queryAggiornaComposizioneOrdini(ordine, nuova_qty);
                 stmt.setInt(1, nuova_qty);
                 stmt.setInt(2, ordine.getId_ordine());
                 var r = stmt.executeUpdate();
-                if (r != 0){
+                if (r != 0) {
                     connAzienda.commit();
                     connAzienda.setAutoCommit(true);
                     return r;
-                }else{
+                } else {
                     connAzienda.rollback();
                     connAzienda.setAutoCommit(true);
                 }
@@ -868,7 +869,7 @@ public class DBMSDaemon {
                     queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), false, ordine);
                 return r;
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
         return -1;
@@ -982,20 +983,21 @@ public class DBMSDaemon {
 
     /**
      * Transazione Atomica per comporre l'ordine dai lotti disponibili
+     *
      * @param id_farmaco
      * @param quantita
      * @param accettaScadenza
      * @param ordine
      * @return
      */
-    private static int queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, Ordine ordine){
+    private static int queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, Ordine ordine) {
         connectAzienda();
-        String query="INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?)";
-        ArrayList<Lotto> composizione=new ArrayList<>();
-        try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
+        String query = "INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?)";
+        ArrayList<Lotto> composizione = new ArrayList<>();
+        try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             connAzienda.setAutoCommit(false);
-            int quantitaRimanente=creaComposizioneOrdini(id_farmaco, quantita, accettaScadenza, ordine.getData_consegna(), composizione);
-            if(quantitaRimanente>0) {
+            int quantitaRimanente = creaComposizioneOrdini(id_farmaco, quantita, accettaScadenza, ordine.getData_consegna(), composizione);
+            if (quantitaRimanente > 0) {
                 connAzienda.rollback();
                 connAzienda.setAutoCommit(true);
                 return quantitaRimanente;
@@ -1016,7 +1018,7 @@ public class DBMSDaemon {
         return 0;
     }
 
-    public static int queryQuantitaFarmaco(int id_farmaco){
+    public static int queryQuantitaFarmaco(int id_farmaco) {
         connectAzienda();
         String query = "SELECT id_farmaco, sum(quantita) FROM Lotto WHERE id_farmaco=? GROUP BY id_farmaco";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
@@ -1034,11 +1036,12 @@ public class DBMSDaemon {
     /**
      * Prova a creare un ordine, se l'ordine è da contrassegnare in lavorazione e non sono disponibili le quantità richieste
      * l'ordine non viene effettuato e viene ritornata la quantita che non è stato possbile ordinare
+     *
      * @param ordine
      * @param accettaScadenza se si accettano farmaci in scadenza
      * @return Quantita eccedente
      */
-    public static int queryCreaOrdineTemp(Ordine ordine, boolean accettaScadenza){
+    public static int queryCreaOrdineTemp(Ordine ordine, boolean accettaScadenza) {
 
         //Deve: chiedere i lotti, scegliere quali lotti verranno scelti
         // per quell'ordine, rimuovere i farmaci
@@ -1062,7 +1065,7 @@ public class DBMSDaemon {
             }
             ResultSet id_ordine = stmt.getGeneratedKeys();
             if (id_ordine.next()) {
-                int quantitaRimanente = queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), accettaScadenza, new Ordine(id_ordine.getInt(1),ordine));
+                int quantitaRimanente = queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), accettaScadenza, new Ordine(id_ordine.getInt(1), ordine));
                 if (quantitaRimanente == 0) {
                     connAzienda.commit();
                     connAzienda.setAutoCommit(true);
@@ -1114,9 +1117,9 @@ public class DBMSDaemon {
         queryAggiornaQuantitaOrdine(ordine, qta_consegnata);
         /*3*/
         String query = "UPDATE Lotto L " +
-                        "SET L.quantita=L.quantita+(SELECT CO.quantita-CO.quantita_consegnata FROM ComposizioneOrdine CO WHERE CO.id_lotto = L.id_lotto AND CO.id_ordine=?) " +
-                        "WHERE L.id_lotto IN (SELECT CO.id_lotto FROM ComposizioneOrdine CO WHERE id_ordine = ?)";
-        try(PreparedStatement stmt = connAzienda.prepareStatement(query)) {
+                "SET L.quantita=L.quantita+(SELECT CO.quantita-CO.quantita_consegnata FROM ComposizioneOrdine CO WHERE CO.id_lotto = L.id_lotto AND CO.id_ordine=?) " +
+                "WHERE L.id_lotto IN (SELECT CO.id_lotto FROM ComposizioneOrdine CO WHERE id_ordine = ?)";
+        try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setInt(1, ordine.getId_ordine());
             stmt.setInt(2, ordine.getId_ordine());
             stmt.executeUpdate();
@@ -1426,23 +1429,24 @@ public class DBMSDaemon {
         return null;
     }
 
-    public static boolean queryCreaOrdini(OrdinePeriodico[] ordini){
-        LocalDate data=Main.orologio.chiediOrario().toLocalDate().plusDays(1);
+    public static boolean queryCreaOrdini(OrdinePeriodico[] ordini) {
+        LocalDate data = Main.orologio.chiediOrario().toLocalDate().plusDays(1);
         connectAzienda();
-        try{
+        try {
             connAzienda.setAutoCommit(false);
-            for(OrdinePeriodico op :ordini){
-                Ordine o=new Ordine(-1, op.getId_farmaco(), op.getNomeFarmaco(), op.getId_farmacia(), data,"In Lavorazione",op.getQuantita());
-                DBMSDaemon.queryCreaOrdineTemp(o,false);
+            for (OrdinePeriodico op : ordini) {
+                Ordine o = new Ordine(-1, op.getId_farmaco(), op.getNomeFarmaco(), op.getId_farmacia(), data, "In Lavorazione", op.getQuantita());
+                DBMSDaemon.queryCreaOrdineTemp(o, false);
             }
             connAzienda.commit();
             connAzienda.setAutoCommit(true);
             return true;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
             return false;
         }
-}
+    }
+
     public static int queryControllaQuantita(Ordine ordine) {
         String query = "SELECT CO.id_ordine, SUM(CO.quantita_consegnata) FROM ComposizioneOrdine CO WHERE CO.id_ordine=? GROUP BY CO.id_ordine";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
@@ -1455,7 +1459,8 @@ public class DBMSDaemon {
             erroreComunicazioneDBMS(e);
         }
         return -1;
-}
+    }
+
     public static Collo queryCollo(Ordine ordine) {
         connectAzienda();
         String query = "SELECT Collo.* FROM Collo WHERE data_consegna= ? AND id_farmacia= ?";
@@ -1465,33 +1470,32 @@ public class DBMSDaemon {
                 "AND O.data_consegna = C.data_consegna " +
                 "AND O.id_farmacia=C.id_farmacia " +
                 "AND C.id_collo = ?";
-        String queryPrendiNomeFarmacia= "SELECT Farmacia.nome, Farmacia.indirizzo FROM DB_Azienda.Farmacia WHERE id_farmacia=?";
+        String queryPrendiNomeFarmacia = "SELECT Farmacia.nome, Farmacia.indirizzo FROM DB_Azienda.Farmacia WHERE id_farmacia=?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setDate(1, Date.valueOf(ordine.getData_consegna()));
             stmt.setInt(2, ordine.getId_farmacia());
             var r = stmt.executeQuery();
-            PreparedStatement stmt2= connAzienda.prepareStatement(queryPrendiOrdini);
+            PreparedStatement stmt2 = connAzienda.prepareStatement(queryPrendiOrdini);
             while (r.next()) {
                 Collo collo = new Collo(r.getInt(1), r.getInt(2), r.getDate(3).toLocalDate());
                 collo.setFirma(r.getString(4));
                 stmt2.setInt(1, collo.getId_collo());
                 var rOrdini = stmt2.executeQuery();
-                PreparedStatement stmt3=connAzienda.prepareStatement(queryPrendiNomeFarmacia);
-                while(rOrdini.next()){
+                PreparedStatement stmt3 = connAzienda.prepareStatement(queryPrendiNomeFarmacia);
+                while (rOrdini.next()) {
                     collo.aggiungiOrdine(Ordine.createFromDB(rOrdini));
                 }
                 stmt3.setInt(1, ordine.getId_farmacia());
-                var rNome= stmt3.executeQuery();
-                if (rNome.next()){
+                var rNome = stmt3.executeQuery();
+                if (rNome.next()) {
                     collo.setNome_farmacia(rNome.getString(1));
                     collo.setIndirizzo_farmacia(rNome.getString(2));
                 }
                 return collo;
             }
+        } catch (SQLException e) {
+            erroreComunicazioneDBMS(e);
         }
-        catch(SQLException e){
-                erroreComunicazioneDBMS(e);
-            }
-            return null;
+        return null;
     }
 }

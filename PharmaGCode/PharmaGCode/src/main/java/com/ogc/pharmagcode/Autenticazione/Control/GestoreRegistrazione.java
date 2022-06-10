@@ -53,14 +53,14 @@ public class GestoreRegistrazione {
         if (!password.matches(numbers))
             isValid = false;
         String rfcCompliantMailPattern = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
-        if (!email.matches(rfcCompliantMailPattern)){
+        if (!email.matches(rfcCompliantMailPattern)) {
             isValid = false;
         }
         return isValid && password.equals(re_pwd);
     }
 
     public boolean registraAccount(String nome, String cognome, String email, String password, String re_pwd) {
-        if(nome.isBlank() || cognome.isBlank() || email.isBlank() || password.isBlank()){
+        if (nome.isBlank() || cognome.isBlank() || email.isBlank() || password.isBlank()) {
             Utils.creaPannelloErrore("Inserisci tutti i dati");
             return false;
         }

@@ -18,11 +18,11 @@ public class InterfacciaFirmaConsegne {
     private TextField cognomeFarmacista;
 
 
-    public InterfacciaFirmaConsegne(GestoreFirmaConsegne gestoreFirmaConsegne){
+    public InterfacciaFirmaConsegne(GestoreFirmaConsegne gestoreFirmaConsegne) {
         this.gestoreFirmaConsegne = gestoreFirmaConsegne;
     }
 
-    public void initialize(){
+    public void initialize() {
         this.listaOrdini.setItems(FXCollections.observableArrayList(this.gestoreFirmaConsegne.daFirmare.getOrdini()));
     }
 
@@ -30,7 +30,7 @@ public class InterfacciaFirmaConsegne {
         String firma = "";
         try {
             firma = this.nomeFarmacista.getText() + " " + this.cognomeFarmacista.getText();
-        }catch(Exception e){
+        } catch (Exception e) {
             return;
         }
         this.gestoreFirmaConsegne.firmaCollo(firma);

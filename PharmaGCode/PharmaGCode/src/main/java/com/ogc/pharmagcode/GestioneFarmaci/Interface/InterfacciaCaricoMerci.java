@@ -19,12 +19,12 @@ public class InterfacciaCaricoMerci {
     private TextField quantita;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.lotto.setTextFormatter(new TextFormatter<>(Utils.integerFilter));
         this.quantita.setTextFormatter(new TextFormatter<>(Utils.integerFilter));
     }
 
-    public InterfacciaCaricoMerci(GestoreCaricoMerci gestoreCaricoMerci){
+    public InterfacciaCaricoMerci(GestoreCaricoMerci gestoreCaricoMerci) {
         this.gestoreCaricoMerci = gestoreCaricoMerci;
     }
 
@@ -33,13 +33,12 @@ public class InterfacciaCaricoMerci {
 
         try {
             int_quantita = Integer.parseInt(quantita.getText());
-            int_lotto =  Integer.parseInt(lotto.getText());
-        }
-        catch(NumberFormatException e){
+            int_lotto = Integer.parseInt(lotto.getText());
+        } catch (NumberFormatException e) {
             Main.log.warn("Si è tentati di convertire una stringa in un numero ed è finita male..", e);
             return;
         }
         this.gestoreCaricoMerci.caricaFarmaco(int_lotto, int_quantita);
-        Utils.creaPannelloConferma("Sono stati correttamente caricati "+quantita.getText()+" del lotto "+lotto.getText());
+        Utils.creaPannelloConferma("Sono stati correttamente caricati " + quantita.getText() + " del lotto " + lotto.getText());
     }
 }

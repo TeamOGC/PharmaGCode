@@ -11,15 +11,15 @@ public class InterfacciaVisualizzaConsegne {
     @FXML
     TableView<RecordCollo> listaConsegne;
 
-    public InterfacciaVisualizzaConsegne(GestoreVisualizzaConsegne gestoreVisualizzaConsegne){
+    public InterfacciaVisualizzaConsegne(GestoreVisualizzaConsegne gestoreVisualizzaConsegne) {
         this.gestoreVisualizzaConsegne = gestoreVisualizzaConsegne;
     }
 
-    public void initialize(){
+    public void initialize() {
         this.listaConsegne.setItems(gestoreVisualizzaConsegne.observableColli);
     }
 
-    public void aggiornaTabella(){
+    public void aggiornaTabella() {
         this.listaConsegne.setItems(gestoreVisualizzaConsegne.observableColli);
         this.listaConsegne.refresh();
     }

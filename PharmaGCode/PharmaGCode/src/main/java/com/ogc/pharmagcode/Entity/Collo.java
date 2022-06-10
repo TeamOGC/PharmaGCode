@@ -2,13 +2,11 @@ package com.ogc.pharmagcode.Entity;
 
 import javafx.beans.property.SimpleStringProperty;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Collo {
 
@@ -22,28 +20,31 @@ public class Collo {
 
     private SimpleStringProperty firma = new SimpleStringProperty("");
 
-    public Collo(int id_collo, int id_farmacia, LocalDate data_consegna, String firma, String nome_farmacia, String  indirizzo_farmacia, Ordine... ordini){
+    public Collo(int id_collo, int id_farmacia, LocalDate data_consegna, String firma, String nome_farmacia, String indirizzo_farmacia, Ordine... ordini) {
         this(id_collo, id_farmacia, data_consegna, ordini);
         this.firma.set(firma);
-        this.nome_farmacia=nome_farmacia;
-        this.indirizzo_farmacia=indirizzo_farmacia;
-    }
-    public Collo(int id_collo, int id_farmacia, LocalDate data_consegna, Ordine... ordini){
-        this.id_collo=id_collo;
-        this.id_farmacia=id_farmacia;
-        this.data_consegna=data_consegna;
-        this.ordini.addAll(Arrays.asList(ordini));
-    }
-    public Collo(int id_collo, int id_farmacia, LocalDate data_consegna){
-        this.id_collo=id_collo;
-        this.id_farmacia=id_farmacia;
-        this.data_consegna=data_consegna;
+        this.nome_farmacia = nome_farmacia;
+        this.indirizzo_farmacia = indirizzo_farmacia;
     }
 
-    public void aggiungiOrdine(Ordine ordine){
+    public Collo(int id_collo, int id_farmacia, LocalDate data_consegna, Ordine... ordini) {
+        this.id_collo = id_collo;
+        this.id_farmacia = id_farmacia;
+        this.data_consegna = data_consegna;
+        this.ordini.addAll(Arrays.asList(ordini));
+    }
+
+    public Collo(int id_collo, int id_farmacia, LocalDate data_consegna) {
+        this.id_collo = id_collo;
+        this.id_farmacia = id_farmacia;
+        this.data_consegna = data_consegna;
+    }
+
+    public void aggiungiOrdine(Ordine ordine) {
         this.ordini.add(ordine);
     }
-    public void aggiungiOrdini(Ordine... ordine){
+
+    public void aggiungiOrdini(Ordine... ordine) {
         this.ordini.addAll(Arrays.asList(ordine));
     }
 
@@ -71,9 +72,14 @@ public class Collo {
         this.firma.set(firma);
     }
 
-    public void setNome_farmacia(String nome_farmacia){ this.nome_farmacia=nome_farmacia;}
+    public void setNome_farmacia(String nome_farmacia) {
+        this.nome_farmacia = nome_farmacia;
+    }
 
-    public void setIndirizzo_farmacia(String indirizzo_farmacia){this.indirizzo_farmacia=indirizzo_farmacia;}
+    public void setIndirizzo_farmacia(String indirizzo_farmacia) {
+        this.indirizzo_farmacia = indirizzo_farmacia;
+    }
+
     public String getNome_farmacia() {
         return nome_farmacia;
     }
@@ -85,7 +91,6 @@ public class Collo {
     /**
      * Converte i risultati di una query con il seguente SELECT
      * SELECT Collo.*, Farmacia.nome, Farmacia.indirizzo
-     *
      *
      * @param row risultati della query
      * @return Collo corrispondente

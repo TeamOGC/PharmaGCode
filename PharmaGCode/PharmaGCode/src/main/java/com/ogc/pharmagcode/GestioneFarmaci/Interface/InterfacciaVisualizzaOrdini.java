@@ -16,21 +16,28 @@ public class InterfacciaVisualizzaOrdini {
     GestoreVisualizzaOrdini gestoreVisualizzaOrdini;
 
     ObservableList<RecordOrdine> ol;
-    public InterfacciaVisualizzaOrdini(GestoreVisualizzaOrdini gestoreVisualizzaOrdini){
-        this.gestoreVisualizzaOrdini=gestoreVisualizzaOrdini;
+
+    public InterfacciaVisualizzaOrdini(GestoreVisualizzaOrdini gestoreVisualizzaOrdini) {
+        this.gestoreVisualizzaOrdini = gestoreVisualizzaOrdini;
     }
-    @FXML
-    protected void initialize(){
-        ol=FXCollections.observableArrayList( gestoreVisualizzaOrdini.chiediOrdini());
-        listaOrdini.setItems(ol);
-    }
-    public void aggiornaOrdini(ArrayList<RecordOrdine> vo){
-        ol=FXCollections.observableArrayList(vo);
-        listaOrdini.setItems(ol);
-    }
-    @FXML
-    public void cliccaCarica(int id_ordine){ new GestoreCaricoMerci( id_ordine); }
 
     @FXML
-    public void cliccaModifica(){ }
+    protected void initialize() {
+        ol = FXCollections.observableArrayList(gestoreVisualizzaOrdini.chiediOrdini());
+        listaOrdini.setItems(ol);
+    }
+
+    public void aggiornaOrdini(ArrayList<RecordOrdine> vo) {
+        ol = FXCollections.observableArrayList(vo);
+        listaOrdini.setItems(ol);
+    }
+
+    @FXML
+    public void cliccaCarica(int id_ordine) {
+        new GestoreCaricoMerci(id_ordine);
+    }
+
+    @FXML
+    public void cliccaModifica() {
+    }
 }

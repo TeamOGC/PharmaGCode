@@ -16,21 +16,22 @@ public class InterfacciaModificaOrdinePeriodico {
     private TextField quantita;
 
     private OrdinePeriodico ordinePeriodico;
+
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.quantita.setTextFormatter(new TextFormatter<>(Utils.positiveIntegerFilter));
     }
 
-    public InterfacciaModificaOrdinePeriodico(GestoreModificaOrdinePeriodico gestoreModificaOrdinePeriodico, OrdinePeriodico ordinePeriodico){
+    public InterfacciaModificaOrdinePeriodico(GestoreModificaOrdinePeriodico gestoreModificaOrdinePeriodico, OrdinePeriodico ordinePeriodico) {
         this.gestoreModificaOrdinePeriodico = gestoreModificaOrdinePeriodico;
         this.ordinePeriodico = ordinePeriodico;
     }
 
     public void conferma(ActionEvent actionEvent) {
 
-        if(quantita.getText().isBlank()) return;
+        if (quantita.getText().isBlank()) return;
         int qta = Integer.parseInt(quantita.getText());
         this.gestoreModificaOrdinePeriodico.aggiornaQuantita(qta, ordinePeriodico);
-        ((Stage)this.quantita.getScene().getWindow()).close();
+        ((Stage) this.quantita.getScene().getWindow()).close();
     }
 }

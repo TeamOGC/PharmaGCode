@@ -36,7 +36,7 @@ public class InterfacciaListaOrdiniPeriodici {
         localList = this.gestoreListaOrdiniPeriodici.recordOrdinePeriodicoObservableList
                 .stream()
                 .filter(recordOrdinePeriodico -> (
-                        recordOrdinePeriodico.getNomeFarmaco().toLowerCase().contains(nomeDaCercare.toLowerCase())) || (nomeDaCercare.isBlank()) )
+                        recordOrdinePeriodico.getNomeFarmaco().toLowerCase().contains(nomeDaCercare.toLowerCase())) || (nomeDaCercare.isBlank()))
                 .toList();
         ObservableList<RecordOrdinePeriodico> localObservableList = FXCollections.observableArrayList(localList);
         listaOrdiniPeriodici.setItems(localObservableList);

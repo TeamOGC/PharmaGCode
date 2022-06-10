@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class RecordOrdinePeriodico extends OrdinePeriodico {
 
     private LocalDate nextConsegna = null;
-    private String nomeBottone =  null;
+    private String nomeBottone = null;
     private EventHandler<ActionEvent> callback = null;
     private Button bottone = null;
 
@@ -28,23 +28,23 @@ public class RecordOrdinePeriodico extends OrdinePeriodico {
         return bottone;
     }
 
-    private void calcolaNextConsegna(){
+    private void calcolaNextConsegna() {
         int weekDay = this.nextConsegna.getDayOfWeek().getValue();
         int diff = 0;
-        if(this.getPeriodicita() < weekDay){
+        if (this.getPeriodicita() < weekDay) {
             // la prossima consegna è la prossima settimana
             diff += 7;
         }
-        diff += getPeriodicita()-weekDay;
+        diff += getPeriodicita() - weekDay;
         this.nextConsegna = this.nextConsegna.plusDays(diff);
     }
 
-    public LocalDate getNextConsegna(){
+    public LocalDate getNextConsegna() {
         return this.nextConsegna;
     }
 
-    private void initializeButton(){
-        if(nomeBottone != null && !nomeBottone.isBlank()) {
+    private void initializeButton() {
+        if (nomeBottone != null && !nomeBottone.isBlank()) {
             bottone = new Button(nomeBottone);
             bottone.setOnAction(callback);
             bottone.getStyleClass().add("btnlist");
@@ -52,7 +52,7 @@ public class RecordOrdinePeriodico extends OrdinePeriodico {
         }
     }
 
-    public static RecordOrdinePeriodico fromOrdinePeriodico(OrdinePeriodico ordinePeriodico, String nomeBottone, EventHandler<ActionEvent> callback){
+    public static RecordOrdinePeriodico fromOrdinePeriodico(OrdinePeriodico ordinePeriodico, String nomeBottone, EventHandler<ActionEvent> callback) {
         return new RecordOrdinePeriodico(
                 ordinePeriodico.getId_farmacia(),
                 ordinePeriodico.getId_farmaco(),
@@ -64,7 +64,8 @@ public class RecordOrdinePeriodico extends OrdinePeriodico {
                 callback
         );
     }
-    public static RecordOrdinePeriodico fromOrdinePeriodico(OrdinePeriodico ordinePeriodico){
+
+    public static RecordOrdinePeriodico fromOrdinePeriodico(OrdinePeriodico ordinePeriodico) {
         return new RecordOrdinePeriodico(
                 ordinePeriodico.getId_farmacia(),
                 ordinePeriodico.getId_farmaco(),

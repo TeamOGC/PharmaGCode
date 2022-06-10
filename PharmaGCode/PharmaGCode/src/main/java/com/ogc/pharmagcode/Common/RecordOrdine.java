@@ -20,7 +20,7 @@ public class RecordOrdine extends Ordine {
         super(id_ordine, id_farmaco, nome_farmaco, id_farmacia, data_consegna, stato, quantita);
         this.nomeBottone = nomeBottone;
         this.callback = callback;
-        if(nomeBottone != null && !nomeBottone.isBlank()) {
+        if (nomeBottone != null && !nomeBottone.isBlank()) {
             bottone = new Button(nomeBottone);
             bottone.setOnAction(callback);
             bottone.getStyleClass().add("btnlist");
@@ -40,7 +40,7 @@ public class RecordOrdine extends Ordine {
         return bottone;
     }
 
-    public static RecordOrdine fromOrdine(Ordine ordine, String nomeBottone, EventHandler<ActionEvent> callback){
+    public static RecordOrdine fromOrdine(Ordine ordine, String nomeBottone, EventHandler<ActionEvent> callback) {
         return new RecordOrdine(
                 ordine.getId_ordine(),
                 ordine.getId_farmaco(),
@@ -54,7 +54,7 @@ public class RecordOrdine extends Ordine {
         );
     }
 
-    public static RecordOrdine fromOrdine(Ordine ordine){
+    public static RecordOrdine fromOrdine(Ordine ordine) {
         return new RecordOrdine(
                 ordine.getId_ordine(),
                 ordine.getId_farmaco(),

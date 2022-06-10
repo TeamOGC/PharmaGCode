@@ -11,19 +11,27 @@ import javafx.fxml.FXML;
 
 public class InterfacciaPrincipaleFarmacista extends InterfacciaPrincipale {
 
-    public InterfacciaPrincipaleFarmacista(String nome, String cognome){
-        super(nome + " "+cognome+" "+" Farmacia: "+ Main.idFarmacia);
+    public InterfacciaPrincipaleFarmacista(String nome, String cognome) {
+        super(nome + " " + cognome + " " + " Farmacia: " + Main.idFarmacia);
         Main.log.info("Gestione Farmaci");
     }
+
     @FXML
-    protected void cliccaCercaFarmaco(){
+    protected void cliccaCercaFarmaco() {
         new GestoreCercaFarmaco();
     }
-    @FXML
-    private void cliccaVisualizzaOrdini(){ new GestoreVisualizzaOrdini(); }
 
     @FXML
-    protected void cliccaScaricoMerci(){ new GestoreScaricoMerci(); }
+    private void cliccaVisualizzaOrdini() {
+        new GestoreVisualizzaOrdini();
+    }
 
-    public void cliccaModificaOrdinePeriodico(ActionEvent actionEvent) { new GestoreListaOrdiniPeriodici(); }
+    @FXML
+    protected void cliccaScaricoMerci() {
+        new GestoreScaricoMerci();
+    }
+
+    public void cliccaModificaOrdinePeriodico(ActionEvent actionEvent) {
+        new GestoreListaOrdiniPeriodici();
+    }
 }

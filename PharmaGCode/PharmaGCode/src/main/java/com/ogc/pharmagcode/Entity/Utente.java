@@ -1,10 +1,8 @@
 package com.ogc.pharmagcode.Entity;
 
-import com.ogc.pharmagcode.Main;
-
 import java.util.Objects;
 
-public class Utente{
+public class Utente {
     private final String nome;
     private final String cognome;
     private final String email;
@@ -52,7 +50,7 @@ public class Utente{
         return "Utente[" +
                 "nome=" + nome + ", " +
                 "cognome=" + cognome + ", " +
-                "email=" + email + ", " +']';
+                "email=" + email + ", " + ']';
     }
 
 }

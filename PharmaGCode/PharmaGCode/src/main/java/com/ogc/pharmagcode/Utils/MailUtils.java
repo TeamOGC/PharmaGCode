@@ -8,8 +8,11 @@ package com.ogc.pharmagcode.Utils;
 //import java.util.Properties;
 
 
-import java.net.http.*;
-import java.net.*;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
 public class MailUtils {

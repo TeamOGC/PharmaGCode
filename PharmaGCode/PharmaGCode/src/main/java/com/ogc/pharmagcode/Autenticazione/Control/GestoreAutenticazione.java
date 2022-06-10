@@ -3,11 +3,11 @@ package com.ogc.pharmagcode.Autenticazione.Control;
 import com.ogc.pharmagcode.Autenticazione.Interface.ModuloLogin;
 import com.ogc.pharmagcode.Entity.Corriere;
 import com.ogc.pharmagcode.Entity.Impiegato;
+import com.ogc.pharmagcode.Entity.Utente;
+import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaPrincipaleImpiegato;
 import com.ogc.pharmagcode.GestioneConsegna.Interface.InterfacciaPrincipaleCorriere;
 import com.ogc.pharmagcode.GestioneFarmaci.Interface.InterfacciaPrincipaleFarmacista;
-import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaPrincipaleImpiegato;
 import com.ogc.pharmagcode.Main;
-import com.ogc.pharmagcode.Entity.Utente;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
@@ -31,7 +31,7 @@ public class GestoreAutenticazione {
     }
 
     public void controlloCredenziali(String email, String password, Stage s) {
-        if(email.isBlank() || password.isBlank()) {
+        if (email.isBlank() || password.isBlank()) {
             Utils.creaPannelloErrore("Inserisci tutti i dati");
             return;
         }

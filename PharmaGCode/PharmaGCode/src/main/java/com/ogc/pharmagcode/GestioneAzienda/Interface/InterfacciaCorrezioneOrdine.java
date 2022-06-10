@@ -11,21 +11,24 @@ public class InterfacciaCorrezioneOrdine {
 
     private GestoreCorrezioneOrdine control;
 
-    public InterfacciaCorrezioneOrdine(GestoreCorrezioneOrdine control, Ordine ordine){
+    public InterfacciaCorrezioneOrdine(GestoreCorrezioneOrdine control, Ordine ordine) {
         this.control = control;
     }
+
     public TextField qtaIntegrare;
     public Button confermaBtn;
 
-    public void initialize(){
+    public void initialize() {
         this.qtaIntegrare.setTextFormatter(new TextFormatter<>(Utils.positiveIntegerFilter));
     }
 
     public void correggiOrdine() {
         int qta;
-        try{
-            qta=Integer.parseInt(qtaIntegrare.getText());
-        }catch (Exception ignored){return;}
+        try {
+            qta = Integer.parseInt(qtaIntegrare.getText());
+        } catch (Exception ignored) {
+            return;
+        }
         this.control.correggiOrdine(qta);
     }
 }

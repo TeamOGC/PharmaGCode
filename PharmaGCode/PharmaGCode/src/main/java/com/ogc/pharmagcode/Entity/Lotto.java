@@ -6,15 +6,16 @@ public class Lotto {
 
     private int quantita;
 
-    public Lotto(int id_farmaco, int id_lotto ,int quantita) {
+    public Lotto(int id_farmaco, int id_lotto, int quantita) {
         this.id_farmaco = id_farmaco;
-        this.id_lotto=id_lotto;
-        this.quantita=quantita;
+        this.id_lotto = id_lotto;
+        this.quantita = quantita;
     }
-    public Lotto(Lotto l){
-        this.id_farmaco=l.getId_farmaco();
-        this.id_lotto=l.getId_lotto();
-        this.quantita=l.getQuantita();
+
+    public Lotto(Lotto l) {
+        this.id_farmaco = l.getId_farmaco();
+        this.id_lotto = l.getId_lotto();
+        this.quantita = l.getQuantita();
     }
 
     public int getQuantita() {
@@ -28,7 +29,8 @@ public class Lotto {
     public int getId_farmaco() {
         return id_farmaco;
     }
-    public int getId_lotto(){
+
+    public int getId_lotto() {
         return id_lotto;
     }
 }

@@ -13,28 +13,30 @@ import java.util.List;
 
 import static com.ogc.pharmagcode.Utils.DBMSDaemon.queryOrdiniPeriodici;
 
-public class GestoreDiSistemaFarmacista implements Serializable{
-    private int giornoUltimaChiamata=0;
-    private HashMap<Integer,Integer> merceCaricata;
+public class GestoreDiSistemaFarmacista implements Serializable {
+    private int giornoUltimaChiamata = 0;
+    private HashMap<Integer, Integer> merceCaricata;
     private Ordine[] ordini;
-    public GestoreDiSistemaFarmacista(){
+
+    public GestoreDiSistemaFarmacista() {
 
     }
-    public void chiediOrario(){
-        int h=Main.orologio.chiediOrario().getHour();
 
-        if(Main.sistema==0){
-            if(h==20  && giornoUltimaChiamata!=Main.orologio.chiediOrario().getDayOfMonth()){
-                if(!confrontaOrdiniMerce()) {
+    public void chiediOrario() {
+        int h = Main.orologio.chiediOrario().getHour();
+
+        if (Main.sistema == 0) {
+            if (h == 20 && giornoUltimaChiamata != Main.orologio.chiediOrario().getDayOfMonth()) {
+                if (!confrontaOrdiniMerce()) {
                     Utils.cambiaInterfaccia("GestioneFarmaci/AvvisoMancatoCaricamento.fxml", new Stage(), 600, 400);
                     giornoUltimaChiamata = Main.orologio.chiediOrario().getDayOfMonth();
                     serializza();
                 }
                 //DBMSDaemon.queryOrdiniDiUnaFarmaciaUnaData(Main.idFarmacia,Main.orologio.chiediOrario().toLocalDate());
             }
-            if(Main.orologio.confrontaTimer()){
+            if (Main.orologio.confrontaTimer()) {
                 //Invia segnalazione all'azienda
-                if(!confrontaOrdiniMerce()){
+                if (!confrontaOrdiniMerce()) {
                     aggiornaStatoOrdini();
                 }
                 System.out.println("Mancato caricamento");
@@ -42,14 +44,14 @@ public class GestoreDiSistemaFarmacista implements Serializable{
         }
     }
 
-    public boolean confrontaOrdiniMerce(){
-        merceCaricata = DBMSDaemon.queryMerceCaricata(Main.idFarmacia,Main.orologio.chiediOrario().toLocalDate());
-        ordini=DBMSDaemon.queryOrdini(Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate());
-        for(Ordine o:ordini){
-            Integer qtyOrdine=merceCaricata.get(o.getId_ordine());
-            if(qtyOrdine==null)
+    public boolean confrontaOrdiniMerce() {
+        merceCaricata = DBMSDaemon.queryMerceCaricata(Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate());
+        ordini = DBMSDaemon.queryOrdini(Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate());
+        for (Ordine o : ordini) {
+            Integer qtyOrdine = merceCaricata.get(o.getId_ordine());
+            if (qtyOrdine == null)
                 return false;
-            else if(qtyOrdine<o.getQuantita())
+            else if (qtyOrdine < o.getQuantita())
                 return false;
         }
         return true;
@@ -64,31 +66,32 @@ public class GestoreDiSistemaFarmacista implements Serializable{
             }
         }
     }
-    public void creaOrdiniPeriodici(){
+
+    public void creaOrdiniPeriodici() {
         DBMSDaemon.queryCreaOrdini(getOrdiniPeriodiciFarmacia(Main.idFarmacia));
     }
 
-    private OrdinePeriodico[] getOrdiniPeriodici(){
-            return queryOrdiniPeriodici();
+    private OrdinePeriodico[] getOrdiniPeriodici() {
+        return queryOrdiniPeriodici();
     }
 
 
-    private OrdinePeriodico[] getOrdiniPeriodiciFarmacia(int idFarmacia){
-        OrdinePeriodico[] temp=DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia);
-        int giornoSettimana=Main.orologio.chiediOrario().getDayOfWeek().getValue();
-        List<OrdinePeriodico> ordinePeriodicoList=new ArrayList<>();
-        for(OrdinePeriodico o : temp){
-            if(o.getPeriodicita()==giornoSettimana){
+    private OrdinePeriodico[] getOrdiniPeriodiciFarmacia(int idFarmacia) {
+        OrdinePeriodico[] temp = DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia);
+        int giornoSettimana = Main.orologio.chiediOrario().getDayOfWeek().getValue();
+        List<OrdinePeriodico> ordinePeriodicoList = new ArrayList<>();
+        for (OrdinePeriodico o : temp) {
+            if (o.getPeriodicita() == giornoSettimana) {
                 ordinePeriodicoList.add(o);
             }
         }
         return ordinePeriodicoList.toArray(OrdinePeriodico[]::new);
     }
 
-    public void serializza(){
+    public void serializza() {
         try {
-            FileOutputStream fout=new FileOutputStream("gds.time");
-            ObjectOutputStream out=new ObjectOutputStream(fout);
+            FileOutputStream fout = new FileOutputStream("gds.time");
+            ObjectOutputStream out = new ObjectOutputStream(fout);
             out.writeObject(this);
         } catch (FileNotFoundException e) {
             System.out.println("File non esistente");

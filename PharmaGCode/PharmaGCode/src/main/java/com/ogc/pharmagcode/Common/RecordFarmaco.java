@@ -24,8 +24,8 @@ public class RecordFarmaco extends Farmaco {
         this.initializeButton();
     }
 
-    private void initializeButton(){
-        if(nomeBottone != null && !nomeBottone.isBlank()) {
+    private void initializeButton() {
+        if (nomeBottone != null && !nomeBottone.isBlank()) {
             bottone = new Button(nomeBottone);
             bottone.setOnAction(callback);
             bottone.getStyleClass().add("btnlist");
@@ -33,7 +33,7 @@ public class RecordFarmaco extends Farmaco {
         }
     }
 
-    public static RecordFarmaco fromFarmaco(Farmaco farmaco, String nomeBottone, EventHandler<ActionEvent> callback){
+    public static RecordFarmaco fromFarmaco(Farmaco farmaco, String nomeBottone, EventHandler<ActionEvent> callback) {
         return new RecordFarmaco(
                 farmaco.getId_farmaco(),
                 farmaco.getNome(),
@@ -44,7 +44,8 @@ public class RecordFarmaco extends Farmaco {
                 callback
         );
     }
-    public static RecordFarmaco fromFarmaco(Farmaco farmaco){
+
+    public static RecordFarmaco fromFarmaco(Farmaco farmaco) {
         return new RecordFarmaco(
                 farmaco.getId_farmaco(),
                 farmaco.getNome(),

@@ -21,17 +21,19 @@ public class InterfacciaOrdinaFarmaco {
 
     private GestoreOrdinaFarmaco gof;
 
-    public InterfacciaOrdinaFarmaco(Farmaco f, GestoreOrdinaFarmaco gof){
-        this.gof=gof;
-        this.f=f;
+    public InterfacciaOrdinaFarmaco(Farmaco f, GestoreOrdinaFarmaco gof) {
+        this.gof = gof;
+        this.f = f;
     }
+
     @FXML
-    protected void initialize(){
+    protected void initialize() {
         nomeFarmaco.setText(f.getNome());
         princAttivo.setText(f.getPrincipio_attivo());
     }
+
     @FXML
-    protected void conferma(){
-        gof.creaOrdine(Integer.parseInt(quantita.getText()), dataDiConsegna.getValue(),checkboxScadenza.isSelected());
+    protected void conferma() {
+        gof.creaOrdine(Integer.parseInt(quantita.getText()), dataDiConsegna.getValue(), checkboxScadenza.isSelected());
     }
 }
