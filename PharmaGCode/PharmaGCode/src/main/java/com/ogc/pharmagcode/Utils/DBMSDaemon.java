@@ -661,20 +661,20 @@ public class DBMSDaemon {
      * Controlla se un farmaco esiste nel db per poterne modificare la produzione
      *
      * @param nome_farmaco nome del farmaco
-     * @return true if exists, false if not
+     * @return id del farmaco corrispondente. -1 se non è stato trovato
      */
-    public static boolean queryControlloEsistenzaFarmaco(String nome_farmaco) {
+    public static int queryControlloEsistenzaFarmaco(String nome_farmaco) {
         connectAzienda();
         String query = "SELECT ProduzionePeriodica.id_farmaco FROM ProduzionePeriodica INNER JOIN Farmaco F on ProduzionePeriodica.id_farmaco = F.id_farmaco WHERE F.nome=?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setString(1, nome_farmaco);
             var r = stmt.executeQuery();
             if (r.next())
-                return true;
+                return r.getInt(1);
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
-        return false;
+        return -1;
     }
 
     /**
@@ -682,21 +682,19 @@ public class DBMSDaemon {
      *
      * @param id_farmaco id del farmaco di cui modificare la produzione
      * @param quantita   nuova quantita da impostare
-     * @return 1 if success, -1 if not
+     * @return true o false se con successo o meno
      */
-    public static int queryModificaProduzione(int id_farmaco, int quantita) {
+    public static boolean queryModificaProduzione(int id_farmaco, int quantita) {
         connectAzienda();
         String query = "UPDATE ProduzionePeriodica SET ProduzionePeriodica.quantita=? WHERE ProduzionePeriodica.id_farmaco=?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setInt(1, quantita);
             stmt.setInt(2, id_farmaco);
-            var r = stmt.executeUpdate();
-            if (r != 0)
-                return r;
+            return stmt.executeUpdate() != 0;
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
-        return -1;
+        return false;
     }
 
     /**
