@@ -96,8 +96,8 @@ public class DBMSDaemon {
      */
     public static boolean queryRegistraUtente(String nome, String cognome, String email, String password) {
         if (Main.sistema == 0) return queryRegistraFarmacista(Main.idFarmacia, nome, cognome, email, password);
-        if (Main.sistema == 1) return queryRegistraImpiegato(nome, cognome, email, password);
-        if (Main.sistema == 2) return queryRegistraCorriere(nome, cognome, email, password);
+        if (Main.sistema == 1) return queryRegistraCorriere(nome, cognome, email, password);
+        if (Main.sistema == 2) return queryRegistraImpiegato(nome, cognome, email, password);
         return false;
     }
 
@@ -113,8 +113,8 @@ public class DBMSDaemon {
      */
     public static boolean queryVerificaEsistenzaMail(String mail) {
         if (Main.sistema == 0) return queryVerificaEsistenzaMailFarmacista(mail);
-        if (Main.sistema == 1) return queryVerificaEsistenzaMailImpiegato(mail);
-        if (Main.sistema == 2) return queryVerificaEsistenzaMailCorriere(mail);
+        if (Main.sistema == 1) return queryVerificaEsistenzaMailCorriere(mail);
+        if (Main.sistema == 2) return queryVerificaEsistenzaMailImpiegato(mail);
         return false;
     }
 
@@ -287,7 +287,7 @@ public class DBMSDaemon {
         String query = "UPDATE Corriere SET Corriere.password = ? WHERE email = ? AND password=?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setString(1, password);
-            stmt.setString(1, mail);
+            stmt.setString(2, mail);
             stmt.setString(3, vecchiaPsw);
             var r = stmt.executeUpdate();
             return r == 1;
@@ -482,17 +482,19 @@ public class DBMSDaemon {
      * @return true if mail in db, false if not
      */
     public static boolean queryVerificaEsistenzaMailCorriere(String mail) {
-        connectFarmacia();
+        connectAzienda();
         String query = "SELECT Corriere.email FROM Corriere WHERE email = ?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setString(1, mail);
             var r = stmt.executeQuery();
             if (r.next()) {
+                Main.log.debug("Esiste un account Corriere con la mail " + mail + " - " + r.getString(1));
                 return true;
             }
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
+        Main.log.debug("Non esiste un account Corriere con la mail " + mail);
         return false;
     }
 

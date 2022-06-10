@@ -11,7 +11,7 @@ public class PannelloErrore extends Pannello{
 
     @FXML
     protected void conferma(){
-        s=(Stage) messaggio.getScene().getWindow();
-        s.close();
+        if(s != null) s.close();
+        ((Stage) messaggio.getScene().getWindow()).close();
     }
 }

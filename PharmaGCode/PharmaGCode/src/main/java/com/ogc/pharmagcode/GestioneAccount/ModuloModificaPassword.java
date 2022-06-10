@@ -1,8 +1,8 @@
 package com.ogc.pharmagcode.GestioneAccount;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.stage.Stage;
 
 public class ModuloModificaPassword {
 
@@ -20,6 +20,15 @@ public class ModuloModificaPassword {
 
     @FXML
     protected void conferma(){
+        if(old_pwd.getText().isBlank() || new_pwd.getText().isBlank() || re_pwd.getText().isBlank()) return;
         gmp.modificaPassword(old_pwd.getText(),new_pwd.getText(),re_pwd.getText());
+    }
+
+    protected Stage getStage(){
+        return (Stage) old_pwd.getScene().getWindow();
+    }
+
+    public void annulla() {
+        this.getStage().close();
     }
 }
