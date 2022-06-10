@@ -14,19 +14,15 @@ import java.util.ArrayList;
 
 public class GestoreVisualizzaConsegne {
 
-    public ObservableList<RecordCollo> observableColli;
-    private InterfacciaVisualizzaConsegne boundary;
+    public ArrayList<RecordCollo> listaColli = new ArrayList<>();
 
-    public GestoreVisualizzaConsegne(Stage s) {
-        this.boundary = (InterfacciaVisualizzaConsegne) Utils.cambiaInterfaccia("GestioneConsegna/VisualizzaConsegne.fxml", s, c -> {
-            return new InterfacciaVisualizzaConsegne(this);
-        });
+    public GestoreVisualizzaConsegne() {
+        Stage stage = new Stage();
         chiediConsegne();
-
+        Utils.cambiaInterfaccia("GestioneConsegna/VisualizzaConsegne.fxml", stage, c -> new InterfacciaVisualizzaConsegne(this));
     }
 
-    public void chiediConsegne() {
-        ArrayList<RecordCollo> records = new ArrayList<>();
+    private void chiediConsegne() {
         Collo[] colli = DBMSDaemon.queryVisualizzaConsegne(Main.orologio.chiediOrario().toLocalDate());
         if (colli != null) {
             Main.log.info("Colli per oggi trovati: " + colli.length);
@@ -37,18 +33,23 @@ public class GestoreVisualizzaConsegne {
                             RecordCollo.fromCollo(
                                     collo,
                                     "Firma",
-                                    firma -> {
-                                        new GestoreFirmaConsegne(new Stage(), this, collo);
-                                    });
+                                    firma -> new GestoreFirmaConsegne(this, collo));
                 } else {
                     toAdd = RecordCollo.fromCollo(
                             collo, "", null
                     );
                 }
-                records.add(toAdd);
+                listaColli.add(toAdd);
             }
         }
-        observableColli = FXCollections.observableArrayList(records);
-        boundary.aggiornaTabella();
+    }
+
+    /**
+     * Questo metodo serve solamente a poter aggiornare la lista dopo aver firmato, senza dover contattare il DB
+     * @param aggiornato RecordCollo del collo aggiornato, senza nessun bottone e con la nuova firma
+     */
+    protected void aggiornaTabella(RecordCollo aggiornato){
+        this.listaColli.removeIf(recordCollo -> recordCollo.getId_collo() == aggiornato.getId_collo());
+        this.listaColli.add(aggiornato);
     }
 }
