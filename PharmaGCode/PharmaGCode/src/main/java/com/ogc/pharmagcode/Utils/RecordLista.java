@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
+// TODO: Cancellare questa classe
 public class RecordLista extends HBox {
     private Label[] labels;
     private Button bottone;

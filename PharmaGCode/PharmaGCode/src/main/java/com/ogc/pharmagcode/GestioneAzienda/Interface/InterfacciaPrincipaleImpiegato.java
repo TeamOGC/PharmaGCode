@@ -16,7 +16,6 @@ public class InterfacciaPrincipaleImpiegato extends InterfacciaPrincipale {
     @FXML
     public void cliccaVisualizzaOrdini(ActionEvent actionEvent) {
         Main.log.debug("Impiegato ha cliccato su visualizza ordini azienda");
-
         new GestoreVisualizzaOrdiniAzienda();
     }
 

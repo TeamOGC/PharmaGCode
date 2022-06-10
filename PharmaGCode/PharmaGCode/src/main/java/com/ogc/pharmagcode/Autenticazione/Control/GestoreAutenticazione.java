@@ -31,7 +31,7 @@ public class GestoreAutenticazione {
     }
 
     public void controlloCredenziali(String email, String password, Stage s) {
-        if (email.isBlank() || password.isBlank()) {
+        if ((email.isBlank() || password.isBlank()) && !Main.debug) {
             Utils.creaPannelloErrore("Inserisci tutti i dati");
             return;
         }

@@ -13,6 +13,6 @@ public class InterfacciaPrincipaleCorriere extends InterfacciaPrincipale {
 
     @FXML
     public void cliccaVisualizzaConsegne() {
-        new GestoreVisualizzaConsegne(new Stage());
+        new GestoreVisualizzaConsegne();
     }
 }
