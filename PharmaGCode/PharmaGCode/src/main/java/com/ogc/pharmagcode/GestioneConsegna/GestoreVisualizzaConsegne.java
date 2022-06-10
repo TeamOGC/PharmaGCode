@@ -1,14 +1,17 @@
 package com.ogc.pharmagcode.GestioneConsegna;
 
+import com.itextpdf.text.DocumentException;
 import com.ogc.pharmagcode.Entity.Collo;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
+import com.ogc.pharmagcode.Utils.PDFCreator;
 import com.ogc.pharmagcode.Utils.TableEntities.RecordCollo;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class GestoreVisualizzaConsegne {
