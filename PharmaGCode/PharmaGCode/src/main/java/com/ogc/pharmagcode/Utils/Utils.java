@@ -1,8 +1,11 @@
 package com.ogc.pharmagcode.Utils;
 
+import com.ogc.pharmagcode.Common.PannelloAvviso;
 import com.ogc.pharmagcode.Common.PannelloConferma;
 import com.ogc.pharmagcode.Common.PannelloErrore;
 import com.ogc.pharmagcode.Main;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextFormatter;
@@ -32,6 +35,13 @@ public class Utils {
         return null;
     };
 
+    public static UnaryOperator<TextFormatter.Change> nonZeroPositiveIntegerFilter = change -> {
+        String newText = change.getControlNewText();
+        if (newText.matches("([1-9][0-9]*)?")) {
+            return change;
+        }
+        return null;
+    };
     public static String hash(String pwd) {
         byte[] encoded;
         try {
@@ -81,9 +91,14 @@ public class Utils {
         creaInterfaccia(loader, 600, 400, stage);
     }
 
-    public static void creaPannelloAvviso() {
-
+    public static void creaPannelloAvvisoScadenza(EventHandler<ActionEvent> onConfirm, EventHandler<ActionEvent> onExit) {
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        FXMLLoader loader = creaLoader("Pannelli/PannelloAvvisoScadenza.fxml");
+        loader.setControllerFactory(c -> new PannelloAvviso(onConfirm, onExit));
+        creaInterfaccia(loader, 600, 400, stage);
     }
+
 
     /**
      * Crea un nuovo pannello di conferma

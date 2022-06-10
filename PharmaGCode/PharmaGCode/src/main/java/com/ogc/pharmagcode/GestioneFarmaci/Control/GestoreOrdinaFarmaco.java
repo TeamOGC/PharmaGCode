@@ -1,5 +1,6 @@
 package com.ogc.pharmagcode.GestioneFarmaci.Control;
 
+import com.ogc.pharmagcode.Common.PannelloAvviso;
 import com.ogc.pharmagcode.Entity.Farmaco;
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.GestioneFarmaci.Interface.InterfacciaOrdinaFarmaco;
@@ -19,12 +20,25 @@ public class GestoreOrdinaFarmaco {
     public GestoreOrdinaFarmaco(Farmaco f) {
         s = new Stage();
         this.f = f;
-        i = (InterfacciaOrdinaFarmaco) Utils.cambiaInterfaccia("GestioneFarmaci/OrdinaFarmaco.fxml", s, c -> {
-            return new InterfacciaOrdinaFarmaco(f, this);
-        });
+        i = (InterfacciaOrdinaFarmaco) Utils.cambiaInterfaccia("GestioneFarmaci/OrdinaFarmaco.fxml", s, c -> new InterfacciaOrdinaFarmaco(f, this));
     }
 
     public void creaOrdine(int quantita, LocalDate d, boolean accettaInScadenza) {
+        this.creaOrdine(quantita, d, accettaInScadenza, false);
+    }
+
+    public void creaOrdine(int quantita, LocalDate d, boolean accettaInScadenza, boolean confermato) {
+        if (accettaInScadenza && !confermato) {
+            Main.log.info("Dando l'ultima chance al king");
+            Utils.creaPannelloAvvisoScadenza(crea -> {
+                Main.log.info("Il king ha deciso di proseguire con l'ordine in scadenza");
+                creaOrdine(quantita, d, accettaInScadenza, true);
+            }, chiudi -> {
+                Main.log.info("Il king ha annullato il pannello avviso scadenza");
+            });
+            return;
+        }
+
         Ordine o = new Ordine(-1,
                 f.getId_farmaco(),
                 f.getNome(), Main.idFarmacia, d, "In Lavorazione", quantita);

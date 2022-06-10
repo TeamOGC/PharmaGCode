@@ -2,6 +2,7 @@ package com.ogc.pharmagcode.GestioneAzienda.Control;
 
 import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaModificaProduzione;
 import com.ogc.pharmagcode.Main;
+import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
 
@@ -20,12 +21,12 @@ public class GestoreModificaProduzione {
      */
     public void modificaProduzione(String nome_farmaco, int qta) {
         Main.log.info("Simulando la modifica di produzione: " + nome_farmaco + ": " + qta);
-        // TODO: Implementare Modifica Produzione
-        /*
-        Controllo Esistenza Farmaco(farmaco)
-            Se NO: PannelloErrore
-            Altrimenti: DB.ModificaProduzione(farmaco, qta)
-         */
+        int id_farmaco = DBMSDaemon.queryControlloEsistenzaFarmaco(nome_farmaco);
+        if(id_farmaco != -1){
+            DBMSDaemon.queryModificaProduzione(id_farmaco, qta);
+            Utils.creaPannelloConferma("Produzione modificata con successo");
+        } else{
+            Utils.creaPannelloErrore("Il farmaco non esiste");
+        }
     }
-
 }
