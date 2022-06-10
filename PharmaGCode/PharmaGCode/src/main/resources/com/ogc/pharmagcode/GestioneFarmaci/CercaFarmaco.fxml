@@ -38,23 +38,42 @@
          <children>
             <TableView fx:id="listaFarmaci" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
               <columns>
-                  <TableColumn editable="false" prefWidth="75.0" text="Farmaco">
+                  <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="nome" />
                       </cellValueFactory>
+                      <graphic>
+                          <Label text="Farmaco">
+                              <tooltip>
+                                  <Tooltip text="Clicca qui per ordinare in ordine alfabetico o in oridne inverso" />
+                              </tooltip>
+                          </Label>
+                      </graphic>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" text="Principio Attivo">
+                  <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="principio_attivo" />
                       </cellValueFactory>
+                      <graphic>
+                          <Label text="Principio Attivo">
+                              <tooltip>
+                                  <Tooltip text="Clicca qui per ordinare in ordine alfabetico o in oridne inverso" />
+                              </tooltip>
+                          </Label>
+                      </graphic>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" text="Disponibilità in magazzino">
+                  <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="quantitaFarmaci" />
                       </cellValueFactory>
+                      <graphic>
+                          <Label text="Disponibilità in magazzino">
+                              <tooltip>
+                                  <Tooltip text="Clicca qui per ordinare in modo crescente o decrescente" />
+                              </tooltip>
+                          </Label>
+                      </graphic>
                   </TableColumn>
-<!--                  TODO: Decidere se aggiungere data di disponibilità e data scadenza alla
-                            ricerca farmaco? Imho va bene anche no-->
 <!--                  <TableColumn editable="false" prefWidth="75.0" text="Data di Disponibilità">-->
 <!--                      <cellValueFactory>-->
 <!--                          <PropertyValueFactory property="data_disponibilità" />-->

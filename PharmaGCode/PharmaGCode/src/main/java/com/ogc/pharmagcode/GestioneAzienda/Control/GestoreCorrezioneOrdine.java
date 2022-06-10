@@ -10,16 +10,11 @@ import javafx.stage.Stage;
 public class GestoreCorrezioneOrdine {
 
     private final InterfacciaCorrezioneOrdine boundary;
-    private Ordine daCorreggere;
+    private final Ordine daCorreggere;
 
     public GestoreCorrezioneOrdine(Ordine daCorreggere) {
-        Main.log.info("Tentando di correggere  l'ordine " + daCorreggere.getData_consegna());
-        this.boundary = (InterfacciaCorrezioneOrdine) Utils.cambiaInterfaccia("GestioneOrdini/CorrezioneOrdine.fxml",
-                new Stage(),
-                c -> new InterfacciaCorrezioneOrdine(this, daCorreggere),
-                600,
-                400
-        );
+        Main.log.info("Tentando di correggere  l'ordine per " + daCorreggere.getData_consegna());
+        this.boundary = (InterfacciaCorrezioneOrdine) Utils.cambiaInterfaccia("GestioneOrdini/CorrezioneOrdine.fxml", new Stage(), c -> new InterfacciaCorrezioneOrdine(this, daCorreggere), 600, 400);
         this.daCorreggere = daCorreggere;
     }
 
@@ -35,10 +30,10 @@ public class GestoreCorrezioneOrdine {
             Utils.creaPannelloErrore("Non puoi correggere l'ordine inserendo più farmaci di quanti ne mancano");
             return;
         }
-
-//        DBMSDaemon.queryCorreggiOrdine(qtaDaAggiungere, qtaGiaCaricata, daCorreggere);
+        Main.log.warn("La comunicazione al DB è DISATTIVATA, ricordatene"); // TODO
+//      DBMSDaemon.queryCorreggiOrdine(qtaDaAggiungere, qtaGiaCaricata, daCorreggere);
         daCorreggere.setStato("Corretto");
-
+        GestoreVisualizzaOrdiniAzienda.aggiornaTabella(daCorreggere);
         Main.log.info("Ordine corretto");
         ((Stage) boundary.qtaIntegrare.getScene().getWindow()).close();
     }

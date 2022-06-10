@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -14,7 +20,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneFarmaci.Interface.InterfacciaListaOrdiniPeriodici">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneFarmaci.Interface.InterfacciaListaOrdiniPeriodici">
    <children>
       <GridPane prefHeight="800.0" prefWidth="1280.0">
         <columnConstraints>
@@ -34,20 +40,41 @@
          <children>
             <TableView fx:id="listaOrdiniPeriodici" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
               <columns>
-                  <TableColumn editable="false" prefWidth="75.0" text="Farmaco">
+                  <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="nomeFarmaco" />
                       </cellValueFactory>
+                      <graphic>
+                          <Label text="Farmaco">
+                              <tooltip>
+                                  <Tooltip text="Clicca qui per ordinare in ordine alfabetico o inverso" />
+                              </tooltip>
+                          </Label>
+                      </graphic>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" text="Quantita">
+                  <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="quantita" />
                       </cellValueFactory>
+                      <graphic>
+                          <Label text="Quantità">
+                              <tooltip>
+                                  <Tooltip text="Clicca qui per ordinare in modo crescente o decrescente" />
+                              </tooltip>
+                          </Label>
+                      </graphic>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" text="Data di prossima consegna">
+                  <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="nextConsegna" />
                       </cellValueFactory>
+                      <graphic>
+                          <Label text="Data di prossima consegna">
+                              <tooltip>
+                                  <Tooltip text="Clicca qui per ordinare in base alla data di consegna" />
+                              </tooltip>
+                          </Label>
+                      </graphic>
                   </TableColumn>
                   <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
@@ -74,7 +101,7 @@
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="cercaNome" prefHeight="29.0" prefWidth="382.0" promptText="nome farmaco" onAction="#aggiornaOrdiniPeriodici" styleClass="textbox">
+                  <TextField fx:id="cercaNome" onAction="#aggiornaOrdiniPeriodici" prefHeight="29.0" prefWidth="382.0" promptText="nome farmaco" styleClass="textbox">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
@@ -82,7 +109,7 @@
                         <Font name="SansSerif Regular" size="15.0" />
                      </font>
                   </TextField>
-                  <Button mnemonicParsing="false" styleClass="btn" text="Cerca" onAction="#aggiornaOrdiniPeriodici"/>
+                  <Button mnemonicParsing="false" onAction="#aggiornaOrdiniPeriodici" styleClass="btn" text="Cerca" />
                </children>
             </HBox>
          </children>

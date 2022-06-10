@@ -30,6 +30,9 @@
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Visualizza tutti gli ordini effettuati da tutte le farmacie" />
+                     </tooltip>
                   </Button>
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#cliccaModificaProduzione" prefHeight="156.0" prefWidth="156.0" styleClass="circlebtn" text="Modifica Produzione" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
@@ -38,6 +41,9 @@
                      <HBox.margin>
                         <Insets left="50.0" right="50.0" />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Modifica la quantità di farmaci prodotti" />
+                     </tooltip>
                   </Button>
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#cliccaModificaPassword" prefHeight="156.0" prefWidth="156.0" styleClass="circlebtn" text="Modifica Password" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
@@ -46,6 +52,9 @@
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Modifica la password" />
+                     </tooltip>
                   </Button>
                </children>
             </HBox>

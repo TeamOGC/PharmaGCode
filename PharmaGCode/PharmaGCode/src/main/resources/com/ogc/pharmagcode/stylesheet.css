@@ -60,13 +60,15 @@
 
 
 .backbtn{
+  -fx-border-radius: 32px;
+  -fx-border-color: #ff0000;
   -fx-background-color:  #f4f4f4;
-  -fx-text-fill: #000;
+  -fx-text-fill: #ff0000;
   -fx-background-radius: 100px;
 }
 .backbtn:hover {
   -fx-text-fill:  #f4f4f4;
-  -fx-background-color:  #20e0a0;
+  -fx-background-color: #ff0000;
   -fx-border-radius: 100px;
 }
 

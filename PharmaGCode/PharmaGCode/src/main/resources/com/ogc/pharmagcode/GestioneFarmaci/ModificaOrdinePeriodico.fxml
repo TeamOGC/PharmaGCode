@@ -31,13 +31,16 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="46.0" prefWidth="384.0">
                      <children>
-                        <TextField fx:id="quantita" onAction="#conferma" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantita" styleClass="textbox">
+                        <TextField fx:id="quantita" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#conferma" prefHeight="42.0" prefWidth="210.0" promptText="Quantità" styleClass="textbox">
                            <font>
                               <Font size="17.0" />
                            </font>
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
+                           <tooltip>
+                              <Tooltip text="Inserisci la nuova quantità periodica" />
+                           </tooltip>
                         </TextField>
                         <Button mnemonicParsing="false" onAction="#conferma" prefHeight="42.0" prefWidth="132.0" styleClass="btn" text="Conferma" textFill="WHITE">
                            <font>

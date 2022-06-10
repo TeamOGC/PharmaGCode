@@ -31,7 +31,10 @@
                   <TextField fx:id="email" cacheShape="false" prefHeight="42.0" prefWidth="431.0" promptText="E-mail" styleClass="textbox">
                      <font>
                         <Font size="17.0" />
-                     </font></TextField>
+                     </font>
+                     <tooltip>
+                        <Tooltip text="Inserisci la mail scelta in fase di registrazione" />
+                     </tooltip></TextField>
                   <PasswordField fx:id="password" onAction="#cliccaAccedi" prefHeight="42.0" prefWidth="512.0" promptText="Password" styleClass="textbox">
                      <VBox.margin>
                         <Insets top="7.0" />
@@ -39,6 +42,9 @@
                      <font>
                         <Font size="17.0" />
                      </font>
+                     <tooltip>
+                        <Tooltip text="Inserisci la password scelta in fase di registrazione" />
+                     </tooltip>
                   </PasswordField>
                </children>
             </VBox>
@@ -66,6 +72,9 @@
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
+                     <tooltip>
+                        <Tooltip text="Clicca qui se hai dimenticato la password" />
+                     </tooltip>
                   </Button>
                </children>
             </HBox>

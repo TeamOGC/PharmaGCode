@@ -60,6 +60,9 @@
                      <font>
                         <Font size="17.0" />
                      </font>
+                     <tooltip>
+                        <Tooltip text="La password deve essere compresa tra gli&#10;8 e i 20 caratteri e deve avere almeno:&#10;- un carattere maiuscolo&#10;- un carattere minuscolo&#10;- un numero" />
+                     </tooltip>
                   </PasswordField>
                   <PasswordField fx:id="confermaPassword" layoutX="10.0" layoutY="71.0" prefHeight="42.0" prefWidth="512.0" promptText="Conferma Password" styleClass="textbox">
                      <font>
@@ -119,14 +122,6 @@
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#annulla" prefHeight="39.0" prefWidth="115.0" styleClass="backbtn" text="Annulla">
-                     <font>
-                        <Font name="SansSerif Bold" size="17.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
                   </Button>
                </children>
             </HBox>

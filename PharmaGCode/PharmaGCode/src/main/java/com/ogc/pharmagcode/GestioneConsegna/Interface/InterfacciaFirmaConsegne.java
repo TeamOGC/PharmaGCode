@@ -27,12 +27,7 @@ public class InterfacciaFirmaConsegne {
     }
 
     public void firmaConsegna() {
-        String firma = "";
-        try {
-            firma = this.nomeFarmacista.getText() + " " + this.cognomeFarmacista.getText();
-        } catch (Exception e) {
-            return;
-        }
+        String firma = this.nomeFarmacista.getText() + " " + this.cognomeFarmacista.getText();
         this.gestoreFirmaConsegne.firmaCollo(firma);
     }
 }

@@ -1479,7 +1479,7 @@ public class DBMSDaemon {
             stmt.setInt(2, ordine.getId_farmacia());
             var r = stmt.executeQuery();
             PreparedStatement stmt2 = connAzienda.prepareStatement(queryPrendiOrdini);
-            while (r.next()) {
+            if (r.next()) {
                 Collo collo = new Collo(r.getInt(1), r.getInt(2), r.getDate(3).toLocalDate());
                 collo.setFirma(r.getString(4));
                 stmt2.setInt(1, collo.getId_collo());

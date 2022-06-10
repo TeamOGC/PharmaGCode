@@ -38,7 +38,10 @@
                      </font>
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
-                     </VBox.margin></TextField>
+                     </VBox.margin>
+                     <tooltip>
+                        <Tooltip text="La nuova password arriverà all'email&#10;inserita e usata in fase di registrazione" />
+                     </tooltip></TextField>
                </children>
             </VBox>
             <Label alignment="CENTER_RIGHT" prefHeight="59.0" prefWidth="810.0" text="Recupera Credenziali" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -58,13 +61,8 @@
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="10.0" />
+                        <Insets />
                      </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="115.0" styleClass="backbtn" text="Annulla">
-                     <font>
-                        <Font name="SansSerif Bold" size="17.0" />
-                     </font>
                   </Button>
                </children>
             </HBox>
