@@ -6,6 +6,8 @@ import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
 
+import java.beans.DefaultPersistenceDelegate;
+import java.beans.EventHandler;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,6 +19,7 @@ public class GestoreDiSistemaImpiegato {
 
     public void chiediData(){
         int h=Main.orologio.chiediOrario().getHour();
+
         if(Main.sistema==0){
             if(h==20  && giornoUltimaChiamata!=Main.orologio.chiediOrario().getDayOfWeek().getValue()){
 

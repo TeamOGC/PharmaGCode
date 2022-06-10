@@ -23,6 +23,15 @@ public class Ordine {
         this.stato = stato;
         this.quantita = quantita;
     }
+    public Ordine(int id_ordine, Ordine ordine){
+        this.id_ordine=id_ordine;
+        this.id_farmaco=ordine.getId_farmaco();
+        this.nome_farmaco=ordine.getNome_farmaco();
+        this.id_farmacia= ordine.getId_farmacia();
+        this.data_consegna=ordine.getData_consegna();
+        this.quantita=ordine.getQuantita();
+        this.stato=ordine.getStato();
+    }
 
     public int getQuantita() {
         return quantita;
