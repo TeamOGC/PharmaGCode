@@ -27,7 +27,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="67.0" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <Label prefHeight="57.0" prefWidth="645.0" text="Inserire la quantita di farmaci da ordinare e la data di consegna:" textAlignment="CENTER" wrapText="true">
+                  <Label prefHeight="57.0" prefWidth="645.0" text="Inserire la quantità di farmaci da ordinare e la data di consegna:" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
@@ -44,8 +44,18 @@
                            <HBox.margin>
                               <Insets right="70.0" />
                            </HBox.margin>
+                           <tooltip>
+                              <Tooltip text="Inserisci la quantità da ordinare" />
+                           </tooltip>
                         </TextField>
-                        <DatePicker fx:id="dataDiConsegna" promptText="Data di Consegna" />
+                        <DatePicker fx:id="dataDiConsegna" promptText="Data di Consegna">
+                           <tooltip>
+                              <Tooltip text="Inserisci la data di consegna">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Tooltip>
+                           </tooltip></DatePicker>
                      </children>
                      <VBox.margin>
                         <Insets bottom="20.0" />

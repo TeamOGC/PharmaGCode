@@ -20,18 +20,24 @@
       </Label>
       <HBox alignment="TOP_CENTER" layoutX="108.0" layoutY="234.0" prefHeight="35.0" prefWidth="386.0">
          <children>
-            <Button fx:id="cliccaConsegnaSingola" mnemonicParsing="false"  styleClass="btn" text="Consegna Singola">
+            <Button fx:id="cliccaConsegnaSingola" mnemonicParsing="false" styleClass="btn" text="Consegna Singola">
                <font>
                   <Font size="17.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
+               <tooltip>
+                  <Tooltip text="Clicca qui per attendere che&#10;tutti i farmaci siano disponibili" wrapText="true" />
+               </tooltip>
             </Button>
             <Button fx:id="cliccaConsegnaMultipla" layoutX="76.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn" text="Consegna Multipla">
                <font>
                   <Font size="17.0" />
                </font>
+               <tooltip>
+                  <Tooltip text="Clicca qui per suddividere l'ordine" />
+               </tooltip>
             </Button>
          </children>
       </HBox>

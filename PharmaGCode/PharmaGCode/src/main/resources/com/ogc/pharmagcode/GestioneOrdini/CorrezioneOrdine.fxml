@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -12,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaCorrezioneOrdine">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaCorrezioneOrdine">
    <children>
       <GridPane prefHeight="400.0" prefWidth="600.0">
         <columnConstraints>
@@ -30,32 +35,42 @@
         </rowConstraints>
          <children>
             <VBox alignment="CENTER" prefHeight="67.0" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <Label prefHeight="91.0" prefWidth="472.0" text="Inserire la quantita di farmaci consegnati e la quantita di farmaci che si vuole integrare" textAlignment="CENTER" wrapText="true">
-                  <font>
-                     <Font size="17.0" />
-                  </font>
-                  <VBox.margin>
-                     <Insets bottom="10.0" />
-                  </VBox.margin>
-               </Label>
-               <HBox alignment="CENTER" prefHeight="46.0" prefWidth="384.0">
-                  <TextField fx:id="qtaIntegrare" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantita da integrare" styleClass="textbox">
+               <children>
+                  <Label prefHeight="91.0" prefWidth="472.0" text="Inserisci la quantita di farmaci che si vuole integrare:" textAlignment="CENTER" wrapText="true">
                      <font>
-                        <Font size="17.0" />
+                        <Font name="System Bold" size="17.0" />
                      </font>
-                  </TextField>
-               </HBox>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="46.0" prefWidth="384.0">
+                     <children>
+                        <TextField fx:id="qtaIntegrare" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="132.0" promptText="Quantità" styleClass="textbox">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                           <tooltip>
+                              <Tooltip text="Per non integrare l'ordine, inserisci 0" />
+                           </tooltip>
+                        </TextField>
+                        <Button fx:id="confermaBtn" mnemonicParsing="false" onAction="#correggiOrdine" prefHeight="42.0" prefWidth="132.0" styleClass="btn" text="Conferma" textFill="WHITE">
+                           <font>
+                              <Font name="SansSerif Bold" size="17.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
             </VBox>
             <Label alignment="CENTER" prefHeight="59.0" prefWidth="287.0" text="Riepilogo" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font name="SansSerif Regular" size="35.0" />
                </font>
             </Label>
-            <Button fx:id="confermaBtn" mnemonicParsing="false" onAction="#correggiOrdine" prefHeight="42.0" prefWidth="132.0" styleClass="btn" text="Conferma" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="TOP">
-               <font>
-                  <Font name="SansSerif Bold" size="17.0" />
-               </font>
-            </Button>
 <!--            <HBox alignment="CENTER" prefHeight="93.0" prefWidth="551.0" styleClass="entries" GridPane.columnIndex="1" GridPane.rowIndex="2">-->
 <!--               <children>-->
 <!--                  <Label alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="114.0" text="Farmaco 1">-->

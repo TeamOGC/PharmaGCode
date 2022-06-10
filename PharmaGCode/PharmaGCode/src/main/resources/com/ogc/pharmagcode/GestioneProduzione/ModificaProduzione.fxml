@@ -24,7 +24,7 @@
             <children>
                 <VBox alignment="CENTER" prefHeight="319.0" prefWidth="512.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <Label prefHeight="57.0" prefWidth="472.0" text="Scegliere il farmaco da modificare e la quantita prodotta in un mese:" textAlignment="CENTER" wrapText="true">
+                        <Label prefHeight="57.0" prefWidth="472.0" text="Scegliere il farmaco da modificare e la quantità prodotta in un mese:" textAlignment="CENTER" wrapText="true">
                             <font>
                                 <Font name="System Bold" size="17.0" />
                             </font>
@@ -41,11 +41,17 @@
                                     <HBox.margin>
                                         <Insets right="20.0" />
                                     </HBox.margin>
+                           <tooltip>
+                              <Tooltip text="Inserisci il nome del farmaco" />
+                           </tooltip>
                                 </TextField>
-                                <TextField fx:id="quantita" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantita" styleClass="textbox">
+                                <TextField fx:id="quantita" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantità" styleClass="textbox">
                                     <font>
                                         <Font size="17.0" />
                                     </font>
+                           <tooltip>
+                              <Tooltip text="Inserisci la nuova quantità prodotta" />
+                           </tooltip>
                                 </TextField>
                             </children>
                             <VBox.margin>

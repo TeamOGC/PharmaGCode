@@ -30,6 +30,9 @@
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Cerca un farmaco per poterlo ordinare" />
+                     </tooltip>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#cliccaVisualizzaOrdini" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Visualizza Ordini" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
@@ -38,6 +41,9 @@
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Visualizza tutti gli ordini effettuati" />
+                     </tooltip>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#cliccaScaricoMerci" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Scarico Merci" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
@@ -46,6 +52,9 @@
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Scarica la merce" />
+                     </tooltip>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#cliccaModificaPassword" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Modifica Password" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
@@ -54,6 +63,9 @@
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Modifica la password" />
+                     </tooltip>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#cliccaModificaOrdinePeriodico" prefHeight="150.0" prefWidth="150.0" styleClass="circlebtn" text="Modifica Ordine Periodico" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
@@ -62,6 +74,9 @@
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Modifica la quantita di farmaci consegnata periodicamente" />
+                     </tooltip>
                   </Button>
                </children>
             </HBox>

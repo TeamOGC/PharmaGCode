@@ -40,11 +40,17 @@
                            <font>
                               <Font size="17.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="Inserisci il codice del lotto" />
+                           </tooltip>
                         </TextField>
-                        <TextField fx:id="quantita" layoutX="437.0" layoutY="196.0" promptText="Quantita" styleClass="textbox">
+                        <TextField fx:id="quantita" layoutX="437.0" layoutY="196.0" promptText="Quantità" styleClass="textbox">
                            <font>
                               <Font size="17.0" />
                            </font>
+                           <tooltip>
+                              <Tooltip text="Inserisci la quanità del farmaco che si vuole scaricare" />
+                           </tooltip>
                         </TextField>
                      </children>
                   </HBox>

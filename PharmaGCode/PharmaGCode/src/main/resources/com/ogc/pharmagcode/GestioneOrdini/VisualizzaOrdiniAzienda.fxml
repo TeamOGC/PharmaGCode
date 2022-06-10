@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.Label?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaVisualizzaOrdiniAzienda">
    <children>
       <GridPane prefHeight="800.0" prefWidth="1280.0">
@@ -24,30 +26,65 @@
          <children>
             <TableView id="tableOrdiniAzienda" fx:id="tableViewOrdini" prefHeight="200.0" prefWidth="200.0" stylesheets="@../stylesheet.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <columns>
-                <TableColumn editable="false" prefWidth="75.0" text="Farmaco">
+                <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="nome_farmaco" />
                       </cellValueFactory>
+                    <graphic>
+                        <Label text="Farmaco">
+                            <tooltip>
+                                <Tooltip text="Clicca qui per ordinare in ordine alfabetico o inverso" />
+                            </tooltip>
+                        </Label>
+                    </graphic>
                 </TableColumn>
-                <TableColumn editable="false" prefWidth="75.0" text="Quantità">
+                <TableColumn editable="false" prefWidth="75.0">
                     <cellValueFactory>
                         <PropertyValueFactory property="quantita" />
                     </cellValueFactory>
+                    <graphic>
+                        <Label text="Quantità">
+                            <tooltip>
+                                <Tooltip text="Clicca qui per ordinare in modo crescente o decrescente" />
+                            </tooltip>
+                        </Label>
+                    </graphic>
                 </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" text="Destinazione">
+                  <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="id_farmacia" />
                       </cellValueFactory>
+                      <graphic>
+                          <Label text="Destinazione">
+                              <tooltip>
+                                  <Tooltip text="Clicca qui per ordinare in ordine alfabetico o inverso" />
+                              </tooltip>
+                          </Label>
+                      </graphic>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" text="Stato">
+                  <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="stato" />
                       </cellValueFactory>
+                      <graphic>
+                          <Label text="Stato">
+                              <tooltip>
+                                  <Tooltip text="Clicca qui per ordinare in base allo stato" />
+                              </tooltip>
+                          </Label>
+                      </graphic>
                   </TableColumn>
-                  <TableColumn editable="false" prefWidth="75.0" text="Data di Consegna">
+                  <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="data_consegna" />
                       </cellValueFactory>
+                      <graphic>
+                          <Label text="Data di Consegna">
+                              <tooltip>
+                                  <Tooltip text="Clicca qui per ordinare in base alla data di consegna" />
+                              </tooltip>
+                          </Label>
+                      </graphic>
                   </TableColumn>
                   <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>

@@ -31,13 +31,16 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="46.0" prefWidth="384.0">
                      <children>
-                        <TextField fx:id="quantita" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantita" styleClass="textbox">
+                        <TextField fx:id="quantita" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantità" styleClass="textbox">
                            <font>
                               <Font size="17.0" />
                            </font>
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
+                           <tooltip>
+                              <Tooltip text="Per annullare l'ordine inserisci 0 come quantità" />
+                           </tooltip>
                         </TextField>
                         <DatePicker fx:id="dataconsegna" />
                      </children>
