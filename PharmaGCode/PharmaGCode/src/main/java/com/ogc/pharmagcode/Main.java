@@ -1,7 +1,6 @@
 package com.ogc.pharmagcode;
 
-import com.ogc.pharmagcode.GestioneAccount.GestoreAutenticazione;
-import com.ogc.pharmagcode.Utils.DBMSDaemon;
+import com.ogc.pharmagcode.Autenticazione.Control.GestoreAutenticazione;
 import com.ogc.pharmagcode.Utils.Orologio;
 import javafx.application.Application;
 import javafx.stage.Stage;

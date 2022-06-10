@@ -1,8 +1,9 @@
-package com.ogc.pharmagcode.GestioneAccount;
+package com.ogc.pharmagcode.Autenticazione.Control;
 
+import com.ogc.pharmagcode.Autenticazione.Interface.ModuloLogin;
 import com.ogc.pharmagcode.Entity.Corriere;
 import com.ogc.pharmagcode.Entity.Impiegato;
-import com.ogc.pharmagcode.GestioneConsegna.InterfacciaPrincipaleCorriere;
+import com.ogc.pharmagcode.GestioneConsegna.Interface.InterfacciaPrincipaleCorriere;
 import com.ogc.pharmagcode.GestioneFarmaci.Interface.InterfacciaPrincipaleFarmacista;
 import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaPrincipaleImpiegato;
 import com.ogc.pharmagcode.Main;

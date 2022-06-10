@@ -1,5 +1,8 @@
-package com.ogc.pharmagcode.GestioneAccount;
+package com.ogc.pharmagcode.Autenticazione.Interface;
 
+import com.ogc.pharmagcode.Autenticazione.Control.GestoreAutenticazione;
+import com.ogc.pharmagcode.Autenticazione.Control.GestoreRecuperaCredenziali;
+import com.ogc.pharmagcode.Autenticazione.Control.GestoreRegistrazione;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

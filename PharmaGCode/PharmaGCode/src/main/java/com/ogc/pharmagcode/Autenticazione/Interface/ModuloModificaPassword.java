@@ -1,5 +1,6 @@
-package com.ogc.pharmagcode.GestioneAccount;
+package com.ogc.pharmagcode.Autenticazione.Interface;
 
+import com.ogc.pharmagcode.Autenticazione.Control.GestoreModificaPassword;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
@@ -24,7 +25,7 @@ public class ModuloModificaPassword {
         gmp.modificaPassword(old_pwd.getText(),new_pwd.getText(),re_pwd.getText());
     }
 
-    protected Stage getStage(){
+    public Stage getStage(){
         return (Stage) old_pwd.getScene().getWindow();
     }
 

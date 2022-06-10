@@ -15,7 +15,6 @@ module com.ogc.pharmagcode {
     exports com.ogc.pharmagcode.Entity;
     opens com.ogc.pharmagcode to javafx.fxml;
     exports com.ogc.pharmagcode;
-    opens com.ogc.pharmagcode.Autenticazione to javafx.fxml;
     opens com.ogc.pharmagcode.GestioneFarmaci to javafx.fxml;
     opens com.ogc.pharmagcode.GestioneProduzione to javafx.fxml;
     opens com.ogc.pharmagcode.GestioneConsegna to javafx.fxml;

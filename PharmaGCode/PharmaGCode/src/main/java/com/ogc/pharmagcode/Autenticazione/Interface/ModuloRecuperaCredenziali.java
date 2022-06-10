@@ -1,8 +1,8 @@
-package com.ogc.pharmagcode.GestioneAccount;
+package com.ogc.pharmagcode.Autenticazione.Interface;
 
+import com.ogc.pharmagcode.Autenticazione.Control.GestoreRecuperaCredenziali;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import org.w3c.dom.Text;
 
 public class ModuloRecuperaCredenziali {
 

@@ -1,5 +1,6 @@
-package com.ogc.pharmagcode.GestioneAccount;
+package com.ogc.pharmagcode.Autenticazione.Control;
 
+import com.ogc.pharmagcode.Autenticazione.Interface.ModuloModificaPassword;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
