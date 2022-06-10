@@ -23,33 +23,44 @@ public class GestoreOrdinaFarmaco {
         Ordine o=new Ordine(-1,
                 f.getId_farmaco(),
                 f.getNome(), Main.idFarmacia, d, "In Lavorazione",quantita);
-        int q=DBMSDaemon.queryCreaOrdineTemp(o, accettaInScadenza);
-        if(q==0){
+        int quantitaEccedente=DBMSDaemon.queryCreaOrdineTemp(o, accettaInScadenza);
+        if(quantitaEccedente==0){
             Utils.creaPannelloConferma("Ordine Creato Correttamente");
             s.close();
-        }else if(q>0){
+        }else if(quantitaEccedente>0){
             Stage s=new Stage();
             Utils.cambiaInterfaccia("GestioneFarmaci/ModalitaConsegnaPopup.fxml", s, c-> {
                 return new PannelloAvvisoDisponibilita(stessaData->{ordinaStessaData(o,accettaInScadenza,quantita);
                                                                     s.close();},
-                                                        dateDiverse->{ordinaDateSeparate(o,accettaInScadenza,quantita,q);
+                                                        dateDiverse->{ordinaDateSeparate(o,accettaInScadenza,quantita,quantitaEccedente);
                                                                         s.close();});
             });
         }
     }
 
+    /**
+     * Consente di ordinare tutta la quantita non disponibile per
+     * @param o
+     * @param accettaInScadenza
+     * @param quantita
+     */
     private void ordinaStessaData(Ordine o, boolean accettaInScadenza, int quantita){
         o.setQuantita(quantita);
-        DBMSDaemon.queryCreaOrdine(o, "In Attesa Di Disponibilita", accettaInScadenza);
+        DBMSDaemon.queryCreaOrdine(o, "In Attesa Di Disponibilita", false);
     }
 
-    private void ordinaDateSeparate(Ordine o, boolean accettaInScadenza, int quantita, int q){
-        o.setQuantita(quantita-q);
-        if(DBMSDaemon.queryCreaOrdineTemp(o,accettaInScadenza)>0){
-            Utils.creaPannelloErrore("C'è stato un errore con l'ordine");
-        }
-        o.setQuantita(q);
-        DBMSDaemon.queryCreaOrdine(o, "In Attesa Di Disponibilita", accettaInScadenza);
+    /**
+     * Consente di dividere l'ordine in due ordini separati, uno con le quantita attualmente ordinabili e uno in attesa di disponibilità
+     * @param o
+     * @param accettaInScadenza
+     * @param quantita
+     * @param quantitaEccedente
+     */
+    private void ordinaDateSeparate(Ordine o, boolean accettaInScadenza, int quantita, int quantitaEccedente){
+        o.setQuantita(quantita-quantitaEccedente);
+        DBMSDaemon.queryCreaOrdine(o,"In Lavorazione",accettaInScadenza);
+        o.setQuantita(quantitaEccedente);
+        DBMSDaemon.queryCreaOrdine(o, "In Attesa Di Disponibilita", false);
     }
 
 

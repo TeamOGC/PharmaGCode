@@ -15,6 +15,6 @@ public class ModuloRecuperaCredenziali {
     }
     @FXML
     protected void conferma(){
-        grc.verificaMail(email.getText());
+        grc.verificaMailEInvia(email.getText());
     }
 }
