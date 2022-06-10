@@ -13,7 +13,8 @@ public class ModuloLogin {
     GestoreAutenticazione gestoreAutenticazione;
     Stage s;
     public ModuloLogin(GestoreAutenticazione gestoreAutenticazione){
-        this.gestoreAutenticazione=gestoreAutenticazione;
+        this.gestoreAutenticazione=gestoreAutenticazione;        // System.out.println("cliccaAccedi "+email.getText()+ " "+password.getText());
+
     }
     @FXML
     private TextField email;
@@ -22,17 +23,14 @@ public class ModuloLogin {
 
     @FXML
     protected void cliccaAccedi(){
-        // System.out.println("cliccaAccedi "+email.getText()+ " "+password.getText());
         gestoreAutenticazione.controlloCredenziali(email.getText(), password.getText(), (Stage) email.getScene().getWindow());
     }
     @FXML
     protected void cliccaRecuperaCredenziali(){
-        System.out.println("Funziona");
-        //gestoreAutenticazione.creaPannelloErrore();
         new GestoreRecuperaCredenziali();
     }
     @FXML
     protected void cliccaRegistrati(){
-        new GestoreRegistrazione(new Stage());
+        new GestoreRegistrazione();
     }
 }

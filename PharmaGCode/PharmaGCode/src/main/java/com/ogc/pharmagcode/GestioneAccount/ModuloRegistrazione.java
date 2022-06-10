@@ -1,8 +1,10 @@
 package com.ogc.pharmagcode.GestioneAccount;
 
+import com.ogc.pharmagcode.Utils.Utils;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -33,7 +35,6 @@ public class ModuloRegistrazione {
     }
     @FXML
     protected void cliccaRegistrati(){
-        System.out.println("cliccaRegistrati");
         if(gestoreRegistrazione.registraAccount(nome.getText(),cognome.getText(),email.getText(),password.getText(),confermaPassword.getText())){
             moduloOTP.setVisible(true);
         }else{
@@ -49,6 +50,5 @@ public class ModuloRegistrazione {
     @FXML
     protected void cliccaConferma(){
         gestoreRegistrazione.inserisciOTP(campoOTP.getText());
-        // Metodo Verifica OTP
     }
 }
