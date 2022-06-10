@@ -907,12 +907,20 @@ public class DBMSDaemon {
         return quantitaRimanente;
     }
 
-    private static int queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, int id_ordine) {
-        String query = "INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?)";
-        ArrayList<Lotto> composizione = new ArrayList<>();
-        try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
-            int quantitaRimanente = creaComposizioneOrdini(id_farmaco, quantita, accettaScadenza, composizione);
-            if (quantitaRimanente > 0)
+    /**
+     * Da applicare in transazioni atomiche (SetAutoCommit(false)), crea una composizione ordini in base alla quantità dell'ordine)
+     * @param id_farmaco
+     * @param quantita
+     * @param accettaScadenza
+     * @param id_ordine
+     * @return
+     */
+    private static int queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, int id_ordine){
+        String query="INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?)";
+        ArrayList<Lotto> composizione=new ArrayList<>();
+        try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
+            int quantitaRimanente=creaComposizioneOrdini(id_farmaco, quantita, accettaScadenza, composizione);
+            if(quantitaRimanente>0)
                 return quantitaRimanente;
             for (Lotto l : composizione) {
                 stmt.setInt(1, id_ordine);
