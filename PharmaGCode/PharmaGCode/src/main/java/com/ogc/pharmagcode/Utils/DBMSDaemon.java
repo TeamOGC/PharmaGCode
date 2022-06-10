@@ -743,6 +743,58 @@ public class DBMSDaemon {
     }
 
     /**
+     * Aggiorna la composizione degli ordini in seguito a una modifica della quantita dell'ordine
+     * @param ordine
+     * @param nuova_qty
+     */
+    private static void queryAggiornaComposizioneOrdini(Ordine ordine, int nuova_qty){
+        int delta=nuova_qty-ordine.getQuantita();
+        if (delta > 0) {
+            queryCreaComposizioneOrdini(ordine.getId_farmaco(), delta, false, ordine.getId_ordine());
+            delta = 0;
+            return;
+        }
+
+        String query="SELECT ComposizioneOrdine.* FROM ComposizioneOrdine WHERE ComposizioneOrdine.id_ordine=?";
+        String query2="UPDATE ComposizioneOrdine SET quantita=? WHERE id_ordine=?";
+        String query3="UPDATE Lotto SET quantita=quantita+? WHERE id_lotto=?";
+        try(PreparedStatement stmt=connAzienda.prepareStatement(query);
+            PreparedStatement stmt2=connAzienda.prepareStatement(query2);
+            PreparedStatement stmt3=connAzienda.prepareStatement(query3)) {
+            stmt.setInt(1,ordine.getId_ordine());
+            ResultSet r=stmt.executeQuery();
+            stmt2.setInt(2,ordine.getId_ordine());
+            if(delta<0){
+                while(r.next()){
+                    stmt3.setInt(2,r.getInt("id_lotto"));
+                    stmt2.setInt(2,ordine.getId_ordine());
+                    int qty=r.getInt("quantita");
+                    /* Fa l'update del lotto*/
+                    if(-delta>=qty){ // -delta=quantita da rimuovere, se è maggiore della quantita di lotto nell'ordine, rimuove totalmente il lotto dall'ordine e continua
+                        stmt2.setInt(1,0);
+                        delta=delta+qty;
+                        stmt2.addBatch();       //aggiunge alla batch la query di update della composizione
+                        stmt3.setInt(1,qty);
+                        stmt3.addBatch();       //aggiunge alla batch la query di update della quantita del lotto
+                    }else{   //altrimenti la quantita da rimuovere viene settata a 0 e può uscire dal loop
+                        stmt2.setInt(1,qty+delta);
+                        delta=0;
+                        stmt2.addBatch();       //aggiunge alla batch la query di update della composizione
+                        stmt3.setInt(1,-delta);
+                        stmt3.addBatch();       //aggiunge alla batch la query di update della quantita del lotto
+                        break;
+                    }
+                }
+                stmt2.executeBatch();
+                stmt3.executeBatch();
+            }
+
+        }catch(SQLException e){
+            erroreComunicazioneDBMS(e);
+        }
+    }
+
+    /**
      * aggiorna la quantità di un ordine, se la quantità è settata a 0 elimina l'ordine
      *
      * @param ordine {@link Ordine} ordine di cui modificare la quantità
@@ -752,23 +804,40 @@ public class DBMSDaemon {
         connectAzienda();
         if (nuova_qty == 0) {
             String query = "DELETE FROM Ordine WHERE id_ordine=?";
+
             try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
+                connAzienda.setAutoCommit(false);
+                queryAggiornaComposizioneOrdini(ordine,0);
                 stmt.setInt(1, ordine.getId_ordine());
                 var r = stmt.executeUpdate();
-                if (r != 0)
+                if (r != 0) {
+                    connAzienda.commit();
+                    connAzienda.setAutoCommit(true);
                     return r;
+                }else{
+                    connAzienda.rollback();
+                    connAzienda.setAutoCommit(true);
+                }
             } catch (SQLException e) {
+
                 erroreComunicazioneDBMS(e);
             }
             return -1;
         } else {
             String query = "UPDATE Ordine SET Ordine.quantita=? WHERE Ordine.id_ordine=?";
             try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
+                connAzienda.setAutoCommit(false);
                 stmt.setInt(1, nuova_qty);
                 stmt.setInt(2, ordine.getId_ordine());
                 var r = stmt.executeUpdate();
-                if (r != 0)
+                if (r != 0){
+                    connAzienda.commit();
+                    connAzienda.setAutoCommit(true);
                     return r;
+                }else{
+                    connAzienda.rollback();
+                    connAzienda.setAutoCommit(true);
+                }
             } catch (SQLException e) {
                 erroreComunicazioneDBMS(e);
             }
@@ -908,7 +977,7 @@ public class DBMSDaemon {
     }
 
     /**
-     * Da applicare in transazioni atomiche (SetAutoCommit(false)), crea una composizione ordini in base alla quantità dell'ordine)
+     * Transazione Atomica per comporre l'ordine dai lotti disponibili
      * @param id_farmaco
      * @param quantita
      * @param accettaScadenza
@@ -916,12 +985,17 @@ public class DBMSDaemon {
      * @return
      */
     private static int queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, int id_ordine){
+        connectAzienda();
         String query="INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?)";
         ArrayList<Lotto> composizione=new ArrayList<>();
         try(PreparedStatement stmt=connAzienda.prepareStatement(query)){
+            connAzienda.setAutoCommit(false);
             int quantitaRimanente=creaComposizioneOrdini(id_farmaco, quantita, accettaScadenza, composizione);
-            if(quantitaRimanente>0)
+            if(quantitaRimanente>0) {
+                connAzienda.rollback();
+                connAzienda.setAutoCommit(true);
                 return quantitaRimanente;
+            }
             for (Lotto l : composizione) {
                 stmt.setInt(1, id_ordine);
                 stmt.setInt(2, l.getId_lotto());
@@ -929,6 +1003,8 @@ public class DBMSDaemon {
                 stmt.addBatch();
             }
             stmt.executeBatch();
+            connAzienda.commit();
+            connAzienda.setAutoCommit(true);
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
             return -1;
