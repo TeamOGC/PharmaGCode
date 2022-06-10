@@ -14,11 +14,11 @@ public class OrdinePeriodico {
     private int quantita;
     private final int periodicita;
 
-    public OrdinePeriodico(int id_farmacia, int id_farmaco, int quantita, int periodicita, String nomeFarmaco, String nomeFarmacia){
-        this.id_farmacia=id_farmacia;
-        this.id_farmaco=id_farmaco;
-        this.quantita=quantita;
-        this.periodicita=periodicita;
+    public OrdinePeriodico(int id_farmacia, int id_farmaco, int quantita, int periodicita, String nomeFarmaco, String nomeFarmacia) {
+        this.id_farmacia = id_farmacia;
+        this.id_farmaco = id_farmaco;
+        this.quantita = quantita;
+        this.periodicita = periodicita;
         this.nomeFarmaco = nomeFarmaco;
         this.nomeFarmacia = nomeFarmacia;
     }
@@ -39,8 +39,8 @@ public class OrdinePeriodico {
         return periodicita;
     }
 
-    public void setQuantita(int qty){
-        this.quantita=quantita;
+    public void setQuantita(int qty) {
+        this.quantita = quantita;
     }
 
     public String getNomeFarmaco() {

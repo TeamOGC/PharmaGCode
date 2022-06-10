@@ -1,27 +1,22 @@
 package com.ogc.pharmagcode.Entity;
 
-import com.ogc.pharmagcode.Main;
-
 import java.util.Objects;
 
-public class Utente{
+public class Utente {
     private final String nome;
     private final String cognome;
     private final String email;
-    private final String password;
 
     public Utente(String nome, String cognome, String email, String password) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
-        this.password = password;
     }
 
     public Utente(String nome, String cognome, String email) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
-        this.password = null;
     }
 
     public String nome() {
@@ -36,9 +31,6 @@ public class Utente{
         return email;
     }
 
-    public String password() {
-        return password;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -50,7 +42,7 @@ public class Utente{
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, cognome, email, password);
+        return Objects.hash(nome, cognome, email);
     }
 
     @Override
@@ -58,8 +50,7 @@ public class Utente{
         return "Utente[" +
                 "nome=" + nome + ", " +
                 "cognome=" + cognome + ", " +
-                "email=" + email + ", " +
-                "password=" + password + ']';
+                "email=" + email + ", " + ']';
     }
 
 }

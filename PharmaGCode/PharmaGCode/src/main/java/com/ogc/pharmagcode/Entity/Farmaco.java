@@ -20,6 +20,7 @@ public class Farmaco {
         this.da_banco = da_banco;
         this.quantitaFarmaci = quantitaFarmaci;
     }
+
     public Farmaco(int id_farmaco, String nome, String principio_attivo, boolean da_banco) {
         this.id_farmaco = id_farmaco;
         this.nome = nome;
@@ -75,8 +76,8 @@ public class Farmaco {
                 "quantitaFarmaci=" + quantitaFarmaci + ']';
     }
 
-    public static Farmaco createFromDB(ResultSet row){
-        try{
+    public static Farmaco createFromDB(ResultSet row) {
+        try {
             int id_farmaco = row.getInt(1);
             String nome = row.getString(2);
             String principio = row.getString(3);

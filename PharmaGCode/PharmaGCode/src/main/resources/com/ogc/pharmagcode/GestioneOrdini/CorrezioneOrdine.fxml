@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.net.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneOrdini.InterfacciaCorrezioneOrdine">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaCorrezioneOrdine">
    <children>
-      <GridPane prefHeight="800.0" prefWidth="1280.0">
+      <GridPane prefHeight="400.0" prefWidth="600.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.5" minWidth="10.0" percentWidth="30.0" prefWidth="181.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.0" minWidth="10.0" percentWidth="40.0" prefWidth="237.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" percentWidth="30.0" prefWidth="182.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.5" minWidth="10.0" percentWidth="10.0" prefWidth="181.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.0" minWidth="10.0" percentWidth="80.0" prefWidth="237.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" percentWidth="10.0" prefWidth="182.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="161.0" minHeight="10.0" percentHeight="20.0" prefHeight="80.5" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="161.0" minHeight="10.0" percentHeight="10.0" prefHeight="80.5" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="161.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="163.5" minHeight="0.0" prefHeight="133.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="163.5" minHeight="0.0" percentHeight="10.0" prefHeight="133.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="159.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="161.0" minHeight="0.0" prefHeight="81.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="321.0" minHeight="10.0" percentHeight="20.0" prefHeight="188.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="321.0" minHeight="10.0" percentHeight="10.0" prefHeight="188.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <VBox alignment="CENTER" prefHeight="67.0" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <Label prefHeight="57.0" prefWidth="452.0"
-                      text="Inserire la quantita di farmaci consegnati e la quantita di farmaci che si vuole integrare:"
-                      textAlignment="CENTER" wrapText="true">
+               <Label prefHeight="91.0" prefWidth="472.0" text="Inserire la quantita di farmaci consegnati e la quantita di farmaci che si vuole integrare" textAlignment="CENTER" wrapText="true">
                   <font>
-                     <Font size="17.0"/>
+                     <Font size="17.0" />
                   </font>
                   <VBox.margin>
-                     <Insets bottom="10.0"/>
+                     <Insets bottom="10.0" />
                   </VBox.margin>
                </Label>
                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="384.0">
-                  <TextField fx:id="qtaIntegrare" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity"
-                             prefHeight="42.0" prefWidth="210.0" promptText="Quantita da integrare"
-                             styleClass="textbox">
+                  <TextField fx:id="qtaIntegrare" cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="42.0" prefWidth="210.0" promptText="Quantita da integrare" styleClass="textbox">
                      <font>
-                        <Font size="17.0"/>
+                        <Font size="17.0" />
                      </font>
                   </TextField>
                </HBox>
