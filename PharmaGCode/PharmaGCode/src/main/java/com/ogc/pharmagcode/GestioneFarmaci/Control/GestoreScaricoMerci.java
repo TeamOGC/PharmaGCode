@@ -8,9 +8,11 @@ import javafx.stage.Stage;
 
 public class GestoreScaricoMerci {
     private InterfacciaScaricoMerci i;
+    private Stage stage;
 
     public GestoreScaricoMerci() {
-        i = (InterfacciaScaricoMerci) Utils.cambiaInterfaccia("GestioneFarmaci/ScaricaMerci.fxml", new Stage(), c -> {
+        this.stage= new Stage();
+        i = (InterfacciaScaricoMerci) Utils.cambiaInterfaccia("GestioneFarmaci/ScaricaMerci.fxml", this.stage, c -> {
             return new InterfacciaScaricoMerci(this);
         }, 600, 400);
     }
@@ -18,7 +20,9 @@ public class GestoreScaricoMerci {
     public void scaricoMerci(int codiceLotto, int quantita) {
         int s = DBMSDaemon.queryScaricaMerci(codiceLotto, Main.idFarmacia, quantita);
         if (s <= 5) {
-            Utils.creaPannelloConferma("ATTENZIONE: il farmaco scaricato è in esaurimento!");
+            Utils.creaPannelloConferma("ATTENZIONE: il farmaco scaricato è in esaurimento!", this.stage);
         }
+        else
+            Utils.creaPannelloConferma("Merce scaricata correttamente!", this.stage);
     }
 }

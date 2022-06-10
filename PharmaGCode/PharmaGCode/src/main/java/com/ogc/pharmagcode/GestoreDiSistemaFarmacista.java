@@ -67,7 +67,7 @@ public class GestoreDiSistemaFarmacista implements Serializable {
         }
     }
 
-    public void creaOrdiniPeriodici() {
+    public void creaOrdiniPeriodici() { //TODO Manca l'implementazione del caso d'uso Ordine Periodico
         DBMSDaemon.queryCreaOrdini(getOrdiniPeriodiciFarmacia(Main.idFarmacia));
     }
 
