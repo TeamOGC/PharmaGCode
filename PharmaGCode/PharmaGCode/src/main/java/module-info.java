@@ -1,8 +1,7 @@
 module com.ogc.pharmagcode {
     requires javafx.controls;
     requires javafx.fxml;
-
-    requires org.controlsfx.controls;
+    requires itextpdf;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
 //    requires java.mail;
@@ -10,6 +9,8 @@ module com.ogc.pharmagcode {
     requires java.sql;
     requires org.apache.logging.log4j;
     requires org.mariadb.jdbc;
+    requires java.desktop;
+
 
     exports com.ogc.pharmagcode.Entity;
     opens com.ogc.pharmagcode to javafx.fxml;
