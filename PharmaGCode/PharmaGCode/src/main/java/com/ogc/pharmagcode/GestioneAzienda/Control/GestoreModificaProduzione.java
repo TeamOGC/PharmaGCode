@@ -14,7 +14,7 @@ public class GestoreModificaProduzione {
     }
 
     /**
-     * Modifica la produzione del farmaco con una nuova quantità
+     * Modifica la produzione del farmaco con una nuova quantità, a patto che esso esista
      *
      * @param nome_farmaco Nome del farmaco di cui modificare la produzione
      * @param qta          La nuova quantità da produrre periodicamente

@@ -16,7 +16,7 @@ public class InterfacciaVisualizzaConsegne {
 
     public InterfacciaVisualizzaConsegne(GestoreVisualizzaConsegne gestoreVisualizzaConsegne) {
         this.gestoreVisualizzaConsegne = gestoreVisualizzaConsegne;
-        this.listaColli = FXCollections.observableList(gestoreVisualizzaConsegne.listaColli);
+        this.listaColli = FXCollections.observableList(GestoreVisualizzaConsegne.listaColli);
     }
 
     public void initialize() {

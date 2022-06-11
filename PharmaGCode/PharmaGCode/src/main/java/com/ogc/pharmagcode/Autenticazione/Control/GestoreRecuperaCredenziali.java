@@ -17,9 +17,12 @@ public class GestoreRecuperaCredenziali {
         });
     }
 
+    /**
+     * @return password generata con caratteri casuali che rispetta i {@link GestoreModificaPassword#controllaPassword(String, String) criteri minimi}
+     */
     private String generaPassword() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             sb.append((char) (97 + Math.random() * 25));
             sb.append((char) (65 + Math.random() * 25));
         }
@@ -27,6 +30,11 @@ public class GestoreRecuperaCredenziali {
         return sb.toString();
     }
 
+    /**
+     * Controlla che l'email abbia un utente associato e, se esiste, manda una mail con la sua nuova password, {@link DBMSDaemon#queryAggiornaPassword(String, String) aggiornandola opportunamente} anche sul DB opportuno
+     *
+     * @param email dell'utente da recuperare
+     */
     public void verificaMailEInvia(String email) {
         if (email.isBlank()) {
             Utils.creaPannelloErrore("Inserisci tutti i dati");

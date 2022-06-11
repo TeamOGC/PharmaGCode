@@ -29,6 +29,14 @@ public class Farmacista extends Utente {
         return id_farmacia;
     }
 
+    /**
+     * Converte i risultati di una query
+     * {@code SELECT Farmacista.*}
+     *
+     * @param row risultati della query
+     * @return Farmacista corrispondente
+     * @throws SQLException se la row non proviene da una select come specificata in precedenza
+     */
     public static Farmacista createFromDB(ResultSet row) {
         try {
             return new Farmacista(

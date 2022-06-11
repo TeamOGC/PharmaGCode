@@ -30,6 +30,17 @@ public class GestoreAutenticazione {
         });
     }
 
+    /**
+     * Controlla le credenziali ed effettua il Login
+     *
+     * <ul>
+     *     <li>Se {@systemProperty Main.debug} allora accetta anche credenziali vuote</li>
+     *     <li>Altrimenti chiama {@link DBMSDaemon#queryControllaCredenziali(String, String) DBMSDaemon.queryControllaCredenziali(email, Hash(password)}</li>
+     * </ul>
+     * @param email email dell'utente
+     * @param password password in chiaro dell'utente, viene hashata in questo metodo.
+     * @param s Stage in cui creare le {@link com.ogc.pharmagcode.Common.InterfacciaPrincipale InterfacciaPrincipale[tipo="Main.sistema"]}
+     */
     public void controlloCredenziali(String email, String password, Stage s) {
         if ((email.isBlank() || password.isBlank()) && !Main.debug) {
             Utils.creaPannelloErrore("Inserisci tutti i dati");
@@ -62,6 +73,9 @@ public class GestoreAutenticazione {
         }
     }
 
+    /**
+     * @return {@link Utente} autenticato
+     */
     public static Utente getUtente() {
         return utente;
     }

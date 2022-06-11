@@ -20,6 +20,12 @@ public class GestoreCercaFarmaco {
         cercaFarmaci("", "");
     }
 
+    /**
+     * Cerca un farmaco nel database, con le rispettive quantità presenti già nel magazzino della corrispondente farmacia
+     *
+     * @param nomeFarmaco Nome del farmaco
+     * @param princAttivo Principio attivo
+     */
     public void cercaFarmaci(String nomeFarmaco, String princAttivo) {
         Farmaco[] farmaci = DBMSDaemon.querycercaFarmaco(nomeFarmaco, princAttivo);
         if (farmaci == null) return;
