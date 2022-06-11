@@ -728,7 +728,7 @@ public class DBMSDaemon {
      */
     public static Ordine[] queryOrdiniInAttesa() {
         connectAzienda();
-        String query = "SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco WHERE LOWER(Ordine.stato)='in attesa'";
+        String query = "SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco WHERE LOWER(Ordine.stato)='in attesa di disponibilita'";
         ArrayList<Ordine> ordini = new ArrayList<>();
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             var r = stmt.executeQuery();
@@ -921,12 +921,13 @@ public class DBMSDaemon {
 
     private static Lotto[] queryLotti(int id_farmaco, boolean accettaInScadenza, LocalDate d) {
         connectAzienda();
-        String query = "SELECT Lotto.* FROM Lotto WHERE Lotto.id_farmaco=? AND Lotto.data_scadenza>? ORDER BY Lotto.data_scadenza";
+        String query = "SELECT Lotto.* FROM Lotto WHERE Lotto.id_farmaco=? AND Lotto.data_scadenza>?  ORDER BY Lotto.data_scadenza"; //AND Lotto.data_scadenza>?
         ArrayList<Lotto> lotti = new ArrayList<>();
         if (!accettaInScadenza) {
             d = d.plusMonths(2);
         }
         Date data = Date.valueOf(d);
+
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setInt(1, id_farmaco);
             stmt.setDate(2, data);
@@ -937,6 +938,7 @@ public class DBMSDaemon {
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
+        Main.log.info("lotti size " +lotti.size());
         return lotti.toArray(new Lotto[0]);
     }
 
@@ -945,6 +947,8 @@ public class DBMSDaemon {
         String query = "UPDATE Lotto SET quantita=quantita-? WHERE Lotto.id_lotto=?";
         ArrayList<Lotto> temp = new ArrayList<>();
         for (Lotto l : lotti) {
+            if(l.getQuantita()==0)
+                continue;
             if (quantita > l.getQuantita()) {
                 quantita -= l.getQuantita();
                 temp.add(new Lotto(l));
@@ -955,6 +959,7 @@ public class DBMSDaemon {
                 temp.add(l1);
                 l.setQuantita(l.getQuantita() - quantita);
                 quantita = 0;
+                break;
             }
         }
         if (quantita > 0) {
@@ -967,6 +972,7 @@ public class DBMSDaemon {
                 stmt.addBatch();
             }
             stmt.executeBatch();
+            composizione.addAll(temp);
             return 0;
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
@@ -990,13 +996,13 @@ public class DBMSDaemon {
      */
     private static int queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, Ordine ordine) {
         connectAzienda();
-        String query = "INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?) ON DUPLICATE KEY " +
-                "UPDATE quantita=quantita+? ";
+        String query = "INSERT INTO ComposizioneOrdine(id_ordine,id_lotto,quantita) VALUES (?,?,?) ON DUPLICATE KEY UPDATE quantita=quantita+VALUES(quantita)";
 
         ArrayList<Lotto> composizione = new ArrayList<>();
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             connAzienda.setAutoCommit(false);
             int quantitaRimanente = creaComposizioneOrdini(id_farmaco, quantita, accettaScadenza, ordine.getData_consegna(), composizione);
+            Main.log.info("QuantitaRimanente nella query " + quantitaRimanente);
             if (quantitaRimanente > 0) {
                 connAzienda.rollback();
                 connAzienda.setAutoCommit(true);
@@ -1008,10 +1014,8 @@ public class DBMSDaemon {
                 stmt.setInt(3, l.getQuantita());
                 stmt.addBatch();
             }
-
             stmt.executeBatch();
             connAzienda.commit();
-            connAzienda.setAutoCommit(true);
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
             return -1;
@@ -1026,7 +1030,7 @@ public class DBMSDaemon {
             stmt.setInt(1, id_farmaco);
             ResultSet r = stmt.executeQuery();
             if (r.next()) {
-                return r.getInt(2);
+                return r.getInt("sum(quantita)");
             }
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
@@ -1062,20 +1066,23 @@ public class DBMSDaemon {
             if (ordine.getStato().equalsIgnoreCase("In Attesa di disponibilita")) {
                 connAzienda.commit();
                 connAzienda.setAutoCommit(true);
+                Main.log.info("Creato ordine In Attesa");
                 return 0;
             }
             ResultSet id_ordine = stmt.getGeneratedKeys();
             if (id_ordine.next()) {
-                int quantitaRimanente = queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), accettaScadenza, new Ordine(id_ordine.getInt(1), ordine));
+                int quantitaRimanente = queryCreaComposizioneOrdini(ordine.getId_farmaco(), ordine.getQuantita(), accettaScadenza, new Ordine(id_ordine.getInt("insert_id"), ordine));
                 if (quantitaRimanente == 0) {
                     connAzienda.commit();
                     connAzienda.setAutoCommit(true);
+                    Main.log.info("Creato ordine In Lavorazione");
                     return 0;
                 } else {
                     connAzienda.rollback();
                     return quantitaRimanente;
                 }
             }
+            connAzienda.rollback();
             return -1;
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
@@ -1199,9 +1206,10 @@ public class DBMSDaemon {
      */
     public static OrdinePeriodico[] queryOrdiniPeriodici(int id_farmacia) {
         connectAzienda();
-        String query = "SELECT OrdinePeriodico.*, F.nome, F2.nome FROM OrdinePeriodico, Farmacia F2 , Farmaco F WHERE F.id_farmaco = OrdinePeriodico.id_farmaco AND OrdinePeriodico.id_farmacia = F2.id_farmacia AND OrdinePeriodico.id_farmacia=?";
+        String query = "SELECT OrdinePeriodico.*, F.nome, F2.nome FROM OrdinePeriodico, Farmacia F2 , Farmaco F WHERE F.id_farmaco = OrdinePeriodico.id_farmaco AND OrdinePeriodico.id_farmacia = F2.id_farmacia AND OrdinePeriodico.id_farmacia=? AND OrdinePeriodico.periodicita=?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setInt(1, id_farmacia);
+            stmt.setInt(2, Main.orologio.chiediOrario().toLocalDate().getDayOfWeek().getValue());
             var r = stmt.executeQuery();
             ArrayList<OrdinePeriodico> foo = new ArrayList<>();
             while (r.next()) {

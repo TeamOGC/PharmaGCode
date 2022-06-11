@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 
 public class InterfacciaPrincipale {
     String nomeMostrato;
-    BoundaryDiSistemaFarmacista b = new BoundaryDiSistemaFarmacista();
     @FXML
     protected Label nomeUtente;
     @FXML
