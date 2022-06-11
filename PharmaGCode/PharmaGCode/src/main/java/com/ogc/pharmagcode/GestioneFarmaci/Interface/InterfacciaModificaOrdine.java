@@ -2,9 +2,7 @@ package com.ogc.pharmagcode.GestioneFarmaci.Interface;
 
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreModificaOrdine;
-import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.Utils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -18,7 +16,7 @@ public class InterfacciaModificaOrdine {
     @FXML
     private TextField quantita;
 
-    private Ordine ordine;
+    private final Ordine ordine;
 
     public InterfacciaModificaOrdine(GestoreModificaOrdine gestoreModificaOrdine, Ordine ordine) {
         this.gestoreModificaOrdine = gestoreModificaOrdine;
@@ -35,6 +33,5 @@ public class InterfacciaModificaOrdine {
 
     public void conferma() {
         gestoreModificaOrdine.modificaOrdine(Integer.parseInt(quantita.getText()), dataconsegna.getValue());
-        Utils.creaPannelloConferma("Ordine Modificato Correttamente");
     }
 }

@@ -29,8 +29,7 @@ public class GestoreModificaOrdine {
         if (DBMSDaemon.queryAggiornaQuantitaOrdine(ordine, nuovaQuantita) == -1)
             Utils.creaPannelloErrore("Errore");
         else {
-            // TODO: Buffa Aggiorna tabella GestoreVisualizzaOrdini
-            this.stage.close();
+            Utils.creaPannelloConferma("Ordine Modificato Correttamente", this.stage);
         }
     }
 }
