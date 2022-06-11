@@ -61,14 +61,14 @@ public class RecordOrdine extends Ordine {
      * <ul>
      *     <li>In Farmacia
      *         <ul>
-     *             <li>Data di consegna > 2 giorni da oggi: {@link GestoreModificaOrdine Modifica}</li>
-     *             <li>Data di consegna è oggi: {@link GestoreCaricoMerci Carica}</li>
+     *             <li>Data di consegna > 2 giorni da oggi: {@link GestoreModificaOrdine#modificaOrdine(int, LocalDate)  Modifica}</li>
+     *             <li>Data di consegna è oggi && Stato = Consegnato: {@link GestoreCaricoMerci#caricaFarmaco(int, int)  Carica}</li>
      *         </ul>
      *     </li>
      *     <li>In Azienda
      *          <ul>
      *              <li>Stato = Consegnato: {@link PDFCreator#creaPDF(Collo) Ricevuta}</li>
-     *              <li>Stato = Da verificare: {@link GestoreCorrezioneOrdine Correggi}</li>
+     *              <li>Stato = Da verificare: {@link GestoreCorrezioneOrdine#correggiOrdine(int) Correggi}</li>
      *          </ul>
      *      </li>
      * </ul>
@@ -86,7 +86,7 @@ public class RecordOrdine extends Ordine {
                 callback = modifica -> {
                     new GestoreModificaOrdine(ordine);
                 };
-            } else if (d.atTime(0, 0, 1).equals(ordine.getData_consegna().atTime(0, 0, 1))) {
+            } else if (d.atTime(0, 0, 1).equals(ordine.getData_consegna().atTime(0, 0, 1)) && ordine.getStato().equalsIgnoreCase("consegnato")) {
                 nomeBottone = "Carica";
                 callback = carica -> {
                     new GestoreCaricoMerci(ordine.getId_ordine());

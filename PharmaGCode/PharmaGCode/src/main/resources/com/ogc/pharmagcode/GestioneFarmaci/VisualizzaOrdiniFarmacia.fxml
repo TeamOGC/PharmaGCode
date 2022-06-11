@@ -62,10 +62,10 @@
                               <Font size="15.0" />
                            </font>
                            <toggleGroup>
-                              <ToggleGroup fx:id="filterBy" />
+                              <ToggleGroup/>
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton layoutX="234.0" layoutY="2.0" mnemonicParsing="false" text="Meno Recente" toggleGroup="$filterBy">
+                        <RadioButton layoutX="234.0" layoutY="2.0" mnemonicParsing="false" text="Meno Recente" toggleGroup="">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -80,7 +80,7 @@
                         <Font name="SansSerif Bold" size="17.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="25.0" prefWidth="191.0" promptText="nome farmaco" styleClass="textbox">
+                  <TextField prefHeight="25.0" fx:id="nomeFarmacoFilter" prefWidth="191.0" promptText="nome farmaco" styleClass="textbox">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
@@ -88,7 +88,7 @@
                         <Font name="SansSerif Regular" size="15.0" />
                      </font>
                   </TextField>
-                  <DatePicker promptText="data di consegna" styleClass="datepicker" />
+                  <DatePicker fx:id="dataConsegnaFilter" promptText="data di consegna" styleClass="datepicker" />
                </children>
             </HBox>
             <TableView fx:id="listaOrdini" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="2">
