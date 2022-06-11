@@ -6,6 +6,8 @@ import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+
 public class GestoreModificaOrdine {
     private InterfacciaModificaOrdine i;
     private Ordine ordine;
@@ -20,7 +22,10 @@ public class GestoreModificaOrdine {
         }, 600, 400);
     }
 
-    public void modificaOrdine(int nuovaQuantita) { //LocalDate date
+    public void modificaOrdine(int nuovaQuantita, LocalDate data) { //LocalDate date
+        // TODO: Modifica Data Ordine è commentato
+        // If data diverso da ordine.getData
+        //        DBMSDaemon.queryAggiornaData(ordine, data);
         if (DBMSDaemon.queryAggiornaQuantitaOrdine(ordine, nuovaQuantita) == -1)
             Utils.creaPannelloErrore("Errore");
         else {
