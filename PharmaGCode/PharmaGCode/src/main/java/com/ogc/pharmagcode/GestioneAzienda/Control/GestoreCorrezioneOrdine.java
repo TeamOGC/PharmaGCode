@@ -18,6 +18,17 @@ public class GestoreCorrezioneOrdine {
         this.daCorreggere = daCorreggere;
     }
 
+    /**
+     * Correggi un ordine
+     * <p>
+     * <ul>
+     *     <li>Chiedi al DB la quantità di quell'ordine già caricata dal farmacista</li>
+     *     <li>Verifica che la quantità da integrare non sia maggiore di quella mancante</li>
+     *     <li>Creo un ordine con la quantità inserita</li>
+     * </ul>
+     *
+     * @param qtaDaAggiungere quantità da reintegrare in un nuovo ordine
+     */
     public void correggiOrdine(int qtaDaAggiungere) {
         int qtaGiaCaricata = DBMSDaemon.queryControllaQuantita(daCorreggere);
         if (qtaGiaCaricata == -1) {
@@ -30,7 +41,7 @@ public class GestoreCorrezioneOrdine {
             Utils.creaPannelloErrore("Non puoi correggere l'ordine inserendo più farmaci di quanti ne mancano");
             return;
         }
-        Main.log.warn("La comunicazione al DB è DISATTIVATA, ricordatene"); // TODO
+        Main.log.warn("La comunicazione al DB è DISATTIVATA, ricordatene"); // TODO: query Correggi Ordine commentata
 //      DBMSDaemon.queryCorreggiOrdine(qtaDaAggiungere, qtaGiaCaricata, daCorreggere);
         daCorreggere.setStato("Corretto");
         GestoreVisualizzaOrdiniAzienda.aggiornaTabella(daCorreggere);

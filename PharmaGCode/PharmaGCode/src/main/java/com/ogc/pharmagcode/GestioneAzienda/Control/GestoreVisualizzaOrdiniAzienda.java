@@ -1,16 +1,12 @@
 package com.ogc.pharmagcode.GestioneAzienda.Control;
 
-import com.itextpdf.text.DocumentException;
 import com.ogc.pharmagcode.Common.RecordOrdine;
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaVisualizzaOrdiniAzienda;
-import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
-import com.ogc.pharmagcode.Utils.PDFCreator;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,15 +16,19 @@ public class GestoreVisualizzaOrdiniAzienda {
 
     public GestoreVisualizzaOrdiniAzienda() {
         Ordine[] ordini = DBMSDaemon.queryVisualizzaOrdiniAzienda();
-        if(ordini != null){
+        if (ordini != null) {
             listaOrdiniAzienda.addAll(Arrays.stream(ordini).map(RecordOrdine::fromOrdine).toList());
         }
-        this.i = (InterfacciaVisualizzaOrdiniAzienda) Utils.cambiaInterfaccia("GestioneOrdini/VisualizzaOrdiniAzienda.fxml",
-                new Stage(),
-                c -> new InterfacciaVisualizzaOrdiniAzienda(listaOrdiniAzienda));
+        this.i = (InterfacciaVisualizzaOrdiniAzienda) Utils.cambiaInterfaccia("GestioneOrdini/VisualizzaOrdiniAzienda.fxml", new Stage(), c -> new InterfacciaVisualizzaOrdiniAzienda(listaOrdiniAzienda));
     }
 
-    protected static void aggiornaTabella(Ordine aggiornato){
+    /**
+     * Aggiorna {@link GestoreVisualizzaOrdiniAzienda#listaOrdiniAzienda} rimuovendo (se presente un ordine con lo stesso id) ed inserendo nuovamente {@code aggiornato}
+     * In questo modo la tabella viene aggiornata
+     *
+     * @param aggiornato l'ordine da rimuovere e inserire
+     */
+    protected static void aggiornaTabella(Ordine aggiornato) {
         listaOrdiniAzienda.removeIf(recordOrdine -> recordOrdine.getId_ordine() == aggiornato.getId_ordine());
         listaOrdiniAzienda.add(0, RecordOrdine.fromOrdine(aggiornato));
     }
