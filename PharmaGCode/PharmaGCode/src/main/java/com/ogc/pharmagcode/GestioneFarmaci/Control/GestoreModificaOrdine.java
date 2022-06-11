@@ -10,9 +10,12 @@ public class GestoreModificaOrdine {
     private InterfacciaModificaOrdine i;
     private Ordine ordine;
 
+    private final Stage stage;
+
     public GestoreModificaOrdine(Ordine ordine) {
         this.ordine = ordine;
-        i = (InterfacciaModificaOrdine) Utils.cambiaInterfaccia("GestioneFarmaci/ModificaOrdine.fxml", new Stage(), c -> {
+        this.stage = new Stage();
+        i = (InterfacciaModificaOrdine) Utils.cambiaInterfaccia("GestioneFarmaci/ModificaOrdine.fxml", this.stage, c -> {
             return new InterfacciaModificaOrdine(this, ordine);
         }, 600, 400);
     }
@@ -20,5 +23,9 @@ public class GestoreModificaOrdine {
     public void modificaOrdine(int nuovaQuantita) { //LocalDate date
         if (DBMSDaemon.queryAggiornaQuantitaOrdine(ordine, nuovaQuantita) == -1)
             Utils.creaPannelloErrore("Errore");
+        else {
+            // TODO: Buffa Aggiorna tabella GestoreVisualizzaOrdini
+            this.stage.close();
+        }
     }
 }

@@ -4,6 +4,8 @@ import com.itextpdf.text.DocumentException;
 import com.ogc.pharmagcode.Entity.Collo;
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.GestioneAzienda.Control.GestoreCorrezioneOrdine;
+import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreCaricoMerci;
+import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreModificaOrdine;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.PDFCreator;
@@ -12,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDate;
 
 /**
@@ -49,30 +52,66 @@ public class RecordOrdine extends Ordine {
         return bottone;
     }
 
-    public static RecordOrdine fromOrdine(Ordine ordine, String nomeBottone, EventHandler<ActionEvent> callback) {
+    public static RecordOrdine fromOrdine(Ordine ordine, String nomeBottone, EventHandler<ActionEvent> callback) { // TODO: Usare l'altro che aggiunge i bottoni in automatico
         return new RecordOrdine(ordine.getId_ordine(), ordine.getId_farmaco(), ordine.getNome_farmaco(), ordine.getId_farmacia(), ordine.getData_consegna(), ordine.getStato(), ordine.getQuantita(), nomeBottone, callback);
     }
 
+    /**
+     * Aggiunge automaticamente un bottone in base all'ordine passato
+     * <ul>
+     *     <li>In Farmacia
+     *         <ul>
+     *             <li>Data di consegna > 2 giorni da oggi: {@link GestoreModificaOrdine Modifica}</li>
+     *             <li>Data di consegna è oggi: {@link GestoreCaricoMerci Carica}</li>
+     *         </ul>
+     *     </li>
+     *     <li>In Azienda
+     *          <ul>
+     *              <li>Stato = Consegnato: {@link PDFCreator#creaPDF(Collo) Ricevuta}</li>
+     *              <li>Stato = Da verificare: {@link GestoreCorrezioneOrdine Correggi}</li>
+     *          </ul>
+     *      </li>
+     * </ul>
+     *
+     * @param ordine Ordine da inserire in una tabella
+     * @return RecordOrdine con il pulsante opportuno
+     */
     public static RecordOrdine fromOrdine(Ordine ordine) {
         String nomeBottone = "";
         EventHandler<ActionEvent> callback = null;
-        if (ordine.getStato().equalsIgnoreCase("consegnato")) {
-            nomeBottone = "Ricevuta";
-            callback = creaPDF -> {
-                try {
-                    PDFCreator.creaPDF((DBMSDaemon.queryCollo(ordine)));
-                } catch (IOException | DocumentException e) {
-                    Main.log.error("Problema con il PDF", e);
-                    throw new RuntimeException(e);
-                }
-                Main.log.info("Cliccato sul bottone Ricevuta");
-            };
-        } else if (ordine.getStato().equalsIgnoreCase("da verificare")) {
-            nomeBottone = "Correggi";
-            callback = correggi -> {
-                Main.log.info("Cliccato sul bottone correggi");
-                new GestoreCorrezioneOrdine(ordine);
-            };
+        if (Main.sistema == 0) { // Lato Farmacia i bottoni sono Modifica o Carica
+            LocalDate d = Main.orologio.chiediOrario().toLocalDate();
+            if (Duration.between(d.atTime(0, 0, 1), ordine.getData_consegna().atTime(0, 0, 1)).toDays() > 1) {
+                nomeBottone = "Modifica";
+                callback = modifica -> {
+                    new GestoreModificaOrdine(ordine);
+                };
+            } else if (d.atTime(0, 0, 1).equals(ordine.getData_consegna().atTime(0, 0, 1))) {
+                nomeBottone = "Carica";
+                callback = carica -> {
+                    new GestoreCaricoMerci(ordine.getId_ordine());
+                };
+            }
+        } else if (Main.sistema == 2) { // Lato azienda i bottoni sono: Correggi e Ricevuta
+            if (ordine.getStato().equalsIgnoreCase("consegnato")) {
+                nomeBottone = "Ricevuta";
+                callback = creaPDF -> {
+                    Main.log.info("Cliccato sul bottone Ricevuta");
+                    try {
+                        Collo collo = DBMSDaemon.queryCollo(ordine);
+                        if (collo == null) Main.log.warn("Qualcosa è andato storto e non avrebbe dovuto, riprova");
+                        else PDFCreator.creaPDF(collo);
+                    } catch (IOException | DocumentException e) {
+                        Main.log.error("Problema con il PDF", e);
+                    }
+                };
+            } else if (ordine.getStato().equalsIgnoreCase("da verificare")) {
+                nomeBottone = "Correggi";
+                callback = correggi -> {
+                    Main.log.info("Cliccato sul bottone correggi");
+                    new GestoreCorrezioneOrdine(ordine);
+                };
+            }
         }
         return new RecordOrdine(ordine.getId_ordine(), ordine.getId_farmaco(), ordine.getNome_farmaco(), ordine.getId_farmacia(), ordine.getData_consegna(), ordine.getStato(), ordine.getQuantita(), nomeBottone, callback);
     }

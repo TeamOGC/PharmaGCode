@@ -32,21 +32,7 @@ public class GestoreVisualizzaOrdini {
         Ordine[] ordini = DBMSDaemon.queryVisualizzaOrdiniFarmacia(Main.idFarmacia);
         if (ordini != null) {
             for (Ordine o : ordini) {
-                EventHandler<ActionEvent> e = n -> {
-                };
-                String bottone = "";
-                if (Duration.between(d.atTime(0, 0, 1), o.getData_consegna().atTime(0, 0, 1)).toDays() > 1) {
-                    e = modifica -> {
-                        new GestoreModificaOrdine(o);
-                    };
-                    bottone = "Modifica";
-                } else if (d.equals(o.getData_consegna())) {
-                    e = carica -> {
-                        new GestoreCaricoMerci(o.getId_ordine());
-                    };
-                    bottone = "Carica";
-                }
-                listaOrdini.add(RecordOrdine.fromOrdine(o, bottone, e));
+                listaOrdini.add(RecordOrdine.fromOrdine(o));
             }
         }
         return listaOrdini;
