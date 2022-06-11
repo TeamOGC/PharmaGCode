@@ -1,5 +1,6 @@
 package com.ogc.pharmagcode.Common;
 
+import com.ogc.pharmagcode.Entity.Collo;
 import com.ogc.pharmagcode.Entity.OrdinePeriodico;
 import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreModificaOrdinePeriodico;
 import com.ogc.pharmagcode.Main;
@@ -9,6 +10,11 @@ import javafx.scene.control.Button;
 
 import java.time.LocalDate;
 
+/**
+ * Questa classe serve a poter visualizzare un {@link Collo} all'interno di una {@link javafx.scene.control.TableView tabella JavaFX}
+ * <p>
+ * In particolare è possibile aggiungere un bottone con un {@link RecordCollo#nomeBottone suo testo} ed una {@link RecordCollo#callback sua funzione}
+ */
 public class RecordOrdinePeriodico extends OrdinePeriodico {
 
     private LocalDate nextConsegna = null;
@@ -54,30 +60,12 @@ public class RecordOrdinePeriodico extends OrdinePeriodico {
     }
 
     public static RecordOrdinePeriodico fromOrdinePeriodico(OrdinePeriodico ordinePeriodico, String nomeBottone, EventHandler<ActionEvent> callback) {
-        return new RecordOrdinePeriodico(
-                ordinePeriodico.getId_farmacia(),
-                ordinePeriodico.getId_farmaco(),
-                ordinePeriodico.getQuantita(),
-                ordinePeriodico.getPeriodicita(),
-                ordinePeriodico.getNomeFarmaco(),
-                ordinePeriodico.getNomeFarmacia(),
-                nomeBottone,
-                callback
-        );
+        return new RecordOrdinePeriodico(ordinePeriodico.getId_farmacia(), ordinePeriodico.getId_farmaco(), ordinePeriodico.getQuantita(), ordinePeriodico.getPeriodicita(), ordinePeriodico.getNomeFarmaco(), ordinePeriodico.getNomeFarmacia(), nomeBottone, callback);
     }
 
     public static RecordOrdinePeriodico fromOrdinePeriodico(OrdinePeriodico ordinePeriodico) {
-        return new RecordOrdinePeriodico(
-                ordinePeriodico.getId_farmacia(),
-                ordinePeriodico.getId_farmaco(),
-                ordinePeriodico.getQuantita(),
-                ordinePeriodico.getPeriodicita(),
-                ordinePeriodico.getNomeFarmaco(),
-                ordinePeriodico.getNomeFarmacia(),
-                "Modifica",
-                modifica -> {
-                    new GestoreModificaOrdinePeriodico(ordinePeriodico);
-                }
-        );
+        return new RecordOrdinePeriodico(ordinePeriodico.getId_farmacia(), ordinePeriodico.getId_farmaco(), ordinePeriodico.getQuantita(), ordinePeriodico.getPeriodicita(), ordinePeriodico.getNomeFarmaco(), ordinePeriodico.getNomeFarmacia(), "Modifica", modifica -> {
+            new GestoreModificaOrdinePeriodico(ordinePeriodico);
+        });
     }
 }

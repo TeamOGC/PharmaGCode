@@ -1,6 +1,7 @@
 package com.ogc.pharmagcode.Common;
 
 import com.itextpdf.text.DocumentException;
+import com.ogc.pharmagcode.Entity.Collo;
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.GestioneAzienda.Control.GestoreCorrezioneOrdine;
 import com.ogc.pharmagcode.Main;
@@ -14,7 +15,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 /**
- * Questa classe viene utilizzata esclusivamente all'interno dentro una TableView
+ * Questa classe serve a poter visualizzare un {@link Collo} all'interno di una {@link javafx.scene.control.TableView tabella JavaFX}
+ * <p>
+ * In particolare è possibile aggiungere un bottone con un {@link RecordCollo#nomeBottone suo testo} ed una {@link RecordCollo#callback sua funzione}
  */
 public class RecordOrdine extends Ordine {
     private final String nomeBottone;
@@ -47,23 +50,13 @@ public class RecordOrdine extends Ordine {
     }
 
     public static RecordOrdine fromOrdine(Ordine ordine, String nomeBottone, EventHandler<ActionEvent> callback) {
-        return new RecordOrdine(
-                ordine.getId_ordine(),
-                ordine.getId_farmaco(),
-                ordine.getNome_farmaco(),
-                ordine.getId_farmacia(),
-                ordine.getData_consegna(),
-                ordine.getStato(),
-                ordine.getQuantita(),
-                nomeBottone,
-                callback
-        );
+        return new RecordOrdine(ordine.getId_ordine(), ordine.getId_farmaco(), ordine.getNome_farmaco(), ordine.getId_farmacia(), ordine.getData_consegna(), ordine.getStato(), ordine.getQuantita(), nomeBottone, callback);
     }
 
     public static RecordOrdine fromOrdine(Ordine ordine) {
         String nomeBottone = "";
         EventHandler<ActionEvent> callback = null;
-        if(ordine.getStato().equalsIgnoreCase("consegnato")){
+        if (ordine.getStato().equalsIgnoreCase("consegnato")) {
             nomeBottone = "Ricevuta";
             callback = creaPDF -> {
                 try {
@@ -81,16 +74,6 @@ public class RecordOrdine extends Ordine {
                 new GestoreCorrezioneOrdine(ordine);
             };
         }
-        return new RecordOrdine(
-                ordine.getId_ordine(),
-                ordine.getId_farmaco(),
-                ordine.getNome_farmaco(),
-                ordine.getId_farmacia(),
-                ordine.getData_consegna(),
-                ordine.getStato(),
-                ordine.getQuantita(),
-                nomeBottone,
-                callback
-        );
+        return new RecordOrdine(ordine.getId_ordine(), ordine.getId_farmaco(), ordine.getNome_farmaco(), ordine.getId_farmacia(), ordine.getData_consegna(), ordine.getStato(), ordine.getQuantita(), nomeBottone, callback);
     }
 }

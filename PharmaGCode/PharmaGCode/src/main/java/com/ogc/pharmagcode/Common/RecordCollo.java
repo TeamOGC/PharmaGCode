@@ -8,6 +8,11 @@ import javafx.scene.control.Button;
 
 import java.time.LocalDate;
 
+/**
+ * Questa classe serve a poter visualizzare un {@link Collo} all'interno di una {@link javafx.scene.control.TableView tabella JavaFX}
+ * <p>
+ * In particolare è possibile aggiungere un bottone con un {@link RecordCollo#nomeBottone suo testo} ed una {@link RecordCollo#callback sua funzione}
+ */
 public class RecordCollo extends Collo {
 
     private final String nomeBottone;
@@ -37,17 +42,7 @@ public class RecordCollo extends Collo {
     }
 
     public static RecordCollo fromCollo(Collo collo, String nomeBottone, EventHandler<ActionEvent> callback) {
-        return new RecordCollo(
-                collo.getId_collo(),
-                collo.getId_farmacia(),
-                collo.getData_consegna(),
-                collo.getFirma(),
-                collo.getNome_farmacia(),
-                collo.getIndirizzo_farmacia(),
-                collo.getOrdini().toArray(new Ordine[0]),
-                nomeBottone,
-                callback
-        );
+        return new RecordCollo(collo.getId_collo(), collo.getId_farmacia(), collo.getData_consegna(), collo.getFirma(), collo.getNome_farmacia(), collo.getIndirizzo_farmacia(), collo.getOrdini().toArray(new Ordine[0]), nomeBottone, callback);
     }
 
     public Button getBottone() {
