@@ -1,10 +1,16 @@
 package com.ogc.pharmagcode.Common;
 
+import com.ogc.pharmagcode.Entity.Collo;
 import com.ogc.pharmagcode.Entity.Farmaco;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
+/**
+ * Questa classe serve a poter visualizzare un {@link Farmaco} all'interno di una {@link javafx.scene.control.TableView tabella JavaFX}
+ * <p>
+ * In particolare è possibile aggiungere un bottone con un {@link RecordCollo#nomeBottone suo testo} ed una {@link RecordCollo#callback sua funzione}
+ */
 public class RecordFarmaco extends Farmaco {
     private final String nomeBottone;
     private final EventHandler<ActionEvent> callback;

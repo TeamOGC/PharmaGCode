@@ -10,13 +10,11 @@ import javafx.stage.Stage;
 
 public class GestoreFirmaConsegne {
     public Collo daFirmare;
-    private final GestoreVisualizzaConsegne gestoreVisualizzaConsegne;
     private final Stage stage;
 
-    public GestoreFirmaConsegne(GestoreVisualizzaConsegne gestoreVisualizzaConsegne, Collo colloDaFirmare) {
+    public GestoreFirmaConsegne(Collo colloDaFirmare) {
         this.stage = new Stage();
         this.daFirmare = colloDaFirmare;
-        this.gestoreVisualizzaConsegne = gestoreVisualizzaConsegne;
         Utils.cambiaInterfaccia("GestioneConsegna/FirmaConsegne.fxml", this.stage, c -> new InterfacciaFirmaConsegne(this));
     }
 
@@ -27,7 +25,7 @@ public class GestoreFirmaConsegne {
         Main.log.info("Sto firmando il collo " + daFirmare.getId_collo() + " " + firma);
         daFirmare.setFirma(firma);
         if (DBMSDaemon.queryFirmaCollo(firma, daFirmare))
-            gestoreVisualizzaConsegne.aggiornaTabella(RecordCollo.fromCollo(daFirmare, "", null));
+            GestoreVisualizzaConsegne.aggiornaTabella(RecordCollo.fromCollo(daFirmare));
         this.stage.close();
 
     }

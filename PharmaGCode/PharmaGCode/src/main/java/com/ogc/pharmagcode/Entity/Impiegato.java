@@ -1,7 +1,5 @@
 package com.ogc.pharmagcode.Entity;
 
-import com.ogc.pharmagcode.Main;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,17 +16,20 @@ public class Impiegato extends Utente {
         return id_impiegato;
     }
 
-    public static Impiegato createFromDB(ResultSet row) {
-        try {
-            return new Impiegato(
-                    row.getInt(1),
-                    row.getString(2),
-                    row.getString(3),
-                    row.getString(4),
-                    row.getString(5));
-        } catch (SQLException e) {
-            Main.log.error("Errore durante conversione DB->Utente", e);
-        }
-        return null;
+    /**
+     * Converte i risultati di una query
+     * {@code SELECT Impiegato.*}
+     *
+     * @param row risultati della query
+     * @return Impiegato corrispondente
+     * @throws SQLException se la row non proviene da una select come specificata in precedenza
+     */
+    public static Impiegato createFromDB(ResultSet row) throws SQLException {
+        return new Impiegato(
+                row.getInt(1),
+                row.getString(2),
+                row.getString(3),
+                row.getString(4),
+                row.getString(5));
     }
 }

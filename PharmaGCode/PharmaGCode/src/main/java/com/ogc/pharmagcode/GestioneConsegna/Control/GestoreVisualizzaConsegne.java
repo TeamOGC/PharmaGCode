@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class GestoreVisualizzaConsegne {
 
-    public ArrayList<RecordCollo> listaColli = new ArrayList<>();
+    public static ArrayList<RecordCollo> listaColli = new ArrayList<>();
 
     public GestoreVisualizzaConsegne() {
         Stage stage = new Stage();
@@ -22,24 +22,14 @@ public class GestoreVisualizzaConsegne {
         Utils.cambiaInterfaccia("GestioneConsegna/VisualizzaConsegne.fxml", stage, c -> new InterfacciaVisualizzaConsegne(this));
     }
 
+
     private void chiediConsegne() {
+        listaColli = new ArrayList<>();
         Collo[] colli = DBMSDaemon.queryVisualizzaConsegne(Main.orologio.chiediOrario().toLocalDate());
         if (colli != null) {
             Main.log.info("Colli per oggi trovati: " + colli.length);
             for (Collo collo : colli) {
-                RecordCollo toAdd;
-                if (collo.getFirma().isBlank()) {
-                    toAdd =
-                            RecordCollo.fromCollo(
-                                    collo,
-                                    "Firma",
-                                    firma -> new GestoreFirmaConsegne(this, collo));
-                } else {
-                    toAdd = RecordCollo.fromCollo(
-                            collo, "", null
-                    );
-                }
-                listaColli.add(toAdd);
+                listaColli.add(RecordCollo.fromCollo(collo));
             }
         }
     }
@@ -48,8 +38,8 @@ public class GestoreVisualizzaConsegne {
      * Questo metodo serve solamente a poter aggiornare la lista dopo aver firmato, senza dover contattare il DB
      * @param aggiornato RecordCollo del collo aggiornato, senza nessun bottone e con la nuova firma
      */
-    protected void aggiornaTabella(RecordCollo aggiornato){
-        this.listaColli.removeIf(recordCollo -> recordCollo.getId_collo() == aggiornato.getId_collo());
-        this.listaColli.add(aggiornato);
+    protected static void aggiornaTabella(RecordCollo aggiornato){
+        listaColli.removeIf(recordCollo -> recordCollo.getId_collo() == aggiornato.getId_collo());
+        listaColli.add(aggiornato);
     }
 }

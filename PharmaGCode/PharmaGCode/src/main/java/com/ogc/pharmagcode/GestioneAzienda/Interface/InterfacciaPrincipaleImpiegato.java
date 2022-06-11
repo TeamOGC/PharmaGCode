@@ -20,12 +20,12 @@ public class InterfacciaPrincipaleImpiegato extends InterfacciaPrincipale {
         });
     }
     @FXML
-    public void cliccaVisualizzaOrdini(ActionEvent actionEvent) {
+    public void cliccaVisualizzaOrdini() {
         Main.log.debug("Impiegato ha cliccato su visualizza ordini azienda");
         new GestoreVisualizzaOrdiniAzienda();
     }
 
-    public void cliccaModificaProduzione(ActionEvent actionEvent) {
+    public void cliccaModificaProduzione() {
         Main.log.debug("Impiegato ha cliccato su modifica produzione");
         new GestoreModificaProduzione();
     }

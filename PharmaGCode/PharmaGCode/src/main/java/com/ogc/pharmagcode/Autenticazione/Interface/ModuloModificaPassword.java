@@ -22,7 +22,6 @@ public class ModuloModificaPassword {
 
     @FXML
     protected void conferma() {
-        if (old_pwd.getText().isBlank() || new_pwd.getText().isBlank() || re_pwd.getText().isBlank()) return;
         gmp.modificaPassword(old_pwd.getText(), new_pwd.getText(), re_pwd.getText());
     }
 

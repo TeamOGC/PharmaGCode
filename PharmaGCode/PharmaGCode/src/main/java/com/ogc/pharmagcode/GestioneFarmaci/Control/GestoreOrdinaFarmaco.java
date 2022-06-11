@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
+//TODO: Javadocs, non so come scriverli
 public class GestoreOrdinaFarmaco {
     InterfacciaOrdinaFarmaco i;
     Stage s;
@@ -62,7 +63,7 @@ public class GestoreOrdinaFarmaco {
     }
 
     /**
-     * Consente di ordinare tutta la quantita non disponibile per
+     * Consente di ordinare tutta la quantità non disponibile per
      *
      * @param o
      * @param accettaInScadenza
@@ -74,7 +75,7 @@ public class GestoreOrdinaFarmaco {
     }
 
     /**
-     * Consente di dividere l'ordine in due ordini separati, uno con le quantita attualmente ordinabili e uno in attesa di disponibilità
+     * Consente di dividere l'ordine in due ordini separati, uno con le quantità attualmente ordinabili e uno in attesa di disponibilità
      *
      * @param o
      * @param accettaInScadenza

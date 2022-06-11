@@ -70,6 +70,14 @@ public class Ordine {
         this.quantita = quantita;
     }
 
+    /**
+     * Converte i risultati di una query
+     * {@code SELECT Ordine.*, Farmaco.nome}
+     *
+     * @param r risultati della query
+     * @return Ordine corrispondente
+     * @throws SQLException se la row non proviene da una select come specificata in precedenza
+     */
     public static Ordine createFromDB(ResultSet r) throws SQLException {
         int id_ordine = r.getInt(1);
         int id_farmaco = r.getInt(2);

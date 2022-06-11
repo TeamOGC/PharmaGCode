@@ -23,7 +23,7 @@ public class InterfacciaFirmaConsegne {
     }
 
     public void initialize() {
-        this.listaOrdini.setItems(FXCollections.observableArrayList(this.gestoreFirmaConsegne.daFirmare.getOrdini()));
+        this.listaOrdini.setItems(FXCollections.observableList(this.gestoreFirmaConsegne.daFirmare.getOrdini()));
     }
 
     public void firmaConsegna() {

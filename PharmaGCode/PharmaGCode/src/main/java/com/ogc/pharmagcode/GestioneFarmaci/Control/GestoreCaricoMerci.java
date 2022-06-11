@@ -21,6 +21,12 @@ public class GestoreCaricoMerci {
         }, 600, 400);
     }
 
+    /**
+     * Carica il lotto
+     *
+     * @param codiceLotto codice del lotto da caricare
+     * @param quantita quantità da caricare
+     */
     public void caricaFarmaco(int codiceLotto, int quantita) {
         Main.log.info("Caricando lotto (" + codiceLotto + ") quantita (" + quantita + ")  --- DB NON zÈ COMMENTATO");
         DBMSDaemon.queryCaricaFarmaco(codiceLotto, Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate(), quantita);

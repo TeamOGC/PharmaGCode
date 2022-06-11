@@ -41,17 +41,20 @@ public class GestoreRegistrazione {
         return false;
     }
 
+    /**
+     * Vedi {@link GestoreModificaPassword#controllaPassword(String, String)}
+     * <p>
+     * In più, questo controlla la validità della mail presente in {@link GestoreRegistrazione#email}
+     * <p>
+     */
     private boolean controllaValiditaPwd(String password, String re_pwd) {
         boolean isValid = password.length() <= 20 && password.length() >= 8;
         String upperCaseChars = "(.*[A-Z].*)";
-        if (!password.matches(upperCaseChars))
-            isValid = false;
+        if (!password.matches(upperCaseChars)) isValid = false;
         String lowerCaseChars = "(.*[a-z].*)";
-        if (!password.matches(lowerCaseChars))
-            isValid = false;
+        if (!password.matches(lowerCaseChars)) isValid = false;
         String numbers = "(.*[0-9].*)";
-        if (!password.matches(numbers))
-            isValid = false;
+        if (!password.matches(numbers)) isValid = false;
         String rfcCompliantMailPattern = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         if (!email.matches(rfcCompliantMailPattern)) {
             isValid = false;
@@ -59,6 +62,18 @@ public class GestoreRegistrazione {
         return isValid && password.equals(re_pwd);
     }
 
+    /**
+     * Metodo della control
+     * <p>
+     * Registra un utente, controllando la validità dei dati con {@link GestoreRegistrazione#controllaValiditaPwd(String, String) controllaValiditaPwd}
+     *
+     * @param nome     nome dell'utente
+     * @param cognome  cognome dell'utente
+     * @param email    email dell'utente
+     * @param password password (in chiaro) dell'utente
+     * @param re_pwd   conferma della password dell'utente
+     * @return true o false se la registrazione va a buon fine o meno
+     */
     public boolean registraAccount(String nome, String cognome, String email, String password, String re_pwd) {
         if (nome.isBlank() || cognome.isBlank() || email.isBlank() || password.isBlank()) {
             Utils.creaPannelloErrore("Inserisci tutti i dati");

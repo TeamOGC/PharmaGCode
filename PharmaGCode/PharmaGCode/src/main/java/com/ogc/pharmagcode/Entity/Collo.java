@@ -90,11 +90,11 @@ public class Collo {
 
     /**
      * Converte i risultati di una query con il seguente SELECT
-     * SELECT Collo.*, Farmacia.nome, Farmacia.indirizzo
+     * {@code SELECT Collo.*, Farmacia.nome, Farmacia.indirizzo}
      *
      * @param row risultati della query
      * @return Collo corrispondente
-     * @throws SQLException
+     * @throws SQLException se la row non proviene da una select come specificata in precedenza
      */
     public static Collo createFromDB(ResultSet row) throws SQLException {
         return new Collo(

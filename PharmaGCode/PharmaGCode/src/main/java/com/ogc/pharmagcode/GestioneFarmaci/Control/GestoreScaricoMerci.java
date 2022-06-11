@@ -17,10 +17,18 @@ public class GestoreScaricoMerci {
         }, 600, 400);
     }
 
+    /**
+     * Scarico merci inserendo il codice lotto e la quantità venduta
+     * Inoltre se le scorte sono inferiori ad un limite inferiore prestabilito (5), notifica il farmacista
+     *
+     * @param codiceLotto codice del lotto
+     * @param quantita quantita venduta
+     */
     public void scaricoMerci(int codiceLotto, int quantita) {
+        // TODO: Doccia pensiero: Cosa succede se carica un farmaco che non aveva ordinato?
         int s = DBMSDaemon.queryScaricaMerci(codiceLotto, Main.idFarmacia, quantita);
         if (s <= 5) {
-            Utils.creaPannelloConferma("ATTENZIONE: il farmaco scaricato è in esaurimento!", this.stage);
+            Utils.creaPannelloConferma("Merce scaricata correttamente!\nATTENZIONE: il farmaco scaricato è in esaurimento!", this.stage);
         }
         else
             Utils.creaPannelloConferma("Merce scaricata correttamente!", this.stage);

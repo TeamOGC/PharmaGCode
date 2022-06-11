@@ -6,19 +6,30 @@ import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+
 public class GestoreModificaOrdine {
     private InterfacciaModificaOrdine i;
     private Ordine ordine;
 
+    private final Stage stage;
+
     public GestoreModificaOrdine(Ordine ordine) {
         this.ordine = ordine;
-        i = (InterfacciaModificaOrdine) Utils.cambiaInterfaccia("GestioneFarmaci/ModificaOrdine.fxml", new Stage(), c -> {
+        this.stage = new Stage();
+        i = (InterfacciaModificaOrdine) Utils.cambiaInterfaccia("GestioneFarmaci/ModificaOrdine.fxml", this.stage, c -> {
             return new InterfacciaModificaOrdine(this, ordine);
         }, 600, 400);
     }
 
-    public void modificaOrdine(int nuovaQuantita) { //LocalDate date
+    public void modificaOrdine(int nuovaQuantita, LocalDate data) { //LocalDate date
+        // TODO: Modifica Data Ordine è commentato
+        // If data diverso da ordine.getData
+        //        DBMSDaemon.queryAggiornaData(ordine, data);
         if (DBMSDaemon.queryAggiornaQuantitaOrdine(ordine, nuovaQuantita) == -1)
             Utils.creaPannelloErrore("Errore");
+        else {
+            Utils.creaPannelloConferma("Ordine Modificato Correttamente", this.stage);
+        }
     }
 }
