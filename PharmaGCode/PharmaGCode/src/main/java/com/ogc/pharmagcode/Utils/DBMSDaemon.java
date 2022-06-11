@@ -611,7 +611,7 @@ public class DBMSDaemon {
     public static HashMap<Integer, Integer> queryMerceCaricata(int id_farmacia, LocalDate data_caricamento) {
         connectFarmacia();
         HashMap<Integer, Integer> foo = new HashMap<>();
-        String query = "SELECT Caricamenti.id_ordine, sum(Caricamenti.quantita) FROM Caricamenti WHERE Caricamenti.data_caricamento=? AND Caricamenti.id_farmacia=? GROUP BY id_ordine";
+        String query = "SELECT Caricamenti.id_caricamento, sum(Caricamenti.quantita) FROM Caricamenti WHERE Caricamenti.data_caricamento=? AND Caricamenti.id_farmacia=? GROUP BY id_caricamento";
         try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
             stmt.setDate(1, Date.valueOf(data_caricamento));
             stmt.setInt(2, id_farmacia);

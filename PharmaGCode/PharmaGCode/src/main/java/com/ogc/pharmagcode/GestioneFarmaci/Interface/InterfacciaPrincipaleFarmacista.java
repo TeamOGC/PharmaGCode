@@ -17,6 +17,7 @@ public class InterfacciaPrincipaleFarmacista extends InterfacciaPrincipale {
     }
     @FXML
     public void initialize(){
+        super.initialize();
         Main.orologio.setOrologio(e->{
             b.chiediOrario();
         });

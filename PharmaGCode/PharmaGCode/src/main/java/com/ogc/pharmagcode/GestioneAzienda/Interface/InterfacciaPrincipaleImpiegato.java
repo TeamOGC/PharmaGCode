@@ -15,6 +15,7 @@ public class InterfacciaPrincipaleImpiegato extends InterfacciaPrincipale {
 
     @FXML
     public void initialize(){
+        super.initialize();
         Main.orologio.setOrologio(e->{
             b.chiediData();
         });

@@ -35,8 +35,8 @@ public class GestoreDiSistemaFarmacista implements Serializable {
                         ordiniPeriodici = DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia);
                     }while(!DBMSDaemon.queryCreaOrdini(ordiniPeriodici) || ordiniPeriodici==null); //Finche le query non vengono eseguite correttamente prova a rifarle
                     giornoUltimaChiamata = Main.orologio.chiediOrario().getDayOfMonth();
-                    serializza();
                 }
+                serializza();
                 //DBMSDaemon.queryOrdiniDiUnaFarmaciaUnaData(Main.idFarmacia,Main.orologio.chiediOrario().toLocalDate());
             }
             if (Main.orologio.confrontaTimer()) {
