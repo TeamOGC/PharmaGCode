@@ -57,7 +57,7 @@ public class GestoreOrdinaFarmaco {
                             ordinaDateSeparate(o, accettaInScadenza, quantita, quantitaEccedente);
                             s.close();
                         });
-            });
+            }, 600, 400);
         }
     }
 

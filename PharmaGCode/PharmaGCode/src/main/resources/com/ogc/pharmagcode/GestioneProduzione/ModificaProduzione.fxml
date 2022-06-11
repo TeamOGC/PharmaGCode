@@ -24,7 +24,7 @@
             <children>
                 <VBox alignment="CENTER" prefHeight="319.0" prefWidth="512.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <Label prefHeight="57.0" prefWidth="472.0" text="Scegliere il farmaco da modificare e la quantità prodotta in un mese:" textAlignment="CENTER" wrapText="true">
+                        <Label prefHeight="57.0" prefWidth="472.0" text="Inserire il farmaco da modificare e la nuova produzione settimanale:" textAlignment="CENTER" wrapText="true">
                             <font>
                                 <Font name="System Bold" size="17.0" />
                             </font>

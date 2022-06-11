@@ -88,6 +88,9 @@
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Nessun farmaco trovato"/>
+                </placeholder>
             </TableView>
             <HBox alignment="TOP_CENTER" prefHeight="102.0" prefWidth="1024.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <children>

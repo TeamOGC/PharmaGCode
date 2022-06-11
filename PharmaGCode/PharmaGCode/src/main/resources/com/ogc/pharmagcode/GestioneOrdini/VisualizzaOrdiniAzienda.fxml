@@ -95,6 +95,9 @@
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
+                <placeholder>
+                    <Label text="Nessun ordine trovato"/>
+                </placeholder>
             </TableView>
 
          </children>
