@@ -51,6 +51,15 @@ public class OrdinePeriodico {
         return nomeFarmacia;
     }
 
+
+    /**
+     * Converte i risultati di una query
+     * {@code SELECT OrdinePeriodico.*, Farmaco.nome, Farmacia.nome}
+     *
+     * @param row risultati della query
+     * @return Ordine corrispondente
+     * @throws SQLException se la row non proviene da una select come specificata in precedenza
+     */
     public static OrdinePeriodico createFromDB(ResultSet row) throws SQLException {
         int id_farmacia = row.getInt(1);
         int id_farmaco = row.getInt(2);

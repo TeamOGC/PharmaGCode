@@ -1,7 +1,5 @@
 package com.ogc.pharmagcode.Entity;
 
-import com.ogc.pharmagcode.Main;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -68,25 +66,23 @@ public class Farmaco {
 
     @Override
     public String toString() {
-        return "Farmaco[" +
-                "id_farmaco=" + id_farmaco + ", " +
-                "nome=" + nome + ", " +
-                "principio_attivo=" + principio_attivo + ", " +
-                "da_banco=" + da_banco + ", " +
-                "quantitaFarmaci=" + quantitaFarmaci + ']';
+        return "Farmaco[" + "id_farmaco=" + id_farmaco + ", " + "nome=" + nome + ", " + "principio_attivo=" + principio_attivo + ", " + "da_banco=" + da_banco + ", " + "quantitaFarmaci=" + quantitaFarmaci + ']';
     }
 
-    public static Farmaco createFromDB(ResultSet row) {
-        try {
-            int id_farmaco = row.getInt(1);
-            String nome = row.getString(2);
-            String principio = row.getString(3);
-            boolean da_banco = row.getBoolean(4);
-            return new Farmaco(id_farmaco, nome, principio, da_banco);
-        } catch (SQLException e) {
-            Main.log.error("Conversione DB->Farmaco fallita per qualche motivo", e);
-        }
-        return null;
+    /**
+     * Converte i risultati di una query
+     * {@code SELECT Farmaco.*}
+     *
+     * @param row risultati della query
+     * @return Farmaco corrispondente
+     * @throws SQLException se la row non proviene da una select come specificata in precedenza
+     */
+    public static Farmaco createFromDB(ResultSet row) throws SQLException {
+        int id_farmaco = row.getInt(1);
+        String nome = row.getString(2);
+        String principio = row.getString(3);
+        boolean da_banco = row.getBoolean(4);
+        return new Farmaco(id_farmaco, nome, principio, da_banco);
     }
 
 }
