@@ -945,12 +945,13 @@ public class DBMSDaemon {
     }
 
     /**
-     * // TODO: @Vincenzo scrivi qua la javadoc che non so che scrivere
-     * query per creare un ordine
+     *
+     *
      *
      * @param ordine {@link Ordine} da creare
      * @return true if ordine creato correttamente, false if error
      */
+    @Deprecated
     public static boolean queryCreaOrdine(Ordine ordine) {
 
         connectAzienda();
@@ -1039,7 +1040,15 @@ public class DBMSDaemon {
         return -1;
     }
 
-    // TODO: @Vincenzo scrivi qua la javadoc che non so che scrivere
+    /**
+     *
+     * @param id_farmaco
+     * @param quantita
+     * @param accettaScadenza
+     * @param d
+     * @param composizione
+     * @return
+     */
     private static int creaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, LocalDate d, ArrayList<Lotto> composizione) {
         return queryScegliLotti(queryLotti(id_farmaco, accettaScadenza, d), quantita, composizione);
     }
@@ -1076,6 +1085,7 @@ public class DBMSDaemon {
             }
             stmt.executeBatch();
             connAzienda.commit();
+            connAzienda.setAutoCommit(true); //not sure
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
             return -1;
@@ -1112,7 +1122,7 @@ public class DBMSDaemon {
      * @param accettaScadenza se si accettano farmaci in scadenza
      * @return Quantita eccedente
      */
-    public static int queryCreaOrdineTemp(Ordine ordine, boolean accettaScadenza) {
+    public static int queryCreaOrdine(Ordine ordine, boolean accettaScadenza) {
 
         //Deve: chiedere i lotti, scegliere quali lotti verranno scelti
         // per quell'ordine, rimuovere i farmaci
@@ -1156,10 +1166,16 @@ public class DBMSDaemon {
         }
     }
 
-    // TODO: @Vincenzo scrivi qua la javadoc che non so che scrivere
+    /**
+     * Crea l'ordine componendo, se necessario, i lotti per l'ordine, settando lo stato passato come argomento
+     * @param ordine ordine da creare
+     * @param statoOrdine stato dell'ordine
+     * @param accettaInScadenza se l'ordine può accettare farmaci in scadenza
+     * @return
+     */
     public static int queryCreaOrdine(Ordine ordine, String statoOrdine, boolean accettaInScadenza) {
         ordine.setStato(statoOrdine);
-        return queryCreaOrdineTemp(ordine, accettaInScadenza);
+        return queryCreaOrdine(ordine, accettaInScadenza);
     }
 
     /**
@@ -1311,13 +1327,36 @@ public class DBMSDaemon {
     }
 
     /**
+     * query per modificare la quantità di un ordine periodico da parte di un farmacista
+     *
+     * @param ordine    ordine periodico da modificare
+     * @param nuova_qty nuova quantità da settare
+     * @return 1 if success, -1 if error
+     */
+    public static int queryModificaOrdinePeriodico(Ordine ordine, int nuova_qty) {
+        connectAzienda();
+        String query = "UPDATE OrdinePeriodico SET OrdinePeriodico.quantita=? WHERE OrdinePeriodico.id_farmacia=? AND OrdinePeriodico.id_farmaco=?";
+        try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
+            stmt.setInt(1, nuova_qty);
+            stmt.setInt(2, ordine.getId_farmacia());
+            stmt.setInt(3, ordine.getId_farmaco());
+            var r = stmt.executeUpdate();
+            if (r != 0)
+                return r;
+        } catch (SQLException e) {
+            erroreComunicazioneDBMS(e);
+        }
+        return -1;
+    }
+
+    /**
      * Recupera le consegne da effettuare {@code today} da parte del corriere
      * Utilizzato in {@link GestoreVisualizzaConsegne Corriere - Visualizza Consegne}
      *
-     * @param today {@link LocalDate} data odierna
+     * @param data {@link LocalDate} data odierna
      * @return {@link Collo}[] tutti i colli, consegnati e non, di {@code today}
      */
-    public static Collo[] queryVisualizzaConsegne(LocalDate today) {
+    public static Collo[] queryVisualizzaConsegne(LocalDate data) {
         connectAzienda();
         ArrayList<Collo> colli = new ArrayList<>();
         String queryPrendiColli = "SELECT C.*, Farmacia.nome, Farmacia.indirizzo FROM Collo C, Farmacia WHERE Farmacia.id_farmacia = C.id_farmacia AND C.data_consegna = ?";
@@ -1328,7 +1367,7 @@ public class DBMSDaemon {
                 "AND O.id_farmacia=C.id_farmacia " +
                 "AND C.id_collo = ?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(queryPrendiColli)) {
-            stmt.setDate(1, Date.valueOf(today));
+            stmt.setDate(1, Date.valueOf(data));
             var r = stmt.executeQuery();
             PreparedStatement stmtGetOrdini = connAzienda.prepareStatement(queryPrendiOrdini);
             while (r.next()) {
@@ -1490,7 +1529,7 @@ public class DBMSDaemon {
             connAzienda.setAutoCommit(false);
             for (OrdinePeriodico op : ordini) {
                 Ordine o = new Ordine(-1, op.getId_farmaco(), op.getNomeFarmaco(), op.getId_farmacia(), data, "In Lavorazione", op.getQuantita());
-                DBMSDaemon.queryCreaOrdineTemp(o, false);
+                DBMSDaemon.queryCreaOrdine(o, false);
             }
             connAzienda.commit();
             connAzienda.setAutoCommit(true);
