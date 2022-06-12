@@ -26,27 +26,26 @@ public class GestoreDiSistemaFarmacista implements Serializable {
     public void chiediOrario() {
         int h = Main.orologio.chiediOrario().getHour();
 
-        if (Main.sistema == 0) {
-            if (h == 20 && giornoUltimaChiamata != Main.orologio.chiediOrario().getDayOfMonth()) {
-                if (!confrontaOrdiniMerce()) {
-                    Utils.cambiaInterfaccia("GestioneFarmaci/AvvisoMancatoCaricamento.fxml", new Stage(), 600, 400);
-                    OrdinePeriodico[] ordiniPeriodici;
-                    do {
-                        ordiniPeriodici = DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia);
-                    }while(!DBMSDaemon.queryCreaOrdini(ordiniPeriodici) || ordiniPeriodici==null); //Finche le query non vengono eseguite correttamente prova a rifarle
-                    giornoUltimaChiamata = Main.orologio.chiediOrario().getDayOfMonth();
-                }
-                serializza();
-                //DBMSDaemon.queryOrdiniDiUnaFarmaciaUnaData(Main.idFarmacia,Main.orologio.chiediOrario().toLocalDate());
+        if (h == 20 && giornoUltimaChiamata != Main.orologio.chiediOrario().getDayOfMonth()) {
+            OrdinePeriodico[] ordiniPeriodici;
+            if (!confrontaOrdiniMerce()) {
+                Utils.cambiaInterfaccia("GestioneFarmaci/AvvisoMancatoCaricamento.fxml", new Stage(), 600, 400);
             }
-            if (Main.orologio.confrontaTimer()) {
-                //Invia segnalazione all'azienda
-                if (!confrontaOrdiniMerce()) {
-                    aggiornaStatoOrdini();
-                }
-                System.out.println("Mancato caricamento");
-            }
+            do {
+                ordiniPeriodici = DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia);
+            }while(!DBMSDaemon.queryCreaOrdini(ordiniPeriodici) || ordiniPeriodici==null); //Finche le query non vengono eseguite correttamente prova a rifarle
+            giornoUltimaChiamata = Main.orologio.chiediOrario().getDayOfMonth();
+            serializza();
+            //DBMSDaemon.queryOrdiniDiUnaFarmaciaUnaData(Main.idFarmacia,Main.orologio.chiediOrario().toLocalDate());
         }
+        if (Main.orologio.confrontaTimer()) {
+            //Invia segnalazione all'azienda
+            if (!confrontaOrdiniMerce()) {
+                aggiornaStatoOrdini();
+            }
+            System.out.println("Mancato caricamento");
+        }
+
     }
 
     public boolean confrontaOrdiniMerce() {

@@ -43,7 +43,8 @@ public class GestoreOrdinaFarmaco {
         Ordine o = new Ordine(-1,
                 f.getId_farmaco(),
                 f.getNome(), Main.idFarmacia, d, "In Lavorazione", quantita);
-        int quantitaEccedente = DBMSDaemon.queryCreaOrdineTemp(o, accettaInScadenza);
+        int quantitaEccedente = DBMSDaemon.queryCreaOrdine(o, accettaInScadenza);
+        Main.log.info("Ordine rimanente: " + quantitaEccedente);
         if (quantitaEccedente == 0) {
             Utils.creaPannelloConferma("Ordine Creato Correttamente");
             s.close();
