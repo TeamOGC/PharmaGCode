@@ -1,6 +1,7 @@
 package com.ogc.pharmagcode.Utils;
 
 import com.ogc.pharmagcode.Entity.*;
+import com.ogc.pharmagcode.GestioneConsegna.Control.GestoreVisualizzaConsegne;
 import com.ogc.pharmagcode.Main;
 
 import java.sql.*;
@@ -11,32 +12,81 @@ import java.util.HashMap;
 
 @SuppressWarnings({"unused", "UnusedReturnValue", "DuplicatedCode", "SqlResolve"})
 public class DBMSDaemon {
+    /**
+     * @hidden
+     * URL del Server DBMS
+     */
     private static final String baseUrl = "beverlylab.duckdns.org";
+    /**
+     * @hidden
+     * Porta del Server DBMS
+     */
     private static final int port = 11051;
+    /**
+     * @hidden
+     * Utente del server DBMS
+     */
     private static final String user = "ogcadmin";
+    /**
+     * @hidden
+     * Password del server DBMS
+     */
     private static final String pass = "OggiCarbonara";
+    /**
+     * @hidden
+     * Nome del DBMS Farmacie sul server
+     */
     private static final String DBFarmacie = "DB_Farmacie";
+    /**
+     * @hidden
+     * Nome del DBMS Azienda sul server
+     */
     private static final String DBAzienda = "DB_Azienda";
+    /**
+     * @hidden
+     * Connessione al DBMS Farmacie
+     */
     private static Connection connFarmacia = null;
+    /**
+     * @hidden
+     * Connessione al DBMS Azienda
+     */
     private static Connection connAzienda = null;
 
 
+    /**
+     * Metodo che mostra il pannello di errore e logga l'errore.
+     *
+     * @param e errore da loggare
+     */
     private static void erroreComunicazioneDBMS(Exception e) {
         Main.log.error("Errore durante comunicazione con DBMS", e);
         Utils.creaPannelloErrore("C'è stato un problema durante la comunicazione con la base di dati, riprova");
     }
 
+    /**
+     * @hidden
+     */
     private static String buildConnectionUrl(String dbName) {
         if (dbName.equals(DBFarmacie) || dbName.equals(DBAzienda))
             return "jdbc:mariadb://" + baseUrl + ":" + port + "/" + dbName + "?user=" + user + "&password=" + pass;
         return "";
     }
 
+    /**
+     * Metodo che permette di connettersi ad entrambi i Databases.
+     * <p>
+     * Vedi {@link DBMSDaemon#connectAzienda()} e {@link DBMSDaemon#connectFarmacia()}
+     */
     public static void connect() {
         connectFarmacia();
         connectAzienda();
     }
 
+    /**
+     * Metodo utilizzato per connettersi al DBMS Farmacie.
+     * Se la connessione è già stata stabilita in precedenza, viene utilizzata quest'ultima.
+     */
     public static void connectFarmacia() {
         try {
             if (connFarmacia == null || connFarmacia.isClosed()) {
@@ -50,6 +100,10 @@ public class DBMSDaemon {
         }
     }
 
+    /**
+     * Metodo utilizzato per connettersi al DBMS Azienda.
+     * Se la connessione è già stata stabilita in precedenza, viene utilizzata quest'ultima.
+     */
     public static void connectAzienda() {
         try {
             if (connAzienda == null || connAzienda.isClosed()) {
@@ -159,11 +213,10 @@ public class DBMSDaemon {
 // -- Query Gestione Account
 
     /**
-     * Controlla Credenziali utenza farmacista
-     *
      * @param mail     Mail del farmacista
      * @param password Password del farmacista
      * @return {@link Farmacista}
+     * @hidden Controlla Credenziali utenza farmacista
      */
     private static Farmacista queryControllaCredenzialiFarmacista(String mail, String password) {
         connectFarmacia();
@@ -182,11 +235,10 @@ public class DBMSDaemon {
     }
 
     /**
-     * Controlla Credenziali utenza impiegato
-     *
      * @param mail     mail dell'impiegato
      * @param password password dell'impiegato
      * @return {@link Impiegato}
+     * @hidden Controlla Credenziali utenza impiegato
      */
     private static Impiegato queryControllaCredenzialiImpiegato(String mail, String password) {
         connectAzienda();
@@ -205,11 +257,10 @@ public class DBMSDaemon {
     }
 
     /**
-     * Controlla Credenziali utenza corriere
-     *
      * @param mail     mail del corriere
      * @param password password del corriere
      * @return {@link Corriere}
+     * @hidden Controlla Credenziali utenza corriere
      */
     private static Corriere queryControllaCredenzialiCorriere(String mail, String password) {
         connectAzienda();
@@ -229,12 +280,11 @@ public class DBMSDaemon {
 
 
     /**
-     * Aggiorna la password di un Farmacista quella vecchia
-     *
      * @param mail       mail dell'utente
      * @param password   password dell'utente
      * @param vecchiaPsw psw da modificare
      * @return true se la password è stata aggiornata
+     * @hidden Aggiorna la password di un Farmacista quella vecchia
      */
     private static boolean queryModificaPasswordFarmacista(String mail, String password, String vecchiaPsw) {
         connectFarmacia();
@@ -252,12 +302,11 @@ public class DBMSDaemon {
     }
 
     /**
-     * Aggiorna la password di un Impiegato conoscendo quella vecchia
-     *
      * @param mail       mail dell'utente
      * @param password   password dell'utente
      * @param vecchiaPsw psw da modificare
      * @return 1 if password aggiornata, -1 altrimenti
+     * @hidden Aggiorna la password di un Impiegato conoscendo quella vecchia
      */
     private static boolean queryModificaPasswordImpiegato(String mail, String password, String vecchiaPsw) {
         connectAzienda();
@@ -275,12 +324,11 @@ public class DBMSDaemon {
     }
 
     /**
-     * Aggiorna la password di un Corriere conoscendo quella vecchia
-     *
      * @param mail       mail dell'utente
      * @param password   password dell'utente
      * @param vecchiaPsw psw da modificare
      * @return 1 if password aggiornata, -1 altrimenti
+     * @hidden Aggiorna la password di un Corriere conoscendo quella vecchia
      */
     private static boolean queryModificaPasswordCorriere(String mail, String password, String vecchiaPsw) {
         connectAzienda();
@@ -297,6 +345,12 @@ public class DBMSDaemon {
         return false;
     }
 
+    /**
+     * @param mail    mail dell'utente
+     * @param new_pwd nuova password generata dal sistema
+     * @return 1 if success, -1 if error
+     * @hidden Query richiamata dentro Recupera credenziali, non necessita della vecchia psw per modificarla
+     */
     private static boolean queryAggiornaPasswordCorriere(String mail, String new_pwd) {
         connectAzienda();
         String query = "UPDATE Corriere SET Corriere.password = ? WHERE email = ?";
@@ -313,11 +367,10 @@ public class DBMSDaemon {
     }
 
     /**
-     * Query richiamata dentro Recupera credenziali, non necessita della vecchia psw per modificarla
-     *
      * @param mail    mail dell'utente
      * @param new_pwd nuova password generata dal sistema
      * @return 1 if success, -1 if error
+     * @hidden Query richiamata dentro Recupera credenziali, non necessita della vecchia psw per modificarla
      */
     private static boolean queryAggiornaPasswordFarmacista(String mail, String new_pwd) {
         connectFarmacia();
@@ -335,11 +388,10 @@ public class DBMSDaemon {
     }
 
     /**
-     * Query richiamata dentro Recupera credenziali, non necessita della vecchia psw per modificarla
-     *
      * @param mail    mail dell'utente
      * @param new_pwd nuova password generata dal sistema
      * @return 1 if success, -1 if error
+     * @hidden Query richiamata dentro Recupera credenziali, non necessita della vecchia psw per modificarla
      */
     private static boolean queryAggiornaPasswordImpiegato(String mail, String new_pwd) {
         connectAzienda();
@@ -358,16 +410,15 @@ public class DBMSDaemon {
 
 
     /**
-     * Inserisci una nuova entry nella tabella Farmacista
-     *
      * @param id_farmacia id farmacia
      * @param nome        nome farmacista
      * @param cognome     cognome farmacista
      * @param email       mail farmacista
      * @param password    password hashata
      * @return true if success, false if error
+     * @hidden Registra un nuovo farmacista all'interno del DB
      */
-    public static boolean queryRegistraFarmacista(int id_farmacia, String nome, String cognome, String email, String password) {
+    private static boolean queryRegistraFarmacista(int id_farmacia, String nome, String cognome, String email, String password) {
         connectFarmacia();
         String query = "INSERT INTO Farmacista (id_farmacia, nome, cognome, email,password) VALUES (?,?,?,?,?)";
         try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
@@ -384,15 +435,14 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per registrare un impiegato nel db
-     *
      * @param nome     nome impiegato
      * @param cognome  cognome impiegato
      * @param email    mail impiegato
      * @param password password hashata
      * @return true if success, false if error
+     * @hidden Registra un impiegato nel db
      */
-    public static boolean queryRegistraImpiegato(String nome, String cognome, String email, String password) {
+    private static boolean queryRegistraImpiegato(String nome, String cognome, String email, String password) {
         connectAzienda();
         String query = "INSERT INTO Impiegato (nome, cognome, email,password) VALUES (?,?,?,?)";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
@@ -409,15 +459,14 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per registrare un corriere all'interno del db
-     *
      * @param nome     nome corriere
      * @param cognome  cognome corriere
      * @param email    mail corriere
      * @param password password hashata
      * @return true o false se la registrazione va a buon fine o meno
+     * @hidden Registra un corriere all'interno del db
      */
-    public static boolean queryRegistraCorriere(String nome, String cognome, String email, String password) {
+    private static boolean queryRegistraCorriere(String nome, String cognome, String email, String password) {
         connectAzienda();
         String query = "INSERT INTO Corriere (nome, cognome, email,password) VALUES (?,?,?,?)";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
@@ -434,10 +483,9 @@ public class DBMSDaemon {
 
 
     /**
-     * Verifica l'esistenza della mail di un farmacista all'interno del db
-     *
      * @param mail email del farmacista
      * @return true if email in DB, false if not
+     * @hidden Verifica l'esistenza della mail di un farmacista all'interno del db
      */
     public static boolean queryVerificaEsistenzaMailFarmacista(String mail) {
         connectFarmacia();
@@ -455,12 +503,11 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per verificare l'esistenza della mail di un impiegato nel db in fase di registrazione e di recupero credenziali
-     *
      * @param mail mail da verificare
      * @return true if mail in db, false if not
+     * @hidden Verifica l'esistenza l'esistenza della mail di un impiegato nel db in fase di registrazione e di recupero credenziali
      */
-    public static boolean queryVerificaEsistenzaMailImpiegato(String mail) {
+    private static boolean queryVerificaEsistenzaMailImpiegato(String mail) {
         connectAzienda();
         String query = "SELECT Impiegato.email FROM Impiegato WHERE email = ?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
@@ -476,12 +523,11 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per verificare l'esistenza della mail di un corriere nel db in fase di registrazione e di recupero credenziali
-     *
      * @param mail mail da verificare
      * @return true if mail in db, false if not
+     * @hidden Verifica l'esistenza della mail di un corriere nel db in fase di registrazione e di recupero credenziali
      */
-    public static boolean queryVerificaEsistenzaMailCorriere(String mail) {
+    private static boolean queryVerificaEsistenzaMailCorriere(String mail) {
         connectAzienda();
         String query = "SELECT Corriere.email FROM Corriere WHERE email = ?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
@@ -502,12 +548,14 @@ public class DBMSDaemon {
 
 
     /**
-     * Controlla scorte farmacia dopo lo scarico merci
-     *
      * @param id_lotto    lotto del farmaco scaricato
      * @param id_farmacia farmacia che ha scaricato il farmaco
      * @return quantità ancora disponibili dalla farmacia
+     * @deprecated Viene ritornata la quantità direttamente dopo aver fatto lo scarico (vedi {@link DBMSDaemon#queryScaricaMerci(int, int, int) queryScaricaMerci})
+     * <p>
+     * Controlla scorte farmacia dopo lo scarico merci
      */
+    @Deprecated(forRemoval = true, since = "0.0")
     public static int queryControlloScorte(int id_lotto, int id_farmacia) {
         connectFarmacia();
         var query = "SELECT Lotto.quantita FROM DB_Farmacie.Lotto WHERE id_lotto = ? AND id_farmacia= ?";
@@ -525,7 +573,7 @@ public class DBMSDaemon {
     }
 
     /**
-     * Consente di effettuare il caricamento merci
+     * Consente di effettuare il caricamento merci, carica la merce nel DB Farmacie
      *
      * @param id_lotto         id del lotto
      * @param id_farmacia      id della farmacia
@@ -547,7 +595,7 @@ public class DBMSDaemon {
     }
 
     /**
-     * Consente di aggiornare la quantità consegnata dell'ordine appena caricato
+     * Carica la quantità consegnata nel DB Azienda
      *
      * @param id_ordine id dell'ordine appena caricato
      * @param id_lotto  id del lotto appena caricato
@@ -570,6 +618,8 @@ public class DBMSDaemon {
 
     /**
      * Consente di effettuare lo scarico di un farmaco appena venduto
+     * All'effettivo, decrementa la quantità del lotto in farmacia.
+     * Ritorna la quantità rimasta in magazzino
      *
      * @param id_lotto    id del lotto che viene scaricato
      * @param id_farmacia id della farmacia che effettua lo scarico
@@ -578,12 +628,11 @@ public class DBMSDaemon {
      */
     public static int queryScaricaMerci(int id_lotto, int id_farmacia, int qty) {
         connectFarmacia();
-        String query = "UPDATE DB_Farmacie.Lotto SET Lotto.quantita=((SELECT Lotto.quantita FROM DB_Farmacie.Lotto WHERE Lotto.id_lotto=?)-?) WHERE Lotto.id_lotto=? AND Lotto.id_farmacia=?";
+        String query = "UPDATE DB_Farmacie.Lotto SET Lotto.quantita=Lotto.quantita-? WHERE Lotto.id_lotto=? AND Lotto.id_farmacia=?";
         try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
-            stmt.setInt(1, id_lotto);
-            stmt.setInt(2, qty);
-            stmt.setInt(3, id_lotto);
-            stmt.setInt(4, id_farmacia);
+            stmt.setInt(1, qty);
+            stmt.setInt(2, id_lotto);
+            stmt.setInt(3, id_farmacia);
             stmt.executeUpdate();
             var squery = "SELECT Lotto.id_Farmaco,sum(quantita) FROM DB_Farmacie.Lotto WHERE Lotto.id_farmaco=(SELECT Lotto.id_farmaco FROM Lotto WHERE Lotto.id_lotto=? ) GROUP BY Lotto.id_farmaco";
             try (PreparedStatement sstmt = connFarmacia.prepareStatement(squery)) {
@@ -627,9 +676,9 @@ public class DBMSDaemon {
     }
 
     /**
-     * Aggiorna la quantità di farmaci
+     * Per ogni farmaco viene recuperata la quantità presente nel magazzino della singola farmacia identificata da {@code id_farmacia}
      *
-     * @param listaFarmaci lista di farmaci di cui aggiornare la quantita
+     * @param listaFarmaci lista di farmaci di cui aggiornare la quantità
      * @param id_farmacia  id della farmacia che fa la richiesta
      */
     public static boolean queryQuantitaFarmaci(Farmaco[] listaFarmaci, int id_farmacia) {
@@ -698,7 +747,7 @@ public class DBMSDaemon {
     }
 
     /**
-     * Query per chiedere tutti gli ordini periodici
+     * Recupera tutti gli ordini periodici
      *
      * @return {@link OrdinePeriodico}[] contenente tutti gli ordini periodici.
      * Ritorna null se ci sono stati errori o non sono stati trovati risultati.
@@ -721,14 +770,14 @@ public class DBMSDaemon {
     }
 
     /**
-     * Query per chiedere tutti gli ordini con stato in attesa da parte dell'azienda
+     * Recupera tutti gli ordini con stato in attesa da parte dell'azienda
      *
      * @return {@link Ordine}[] tutti gli ordini in attesa. {@code null} se non
      * sono stati trovati risultati o erroreComunicazioneDBMS
      */
     public static Ordine[] queryOrdiniInAttesa() {
         connectAzienda();
-        String query = "SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco WHERE LOWER(Ordine.stato)='in attesa di disponibilita'";
+        String query = "SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco WHERE LOWER(Ordine.stato)='in attesa di disponibilita' order by Ordine.data_consegna";
         ArrayList<Ordine> ordini = new ArrayList<>();
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             var r = stmt.executeQuery();
@@ -745,8 +794,8 @@ public class DBMSDaemon {
     /**
      * Aggiorna la composizione degli ordini in seguito a una modifica della quantita dell'ordine
      *
-     * @param ordine
-     * @param nuova_qty
+     * @param ordine    ordine da aggiornare
+     * @param nuova_qty nuova quantità dell'ordine
      */
     private static void queryAggiornaComposizioneOrdini(Ordine ordine, int nuova_qty) {
         int delta = nuova_qty - ordine.getQuantita();
@@ -796,7 +845,7 @@ public class DBMSDaemon {
     }
 
     /**
-     * aggiorna la quantità di un ordine, se la quantità è settata a 0 elimina l'ordine
+     * Aggiorna la quantità di un ordine, se la quantità è settata a 0 elimina l'ordine
      *
      * @param ordine {@link Ordine} ordine di cui modificare la quantità
      * @return 1 if success, -1 if error
@@ -850,9 +899,9 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per aggiornare lo stato di un ordine
+     * Aggiornare lo stato di un ordine
      *
-     * @param ordine ordine da aggiornare
+     * @param ordine ordine da aggiornare, con il nuovo stato
      * @return 1 if update success, -1 if update failed
      */
     public static int queryAggiornaStatoOrdine(Ordine ordine) {
@@ -874,9 +923,10 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per visualizzare gli ordini lato azienda
+     * Recupera tutti gli ordini effettuati da tutte le farmacie. Utilizzato esclusivamente dall'Impiegato per effettuare
+     * {@link com.ogc.pharmagcode.GestioneAzienda.Control.GestoreVisualizzaOrdiniAzienda VisualizzaOrdiniAzienda}
      *
-     * @return ResultSet contenente tutti gli ordini lato azienda (Le colonne corrispondono alle colonne della tabella ordine del DB)
+     * @return {@link Ordine}[] lista contenente tutti gli ordini
      */
     public static Ordine[] queryVisualizzaOrdiniAzienda() {
         connectAzienda();
@@ -895,6 +945,7 @@ public class DBMSDaemon {
     }
 
     /**
+     * // TODO: @Vincenzo scrivi qua la javadoc che non so che scrivere
      * query per creare un ordine
      *
      * @param ordine {@link Ordine} da creare
@@ -919,15 +970,22 @@ public class DBMSDaemon {
         return false;
     }
 
-    private static Lotto[] queryLotti(int id_farmaco, boolean accettaInScadenza, LocalDate d) {
+    /**
+     * Recupera tutti i lotti di un relativo farmaco con una data di scadenza successiva alla {@code dataScadenza} (+2 mesi se {@code accettaInScadenza})
+     *
+     * @param id_farmaco        id del farmaco
+     * @param accettaInScadenza se accetta farmaci in scadenza o meno
+     * @param dataScadenza      data di scadenza
+     * @return {@link Lotto}[] lista di lotti che soddisfano i requisiti
+     */
+    private static Lotto[] queryLotti(int id_farmaco, boolean accettaInScadenza, LocalDate dataScadenza) {
         connectAzienda();
-        String query = "SELECT Lotto.* FROM Lotto WHERE Lotto.id_farmaco=? AND Lotto.data_scadenza>?  ORDER BY Lotto.data_scadenza"; //AND Lotto.data_scadenza>?
+        String query = "SELECT Lotto.* FROM Lotto WHERE Lotto.id_farmaco=? AND Lotto.data_scadenza>?  ORDER BY Lotto.data_scadenza";
         ArrayList<Lotto> lotti = new ArrayList<>();
         if (!accettaInScadenza) {
-            d = d.plusMonths(2);
+            dataScadenza = dataScadenza.plusMonths(2);
         }
-        Date data = Date.valueOf(d);
-
+        Date data = Date.valueOf(dataScadenza);
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setInt(1, id_farmaco);
             stmt.setDate(2, data);
@@ -938,16 +996,17 @@ public class DBMSDaemon {
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
-        Main.log.info("lotti size " +lotti.size());
+        Main.log.debug("Trovati " + lotti.size() + " lotti");
         return lotti.toArray(new Lotto[0]);
     }
 
+    // TODO: @Vincenzo scrivi qua la javadoc che non so che scrivere
     private static int queryScegliLotti(Lotto[] lotti, int quantita, ArrayList<Lotto> composizione) {
         connectAzienda();
         String query = "UPDATE Lotto SET quantita=quantita-? WHERE Lotto.id_lotto=?";
         ArrayList<Lotto> temp = new ArrayList<>();
         for (Lotto l : lotti) {
-            if(l.getQuantita()==0)
+            if (l.getQuantita() == 0)
                 continue;
             if (quantita > l.getQuantita()) {
                 quantita -= l.getQuantita();
@@ -980,19 +1039,20 @@ public class DBMSDaemon {
         return -1;
     }
 
+    // TODO: @Vincenzo scrivi qua la javadoc che non so che scrivere
     private static int creaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, LocalDate d, ArrayList<Lotto> composizione) {
-        int quantitaRimanente = queryScegliLotti(queryLotti(id_farmaco, accettaScadenza, d), quantita, composizione);
-        return quantitaRimanente;
+        return queryScegliLotti(queryLotti(id_farmaco, accettaScadenza, d), quantita, composizione);
     }
 
     /**
      * Transazione Atomica per comporre l'ordine dai lotti disponibili
      *
-     * @param id_farmaco
-     * @param quantita
-     * @param accettaScadenza
-     * @param ordine
-     * @return
+     * @param id_farmaco      id del farmaco
+     * @param quantita        quantità da comporre
+     * @param accettaScadenza se accetta farmaci in scadenza
+     * @param ordine          ordine da comporre
+     * @return Se l'operazione va a buon fine, ritorna {@code 0}.
+     * Se non riesce a soddisfare l'ordine, ritorna un intero rappresentante la quantità rimanente che non può essere soddisfatta
      */
     private static int queryCreaComposizioneOrdini(int id_farmaco, int quantita, boolean accettaScadenza, Ordine ordine) {
         connectAzienda();
@@ -1023,6 +1083,12 @@ public class DBMSDaemon {
         return 0;
     }
 
+    /**
+     * Recupera la quantità disponibile nel magazzino azienda, avendo l'identificativo del farmaco
+     *
+     * @param id_farmaco identificativo del farmaco
+     * @return quantità presente nel magazzino dell'azienda, -1 se qualcosa va male
+     */
     public static int queryQuantitaFarmaco(int id_farmaco) {
         connectAzienda();
         String query = "SELECT id_farmaco, sum(quantita) FROM Lotto WHERE id_farmaco=? GROUP BY id_farmaco";
@@ -1042,7 +1108,7 @@ public class DBMSDaemon {
      * Prova a creare un ordine, se l'ordine è da contrassegnare in lavorazione e non sono disponibili le quantità richieste
      * l'ordine non viene effettuato e viene ritornata la quantita che non è stato possbile ordinare
      *
-     * @param ordine
+     * @param ordine ordine da creare (o meglio, provarci)
      * @param accettaScadenza se si accettano farmaci in scadenza
      * @return Quantita eccedente
      */
@@ -1090,6 +1156,7 @@ public class DBMSDaemon {
         }
     }
 
+    // TODO: @Vincenzo scrivi qua la javadoc che non so che scrivere
     public static int queryCreaOrdine(Ordine ordine, String statoOrdine, boolean accettaInScadenza) {
         ordine.setStato(statoOrdine);
         return queryCreaOrdineTemp(ordine, accettaInScadenza);
@@ -1097,9 +1164,9 @@ public class DBMSDaemon {
 
     /**
      * Query che consente a un impiegato di correggere un ordine
-     *
+     * Nel particolare questo metodo fa:
      * <ol>
-     *     <li>Modifica lo stato di {@code ordine} in {@systemProperty "Corretto"}</li>
+     *     <li>Modifica lo stato di {@code ordine} in {@code "Corretto"}</li>
      *     <li>Modifica la quantità di {@code ordine} in {@code qta_consegnata}</li>
      *     <li>Modifica la quantità di ogni lotto che compone {@code ordine}, reintegrando la quantità non consegnata</li>
      *     <li>Se {@code qty_da_integrare} è maggiore di 0, viene creato un ordine integrativo con suddetta quantità, con consegna prevista per il giorno successivo</li>
@@ -1111,13 +1178,9 @@ public class DBMSDaemon {
      * @return true if success, false if error
      */
     public static boolean queryCorreggiOrdine(int qty_da_integrare, int qta_consegnata, Ordine ordine) {
-        /*
-         * 1. Modificare lo stato di ordine in "Corretto"
-         * 2. Modificare la quantita di suddetto stato con qta_consegnata
-         * 3. Incrementare la quantità di ogni lotto di x, dove x = ComposizioneOrdine.quantita-quantita_consegnata
-         * 4. Creare un nuovo ordine, con quello stesso lotto, di quella quantita, consegnato per domani
-         * */
         connectAzienda();
+        // SUGG: Ma qua posso fare una transazione unica? così da abbassare i tempi
+
         ordine.setStato("Corretto");
         /*1*/
         queryAggiornaStatoOrdine(ordine);
@@ -1152,15 +1215,15 @@ public class DBMSDaemon {
     }
 
     /**
-     * Query che consente a una farmacia di visualizzare gli ordini effettuati
+     * Recupera tutti gli ordini effettuati da una farmacia, ordinati per data di consegna
      *
      * @param id_farmacia id della farmacia che fa la richiesta
-     * @return {@link Ordine}[] contenente gli ordini effettuati.
+     * @return {@link Ordine}[] contenente gli ordini effettuati,
      * {@code null} se non sono stati trovati risultati o errore
      */
     public static Ordine[] queryVisualizzaOrdiniFarmacia(int id_farmacia) {
         connectAzienda();
-        String query = "SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco WHERE Ordine.id_farmacia=?";
+        String query = "SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco WHERE Ordine.id_farmacia=? ORDER BY Ordine.data_consegna DESC";
         ArrayList<Ordine> ordini = new ArrayList<>();
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setInt(1, id_farmacia);
@@ -1177,9 +1240,9 @@ public class DBMSDaemon {
 
 
     /**
-     * query che permette di modificare la data di consegna di un ordine da parte di un farmacista
+     * Modifica la data di consegna di un ordine da parte di un farmacista
      *
-     * @param ordine     ordine di cui  modificare la data di consegna
+     * @param ordine     ordine di cui modificare la data di consegna
      * @param nuova_data nuova data di consegna scelta dal farmacista
      * @return 1 if success, -1 if error
      */
@@ -1199,10 +1262,10 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per visualizzare tutti gli ordini periodici di una farmacia
+     * Recupera tutti gli ordini periodici di una determinata farmacia
      *
      * @param id_farmacia id della farmacia da cui parte la richiesta
-     * @return {@link OrdinePeriodico}[]
+     * @return {@link OrdinePeriodico}[] gli ordini periodici, {@code null} se non sono presenti o c'è stato errore
      */
     public static OrdinePeriodico[] queryOrdiniPeriodici(int id_farmacia) {
         connectAzienda();
@@ -1223,13 +1286,13 @@ public class DBMSDaemon {
     }
 
     /**
-     * query che permette di cercare un farmaco. La ricerca può essere effettuata per nome, principio attivo o entrambi
+     * Cerca un farmaco avendo o il nome, o il principio attivo o entrambi
      *
      * @param nome             nome farmaco
      * @param principio_attivo principio attivo farmaco
-     * @return {@link Farmaco}[] array di farmaci trovati, null se nessun risultato oppure erroreComunicazioneDBMS;
+     * @return {@link Farmaco}[] array di farmaci trovati, null se nessun risultato oppure è avvenuto erroreComunicazioneDBMS;
      */
-    public static Farmaco[] querycercaFarmaco(String nome, String principio_attivo) {
+    public static Farmaco[] queryCercaFarmaco(String nome, String principio_attivo) {
         connectAzienda();
         String query = "SELECT Farmaco.* FROM Farmaco WHERE LOWER(Farmaco.nome) LIKE ? AND LOWER(Farmaco.principio_attivo) LIKE ?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
@@ -1248,35 +1311,13 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per modificare la quantità di un ordine periodico da parte di un farmacista
+     * Recupera le consegne da effettuare {@code today} da parte del corriere
+     * Utilizzato in {@link GestoreVisualizzaConsegne Corriere - Visualizza Consegne}
      *
-     * @param ordine    ordine periodico da modificare
-     * @param nuova_qty nuova quantità da settare
-     * @return 1 if success, -1 if error
+     * @param today {@link LocalDate} data odierna
+     * @return {@link Collo}[] tutti i colli, consegnati e non, di {@code today}
      */
-    public static int queryModificaOrdinePeriodico(Ordine ordine, int nuova_qty) {
-        connectAzienda();
-        String query = "UPDATE OrdinePeriodico SET OrdinePeriodico.quantita=? WHERE OrdinePeriodico.id_farmacia=? AND OrdinePeriodico.id_farmaco=?";
-        try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
-            stmt.setInt(1, nuova_qty);
-            stmt.setInt(2, ordine.getId_farmacia());
-            stmt.setInt(3, ordine.getId_farmaco());
-            var r = stmt.executeUpdate();
-            if (r != 0)
-                return r;
-        } catch (SQLException e) {
-            erroreComunicazioneDBMS(e);
-        }
-        return -1;
-    }
-
-    /**
-     * query per visualizzare le consegne giornaliere da parte del corriere
-     *
-     * @param data {@link LocalDate} data odierna
-     * @return {@link Collo}[]
-     */
-    public static Collo[] queryVisualizzaConsegne(LocalDate data) {
+    public static Collo[] queryVisualizzaConsegne(LocalDate today) {
         connectAzienda();
         ArrayList<Collo> colli = new ArrayList<>();
         String queryPrendiColli = "SELECT C.*, Farmacia.nome, Farmacia.indirizzo FROM Collo C, Farmacia WHERE Farmacia.id_farmacia = C.id_farmacia AND C.data_consegna = ?";
@@ -1287,7 +1328,7 @@ public class DBMSDaemon {
                 "AND O.id_farmacia=C.id_farmacia " +
                 "AND C.id_collo = ?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(queryPrendiColli)) {
-            stmt.setDate(1, Date.valueOf(data));
+            stmt.setDate(1, Date.valueOf(today));
             var r = stmt.executeQuery();
             PreparedStatement stmtGetOrdini = connAzienda.prepareStatement(queryPrendiOrdini);
             while (r.next()) {
@@ -1303,20 +1344,19 @@ public class DBMSDaemon {
             erroreComunicazioneDBMS(e);
             return null;
         }
-        ;
         return colli.toArray(new Collo[0]);
 
     }
 
     /**
-     * query necessaria per firmare un collo
-     * Aggiorna anche i relativi ordini con lo stato "Consegnato"
+     * Firma un collo e aggiorna anche i relativi ordini contrassegnandoli con lo stato "Consegnato"
      *
      * @param firma concatenazione di nome e cognome del firmante
      * @param collo collo da firmare
      * @return true if success, false if error
      */
     public static boolean queryFirmaCollo(String firma, Collo collo) {
+        // SUGG: Fare un unica transaction così abbassiamo i tempi?
         connectAzienda();
         String query = "UPDATE Collo C SET C.firma = ? WHERE C.id_collo = ?";
         String updateStatoOrdini = "UPDATE Ordine O SET O.stato = ? WHERE O.data_consegna = ? AND O.id_farmacia = ?";
@@ -1337,7 +1377,7 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per aggiornare le scorte in un determinato giorno della settimana
+     * Aggiorna le scorte di un determinato giorno della settimana, nell'effettivo quindi viene utilizzato per effettuare produzione periodica
      *
      * @param today {@link LocalDate}, serve per il giorno di produzione (1 LUN, ..., 7 DOM) e per capire quando scadrà il lotto prodotto
      */
@@ -1367,11 +1407,13 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per creare un ordine periodico
+     * Crea un istanza di ordine periodico
      *
      * @param ordinePeriodico oggetto ordine periodico da aggiungere al db
      * @return 1 if success, -1 if error
+     * @deprecated Non ha senso di esistere questa query, gli ordini periodici esistono e basta.
      */
+    @Deprecated(forRemoval = true, since = "Sempre, perché dovresti creare ordini periodici?")
     public static int queryCreaOrdinePeriodico(OrdinePeriodico ordinePeriodico) {
         connectAzienda();
         String query = "INSERT INTO OrdinePeriodico(id_farmacia, id_farmaco, quantita, periodicita) VALUES (?,?,?,?)";
@@ -1387,11 +1429,10 @@ public class DBMSDaemon {
             erroreComunicazioneDBMS(e);
         }
         return -1;
-
     }
 
     /**
-     * query per aggiornare la quantita di un ordine periodico
+     * Aggiorna la quantita di un ordine periodico
      *
      * @param quantita        nuova quantita
      * @param ordinePeriodico ordine periodico da modificare
@@ -1404,9 +1445,7 @@ public class DBMSDaemon {
             stmt.setInt(1, quantita);
             stmt.setInt(2, ordinePeriodico.getId_farmacia());
             stmt.setInt(3, ordinePeriodico.getId_farmaco());
-            int r = stmt.executeUpdate();
-            if (r != 0)
-                return r;
+            return stmt.executeUpdate() != 0 ? 1 : -1;
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
@@ -1414,10 +1453,10 @@ public class DBMSDaemon {
     }
 
     /**
-     * query per chiedere tutti gli ordini di una farmacia in una data
+     * Recupera tutti gli ordini di una farmacia consegnati in una particolare data
      *
      * @param id_farmacia id della farmacia che fa la richiesta
-     * @param data        data richiesta
+     * @param data        data di consegna
      * @return {@link Ordine}[]
      */
     public static Ordine[] queryOrdini(int id_farmacia, LocalDate data) {
@@ -1438,6 +1477,12 @@ public class DBMSDaemon {
         return null;
     }
 
+    /**
+     * Crea gli ordini relativi alle ordinazioni periodiche di una farmacia
+     *
+     * @param ordini Ordini Periodici da evadere
+     * @return se la funzione va a buon fine o meno (tecnicamente non dovrebbe mai andare male)
+     */
     public static boolean queryCreaOrdini(OrdinePeriodico[] ordini) {
         LocalDate data = Main.orologio.chiediOrario().toLocalDate().plusDays(1);
         connectAzienda();
@@ -1456,6 +1501,13 @@ public class DBMSDaemon {
         }
     }
 
+
+    /**
+     * Recupera la quantità effettivamente consegnata di un ordine
+     *
+     * @param ordine Ordine di cui si vuole recuperare la quantità consegnata
+     * @return la quantità consegnata
+     */
     public static int queryControllaQuantita(Ordine ordine) {
         String query = "SELECT CO.id_ordine, SUM(CO.quantita_consegnata) FROM ComposizioneOrdine CO WHERE CO.id_ordine=? GROUP BY CO.id_ordine";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
@@ -1470,6 +1522,12 @@ public class DBMSDaemon {
         return -1;
     }
 
+    /**
+     * Query utilizzata per poter {@link PDFCreator#creaPDF(Collo) stampare la ricevuta} del Collo avendo un ordine
+     *
+     * @param ordine ordine di cui recuperare il collo associato
+     * @return Collo a cui appartiene l'ordine consegnato
+     */
     public static Collo queryCollo(Ordine ordine) {
         connectAzienda();
         String query = "SELECT Collo.* FROM Collo WHERE data_consegna= ? AND id_farmacia= ?";
@@ -1480,6 +1538,7 @@ public class DBMSDaemon {
                 "AND O.id_farmacia=C.id_farmacia " +
                 "AND C.id_collo = ?";
         String queryPrendiNomeFarmacia = "SELECT Farmacia.nome, Farmacia.indirizzo FROM DB_Azienda.Farmacia WHERE id_farmacia=?";
+        // TODO: Accorpare la query3 nella query2
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setDate(1, Date.valueOf(ordine.getData_consegna()));
             stmt.setInt(2, ordine.getId_farmacia());
