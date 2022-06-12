@@ -27,7 +27,7 @@ public class GestoreCercaFarmaco {
      * @param princAttivo Principio attivo
      */
     public void cercaFarmaci(String nomeFarmaco, String princAttivo) {
-        Farmaco[] farmaci = DBMSDaemon.querycercaFarmaco(nomeFarmaco, princAttivo);
+        Farmaco[] farmaci = DBMSDaemon.queryCercaFarmaco(nomeFarmaco, princAttivo);
         if (farmaci == null) return;
         DBMSDaemon.queryQuantitaFarmaci(farmaci, Main.idFarmacia);
         ArrayList<RecordFarmaco> listaFarmaci = new ArrayList<>();
