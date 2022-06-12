@@ -13,14 +13,13 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class GestoreListaOrdiniPeriodici {
-    private InterfacciaListaOrdiniPeriodici i;
 
     public ObservableList<RecordOrdinePeriodico> recordOrdinePeriodicoObservableList;
 
     public GestoreListaOrdiniPeriodici() {
 
         ArrayList<RecordOrdinePeriodico> ordiniPeriodici = new ArrayList<>();
-        OrdinePeriodico[] ordini = DBMSDaemon.queryOrdiniPeriodici();
+        OrdinePeriodico[] ordini = DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia);
 
         if (ordini != null) {
             for (OrdinePeriodico ordine : ordini) {
@@ -30,8 +29,6 @@ public class GestoreListaOrdiniPeriodici {
         }
         recordOrdinePeriodicoObservableList = FXCollections.observableList(ordiniPeriodici);
 
-        i = (InterfacciaListaOrdiniPeriodici) Utils.cambiaInterfaccia("GestioneFarmaci/ListaOrdiniPeriodici.fxml", new Stage(), c -> {
-            return new InterfacciaListaOrdiniPeriodici(this);
-        });
+        Utils.cambiaInterfaccia("GestioneFarmaci/ListaOrdiniPeriodici.fxml", new Stage(), c -> new InterfacciaListaOrdiniPeriodici(this));
     }
 }
