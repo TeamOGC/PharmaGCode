@@ -89,7 +89,7 @@ public class RecordOrdine extends Ordine {
             } else if (d.atTime(0, 0, 1).equals(ordine.getData_consegna().atTime(0, 0, 1)) && ordine.getStato().equalsIgnoreCase("consegnato")) {
                 nomeBottone = "Carica";
                 callback = carica -> {
-                    new GestoreCaricoMerci(ordine.getId_ordine());
+                    new GestoreCaricoMerci(ordine);
                 };
             }
         } else if (Main.sistema == 2) { // Lato azienda i bottoni sono: Correggi e Ricevuta

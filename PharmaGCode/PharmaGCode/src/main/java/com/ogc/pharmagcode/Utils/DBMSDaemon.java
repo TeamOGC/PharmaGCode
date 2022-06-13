@@ -541,20 +541,24 @@ public class DBMSDaemon {
 
     /**
      * Consente di effettuare il caricamento merci, carica la merce nel DB Farmacie
-     *
-     * @param id_lotto         id del lotto
+     *  @param id_lotto         id del lotto
      * @param id_farmacia      id della farmacia
-     * @param data_caricamento data del caricamento della merce
      * @param qty              quantita
      */
-    public static void queryCaricaFarmaco(int id_lotto, int id_farmacia, LocalDate data_caricamento, int qty) {
+    public static void queryCaricaFarmaco(int id_lotto, int id_farmacia, int qty, int id_farmaco) {
         connectFarmacia();
-        try (CallableStatement call = connFarmacia.prepareCall("{CALL caricoMerci(?, ?, ?, ?, ?)}")) {
-            call.setInt(1, id_lotto);
-            call.setInt(2, id_farmacia);
-            call.setDate(3, Date.valueOf(data_caricamento));
-            call.setInt(4, qty);
-            call.execute();
+        try (PreparedStatement call = connFarmacia.prepareStatement("INSERT INTO Lotto(quantita, id_lotto, id_farmacia, id_farmaco) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE quantita=quantita+VALUES(quantita)");
+                PreparedStatement stmt2=connFarmacia.prepareStatement("INSERT  INTO Caricamenti(quantita, id_lotto, id_farmacia, data_caricamento) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE quantita=quantita+VALUES(quantita)")) {
+            call.setInt(1, qty);
+            stmt2.setInt(1,qty);
+            call.setInt(2, id_lotto);
+            stmt2.setInt(2, id_lotto);
+            call.setInt(3, id_farmacia);
+            stmt2.setInt(3, id_farmacia);
+            call.setInt(4,id_farmaco);
+            stmt2.setDate(4,Date.valueOf(Main.orologio.chiediOrario().toLocalDate()));
+            call.executeUpdate();
+            stmt2.executeUpdate();
 
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
@@ -627,7 +631,7 @@ public class DBMSDaemon {
     public static HashMap<Integer, Integer> queryMerceCaricata(int id_farmacia, LocalDate data_caricamento) {
         connectFarmacia();
         HashMap<Integer, Integer> foo = new HashMap<>();
-        String query = "SELECT Caricamenti.id_caricamento, sum(Caricamenti.quantita) FROM Caricamenti WHERE Caricamenti.data_caricamento=? AND Caricamenti.id_farmacia=? GROUP BY id_caricamento";
+        String query = "SELECT id_farmaco, sum(Caricamenti.quantita) FROM Caricamenti, Lotto WHERE Caricamenti.data_caricamento=? AND Caricamenti.id_farmacia=? AND Caricamenti.id_lotto=Lotto.id_lotto GROUP BY Lotto.id_farmaco";
         try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
             stmt.setDate(1, Date.valueOf(data_caricamento));
             stmt.setInt(2, id_farmacia);

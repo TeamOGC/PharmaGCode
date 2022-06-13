@@ -57,10 +57,10 @@ public class InterfacciaVisualizzaOrdini {
         listaOrdini.setItems(ol);
     }
 
-    @FXML
+    /*@FXML
     public void cliccaCarica(int id_ordine) {
         new GestoreCaricoMerci(id_ordine);
-    }
+    }*/
 
     @FXML
     public void cliccaModifica() {

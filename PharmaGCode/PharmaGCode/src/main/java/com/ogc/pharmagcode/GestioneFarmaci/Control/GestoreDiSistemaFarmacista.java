@@ -52,7 +52,7 @@ public class GestoreDiSistemaFarmacista implements Serializable {
         merceCaricata = DBMSDaemon.queryMerceCaricata(Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate());
         ordini = DBMSDaemon.queryOrdini(Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate());
         for (Ordine o : ordini) {
-            Integer qtyOrdine = merceCaricata.get(o.getId_ordine());
+            Integer qtyOrdine = merceCaricata.get(o.getId_farmaco());
             if (qtyOrdine == null)
                 return false;
             else if (qtyOrdine < o.getQuantita())

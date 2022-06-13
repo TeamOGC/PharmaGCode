@@ -1,5 +1,6 @@
 package com.ogc.pharmagcode.GestioneFarmaci.Control;
 
+import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.GestioneFarmaci.Interface.InterfacciaCaricoMerci;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
@@ -8,14 +9,14 @@ import javafx.stage.Stage;
 
 public class GestoreCaricoMerci {
     private InterfacciaCaricoMerci i;
-    private int id_ordine;
+    private Ordine ordine;
     private Stage stage;
 
 
 
-    public GestoreCaricoMerci(int id_ordine) {
+    public GestoreCaricoMerci(Ordine ordine) {
         this.stage= new Stage();
-        this.id_ordine = id_ordine;
+        this.ordine = ordine;
         i = (InterfacciaCaricoMerci) Utils.cambiaInterfaccia("GestioneFarmaci/CaricaMerci.fxml", this.stage, c -> {
             return new InterfacciaCaricoMerci(this);
         }, 600, 400);
@@ -29,8 +30,9 @@ public class GestoreCaricoMerci {
      */
     public void caricaFarmaco(int codiceLotto, int quantita) {
         Main.log.info("Caricando lotto (" + codiceLotto + ") quantita (" + quantita + ")  --- DB NON zÈ COMMENTATO");
-        DBMSDaemon.queryCaricaFarmaco(codiceLotto, Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate(), quantita);
-        DBMSDaemon.aggiornaQuantitaConsegnataOrdine(id_ordine, codiceLotto, quantita);
+        DBMSDaemon.queryCaricaFarmaco(codiceLotto, Main.idFarmacia, quantita,ordine.getId_farmaco());
+        DBMSDaemon.aggiornaQuantitaConsegnataOrdine(ordine.getId_ordine(), codiceLotto, quantita);
+
         Utils.creaPannelloConferma("Merce Caricata Correttamente", this.stage);
     }
 
