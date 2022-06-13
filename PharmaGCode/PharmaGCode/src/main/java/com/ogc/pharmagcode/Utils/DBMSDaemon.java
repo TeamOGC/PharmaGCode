@@ -713,27 +713,7 @@ public class DBMSDaemon {
         return false;
     }
 
-    /**
-     * Recupera tutti gli ordini periodici
-     *
-     * @return {@link OrdinePeriodico}[] contenente tutti gli ordini periodici.
-     * Ritorna null se ci sono stati errori o non sono stati trovati risultati.
-     */
-    public static OrdinePeriodico[] queryOrdiniPeriodici() {
-        connectAzienda();
-        String query = "SELECT OrdinePeriodico.*, F.nome, F2.nome FROM OrdinePeriodico, Farmacia F2 , Farmaco F WHERE F.id_farmaco = OrdinePeriodico.id_farmaco AND OrdinePeriodico.id_farmacia = F2.id_farmacia";
-        ArrayList<OrdinePeriodico> ordini = new ArrayList<>();
-        try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
-            var r = stmt.executeQuery();
-            while (r.next()) {
-                ordini.add(OrdinePeriodico.createFromDB(r));
-            }
-            return ordini.toArray(new OrdinePeriodico[0]);
-        } catch (SQLException e) {
-            erroreComunicazioneDBMS(e);
-        }
-        return null;
-    }
+
 
     /**
      * Recupera tutti gli ordini con stato in attesa da parte dell'azienda
@@ -1217,22 +1197,71 @@ public class DBMSDaemon {
     }
 
     /**
-     * Recupera tutti gli ordini periodici di una determinata farmacia
+     * Recupera tutti gli ordini periodici di tutte le farmacie di tutte le giornate
+     *
+     * @return {@link OrdinePeriodico}[] contenente tutti gli ordini periodici.
+     * Ritorna null se ci sono stati errori o non sono stati trovati risultati.
+     */
+    public static OrdinePeriodico[] queryOrdiniPeriodici() {
+        connectAzienda();
+        String query = "SELECT OrdinePeriodico.*, F.nome, F2.nome FROM OrdinePeriodico, Farmacia F2 , Farmaco F WHERE F.id_farmaco = OrdinePeriodico.id_farmaco AND OrdinePeriodico.id_farmacia = F2.id_farmacia";
+        ArrayList<OrdinePeriodico> ordini = new ArrayList<>();
+        try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
+            var r = stmt.executeQuery();
+            while (r.next()) {
+                ordini.add(OrdinePeriodico.createFromDB(r));
+            }
+            Main.log.debug("Trovati " + ordini.size() + " ordini periodici tra tutte le farmacie in tutti i giorni");
+            return ordini.toArray(new OrdinePeriodico[0]);
+        } catch (SQLException e) {
+            erroreComunicazioneDBMS(e);
+        }
+        return null;
+    }
+
+    /**
+     * Recupera tutti gli ordini periodici di una determinata farmacia di tutti i giorni
      *
      * @param id_farmacia id della farmacia da cui parte la richiesta
      * @return {@link OrdinePeriodico}[] gli ordini periodici, {@code null} se non sono presenti o c'è stato errore
      */
     public static OrdinePeriodico[] queryOrdiniPeriodici(int id_farmacia) {
         connectAzienda();
-        String query = "SELECT OrdinePeriodico.*, F.nome, F2.nome FROM OrdinePeriodico, Farmacia F2 , Farmaco F WHERE F.id_farmaco = OrdinePeriodico.id_farmaco AND OrdinePeriodico.id_farmacia = F2.id_farmacia AND OrdinePeriodico.id_farmacia=? AND OrdinePeriodico.periodicita=?";
+        String query = "SELECT OrdinePeriodico.*, F.nome, F2.nome FROM OrdinePeriodico, Farmacia F2 , Farmaco F WHERE F.id_farmaco = OrdinePeriodico.id_farmaco AND OrdinePeriodico.id_farmacia = F2.id_farmacia AND OrdinePeriodico.id_farmacia=?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setInt(1, id_farmacia);
-            stmt.setInt(2, Main.orologio.chiediOrario().toLocalDate().getDayOfWeek().getValue());
             var r = stmt.executeQuery();
             ArrayList<OrdinePeriodico> foo = new ArrayList<>();
             while (r.next()) {
                 foo.add(OrdinePeriodico.createFromDB(r));
             }
+            Main.log.debug("Trovati " + foo.size() + " ordini periodici per la farmacia " + id_farmacia);
+            return foo.toArray(new OrdinePeriodico[0]);
+        } catch (SQLException e) {
+            erroreComunicazioneDBMS(e);
+        }
+        return null;
+    }
+
+    /**
+     * Recupera tutti gli ordini periodici di una determinata farmacia in un determinato giorno
+     *
+     * @param id_farmacia id della farmacia da cui parte la richiesta
+     * @param giornoDellaSettimana intero rappresentante il giorno della settimana 1 LUN, ..., 7 DOM
+     * @return {@link OrdinePeriodico}[] gli ordini periodici, {@code null} se non sono presenti o c'è stato errore
+     */
+    public static OrdinePeriodico[] queryOrdiniPeriodici(int id_farmacia, int giornoDellaSettimana) {
+        connectAzienda();
+        String query = "SELECT OrdinePeriodico.*, F.nome, F2.nome FROM OrdinePeriodico, Farmacia F2 , Farmaco F WHERE F.id_farmaco = OrdinePeriodico.id_farmaco AND OrdinePeriodico.id_farmacia = F2.id_farmacia AND OrdinePeriodico.id_farmacia=? AND OrdinePeriodico.periodicita=?";
+        try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
+            stmt.setInt(1, id_farmacia);
+            stmt.setInt(2, giornoDellaSettimana);
+            var r = stmt.executeQuery();
+            ArrayList<OrdinePeriodico> foo = new ArrayList<>();
+            while (r.next()) {
+                foo.add(OrdinePeriodico.createFromDB(r));
+            }
+            Main.log.debug("Trovati " + foo.size() + " ordini periodici per la farmacia " + id_farmacia + " nel giorno della settimana " + giornoDellaSettimana);
             return foo.toArray(new OrdinePeriodico[0]);
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
