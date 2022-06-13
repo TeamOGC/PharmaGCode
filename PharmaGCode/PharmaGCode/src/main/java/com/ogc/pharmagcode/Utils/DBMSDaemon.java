@@ -13,43 +13,35 @@ import java.util.HashMap;
 @SuppressWarnings({"unused", "UnusedReturnValue", "DuplicatedCode", "SqlResolve"})
 public class DBMSDaemon {
     /**
-     * @hidden
-     * URL del Server DBMS
+     * @hidden URL del Server DBMS
      */
     private static final String baseUrl = "beverlylab.duckdns.org";
     /**
-     * @hidden
-     * Porta del Server DBMS
+     * @hidden Porta del Server DBMS
      */
     private static final int port = 11051;
     /**
-     * @hidden
-     * Utente del server DBMS
+     * @hidden Utente del server DBMS
      */
     private static final String user = "ogcadmin";
     /**
-     * @hidden
-     * Password del server DBMS
+     * @hidden Password del server DBMS
      */
     private static final String pass = "OggiCarbonara";
     /**
-     * @hidden
-     * Nome del DBMS Farmacie sul server
+     * @hidden Nome del DBMS Farmacie sul server
      */
     private static final String DBFarmacie = "DB_Farmacie";
     /**
-     * @hidden
-     * Nome del DBMS Azienda sul server
+     * @hidden Nome del DBMS Azienda sul server
      */
     private static final String DBAzienda = "DB_Azienda";
     /**
-     * @hidden
-     * Connessione al DBMS Farmacie
+     * @hidden Connessione al DBMS Farmacie
      */
     private static Connection connFarmacia = null;
     /**
-     * @hidden
-     * Connessione al DBMS Azienda
+     * @hidden Connessione al DBMS Azienda
      */
     private static Connection connAzienda = null;
 
@@ -548,31 +540,6 @@ public class DBMSDaemon {
 
 
     /**
-     * @param id_lotto    lotto del farmaco scaricato
-     * @param id_farmacia farmacia che ha scaricato il farmaco
-     * @return quantità ancora disponibili dalla farmacia
-     * @deprecated Viene ritornata la quantità direttamente dopo aver fatto lo scarico (vedi {@link DBMSDaemon#queryScaricaMerci(int, int, int) queryScaricaMerci})
-     * <p>
-     * Controlla scorte farmacia dopo lo scarico merci
-     */
-    @Deprecated(forRemoval = true, since = "0.0")
-    public static int queryControlloScorte(int id_lotto, int id_farmacia) {
-        connectFarmacia();
-        var query = "SELECT Lotto.quantita FROM DB_Farmacie.Lotto WHERE id_lotto = ? AND id_farmacia= ?";
-        try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
-            stmt.setInt(1, id_lotto);
-            stmt.setInt(2, id_farmacia);
-            var r = stmt.executeQuery();
-            if (r.next()) {
-                return r.getInt(1);
-            }
-        } catch (SQLException e) {
-            erroreComunicazioneDBMS(e);
-        }
-        return -1;
-    }
-
-    /**
      * Consente di effettuare il caricamento merci, carica la merce nel DB Farmacie
      *
      * @param id_lotto         id del lotto
@@ -751,7 +718,6 @@ public class DBMSDaemon {
      *
      * @return {@link OrdinePeriodico}[] contenente tutti gli ordini periodici.
      * Ritorna null se ci sono stati errori o non sono stati trovati risultati.
-     * con tutti i dati degli ordini peri´dici dell'azienda
      */
     public static OrdinePeriodico[] queryOrdiniPeriodici() {
         connectAzienda();
@@ -945,33 +911,6 @@ public class DBMSDaemon {
     }
 
     /**
-     *
-     *
-     *
-     * @param ordine {@link Ordine} da creare
-     * @return true if ordine creato correttamente, false if error
-     */
-    @Deprecated
-    public static boolean queryCreaOrdine(Ordine ordine) {
-
-        connectAzienda();
-        String query = "INSERT INTO Ordine(id_farmacia, id_farmaco, data_consegna, stato, quantita) VALUES (?,?,?,?,?)";
-        try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
-            stmt.setInt(1, ordine.getId_farmacia());
-            stmt.setInt(2, ordine.getId_farmaco());
-            stmt.setDate(3, Date.valueOf(ordine.getData_consegna()));
-            stmt.setString(4, ordine.getStato());
-            stmt.setInt(5, ordine.getQuantita());
-            int r = stmt.executeUpdate();
-            if (r != 0)
-                return true;
-        } catch (SQLException e) {
-            erroreComunicazioneDBMS(e);
-        }
-        return false;
-    }
-
-    /**
      * Recupera tutti i lotti di un relativo farmaco con una data di scadenza successiva alla {@code dataScadenza} (+2 mesi se {@code accettaInScadenza})
      *
      * @param id_farmaco        id del farmaco
@@ -1041,7 +980,6 @@ public class DBMSDaemon {
     }
 
     /**
-     *
      * @param id_farmaco
      * @param quantita
      * @param accettaScadenza
@@ -1118,7 +1056,7 @@ public class DBMSDaemon {
      * Prova a creare un ordine, se l'ordine è da contrassegnare in lavorazione e non sono disponibili le quantità richieste
      * l'ordine non viene effettuato e viene ritornata la quantita che non è stato possbile ordinare
      *
-     * @param ordine ordine da creare (o meglio, provarci)
+     * @param ordine          ordine da creare (o meglio, provarci)
      * @param accettaScadenza se si accettano farmaci in scadenza
      * @return Quantita eccedente
      */
@@ -1168,8 +1106,9 @@ public class DBMSDaemon {
 
     /**
      * Crea l'ordine componendo, se necessario, i lotti per l'ordine, settando lo stato passato come argomento
-     * @param ordine ordine da creare
-     * @param statoOrdine stato dell'ordine
+     *
+     * @param ordine            ordine da creare
+     * @param statoOrdine       stato dell'ordine
      * @param accettaInScadenza se l'ordine può accettare farmaci in scadenza
      * @return
      */
@@ -1443,31 +1382,6 @@ public class DBMSDaemon {
             erroreComunicazioneDBMS(e);
         }
 
-    }
-
-    /**
-     * Crea un istanza di ordine periodico
-     *
-     * @param ordinePeriodico oggetto ordine periodico da aggiungere al db
-     * @return 1 if success, -1 if error
-     * @deprecated Non ha senso di esistere questa query, gli ordini periodici esistono e basta.
-     */
-    @Deprecated(forRemoval = true, since = "Sempre, perché dovresti creare ordini periodici?")
-    public static int queryCreaOrdinePeriodico(OrdinePeriodico ordinePeriodico) {
-        connectAzienda();
-        String query = "INSERT INTO OrdinePeriodico(id_farmacia, id_farmaco, quantita, periodicita) VALUES (?,?,?,?)";
-        try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
-            stmt.setInt(1, ordinePeriodico.getId_farmacia());
-            stmt.setInt(2, ordinePeriodico.getId_farmaco());
-            stmt.setInt(3, ordinePeriodico.getQuantita());
-            stmt.setInt(4, ordinePeriodico.getPeriodicita());
-            var r = stmt.executeUpdate();
-            if (r != 0)
-                return r;
-        } catch (SQLException e) {
-            erroreComunicazioneDBMS(e);
-        }
-        return -1;
     }
 
     /**
