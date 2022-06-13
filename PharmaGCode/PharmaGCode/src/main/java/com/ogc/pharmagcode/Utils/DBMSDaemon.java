@@ -1569,34 +1569,32 @@ public class DBMSDaemon {
      */
     public static Collo queryCollo(Ordine ordine) {
         connectAzienda();
-        String query = "SELECT Collo.* FROM Collo WHERE data_consegna= ? AND id_farmacia= ?";
+        String query = "SELECT Collo.*, F.nome as nome_farmacia, F.indirizzo as indirizzo_farmacia " +
+                "FROM Collo, Farmacia F " +
+                "WHERE F.id_farmacia=Collo.id_farmacia " +
+                "AND data_consegna= ? " +
+                "AND Collo.id_farmacia= ?";
         String queryPrendiOrdini = "SELECT O.*, F.nome " +
                 "FROM Ordine O, Collo C, Farmaco F " +
                 "WHERE F.id_farmaco = O.id_farmaco " +
                 "AND O.data_consegna = C.data_consegna " +
                 "AND O.id_farmacia=C.id_farmacia " +
-                "AND C.id_collo = ?";
-        String queryPrendiNomeFarmacia = "SELECT Farmacia.nome, Farmacia.indirizzo FROM DB_Azienda.Farmacia WHERE id_farmacia=?";
-        // TODO: Accorpare la query3 nella query2
+                "AND C.id_collo = ? ";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setDate(1, Date.valueOf(ordine.getData_consegna()));
             stmt.setInt(2, ordine.getId_farmacia());
             var r = stmt.executeQuery();
-            PreparedStatement stmt2 = connAzienda.prepareStatement(queryPrendiOrdini);
             if (r.next()) {
                 Collo collo = new Collo(r.getInt(1), r.getInt(2), r.getDate(3).toLocalDate());
                 collo.setFirma(r.getString(4));
+                collo.setNome_farmacia(r.getString("nome_farmacia"));
+                collo.setIndirizzo_farmacia(r.getString("indirizzo_farmacia"));
+                // Prendo gli ordini del suddetto collo
+                PreparedStatement stmt2 = connAzienda.prepareStatement(queryPrendiOrdini);
                 stmt2.setInt(1, collo.getId_collo());
                 var rOrdini = stmt2.executeQuery();
-                PreparedStatement stmt3 = connAzienda.prepareStatement(queryPrendiNomeFarmacia);
                 while (rOrdini.next()) {
                     collo.aggiungiOrdine(Ordine.createFromDB(rOrdini));
-                }
-                stmt3.setInt(1, ordine.getId_farmacia());
-                var rNome = stmt3.executeQuery();
-                if (rNome.next()) {
-                    collo.setNome_farmacia(rNome.getString(1));
-                    collo.setIndirizzo_farmacia(rNome.getString(2));
                 }
                 return collo;
             }
