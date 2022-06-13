@@ -3,6 +3,7 @@ package com.ogc.pharmagcode.GestioneAzienda.Control;
 import com.ogc.pharmagcode.Common.RecordOrdine;
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.GestioneAzienda.Interface.InterfacciaVisualizzaOrdiniAzienda;
+import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.DBMSDaemon;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.stage.Stage;
@@ -15,6 +16,7 @@ public class GestoreVisualizzaOrdiniAzienda {
     private final static ArrayList<RecordOrdine> listaOrdiniAzienda = new ArrayList<>();
 
     public GestoreVisualizzaOrdiniAzienda() {
+        listaOrdiniAzienda.clear();
         Ordine[] ordini = DBMSDaemon.queryVisualizzaOrdiniAzienda();
         if (ordini != null) {
             listaOrdiniAzienda.addAll(Arrays.stream(ordini).map(RecordOrdine::fromOrdine).toList());
