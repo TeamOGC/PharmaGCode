@@ -283,7 +283,7 @@ public class DBMSDaemon {
         String query = "UPDATE Farmacista SET Farmacista.password = ? WHERE email = ? AND password=?";
         try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
             stmt.setString(1, password);
-            stmt.setString(1, mail);
+            stmt.setString(2, mail);
             stmt.setString(3, vecchiaPsw);
             var r = stmt.executeUpdate();
             return r == 1;
