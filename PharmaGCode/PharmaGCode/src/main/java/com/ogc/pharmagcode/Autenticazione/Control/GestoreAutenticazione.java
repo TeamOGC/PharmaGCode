@@ -62,7 +62,7 @@ public class GestoreAutenticazione {
             Corriere corriere = (Corriere) utente;
             Utils.cambiaInterfaccia("GestioneConsegna/InterfacciaCorriere.fxml", s
                     , c -> {
-                        return new InterfacciaPrincipaleCorriere(corriere.nome(), corriere.cognome(), corriere.getId_corriere() + "");
+                        return new InterfacciaPrincipaleCorriere(corriere.nome(), corriere.cognome());
                     });
         } else if (Main.sistema == 2) {
             Impiegato impiegato = (Impiegato) utente;

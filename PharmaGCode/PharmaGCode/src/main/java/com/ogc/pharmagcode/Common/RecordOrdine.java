@@ -87,7 +87,7 @@ public class RecordOrdine extends Ordine {
                     new GestoreModificaOrdine(ordine);
                 };
             } else if (d.atTime(0, 0, 1).equals(ordine.getData_consegna().atTime(0, 0, 1)) && ordine.getStato().equalsIgnoreCase("consegnato")) {
-                nomeBottone = "Carica";
+                nomeBottone = "Carica"; // TODO: Se tuttti i farmaci sono stati caricati, non fare vedere il bottone (o solo un bottone scemo con scritto Caricato!)
                 callback = carica -> {
                     new GestoreCaricoMerci(ordine);
                 };
