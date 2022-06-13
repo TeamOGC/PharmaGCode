@@ -41,9 +41,8 @@ public class GestoreCorrezioneOrdine {
             Utils.creaPannelloErrore("Non puoi correggere l'ordine inserendo più farmaci di quanti ne mancano");
             return;
         }
-        Main.log.warn("La comunicazione al DB è DISATTIVATA, ricordatene"); // TODO: query Correggi Ordine commentata
-//      DBMSDaemon.queryCorreggiOrdine(qtaDaAggiungere, qtaGiaCaricata, daCorreggere);
         daCorreggere.setStato("Corretto");
+        DBMSDaemon.queryAggiornaStatoOrdine(daCorreggere);
         GestoreVisualizzaOrdiniAzienda.aggiornaTabella(daCorreggere);
         Main.log.info("Ordine corretto");
         ((Stage) boundary.qtaIntegrare.getScene().getWindow()).close();

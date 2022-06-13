@@ -26,7 +26,7 @@ public class InterfacciaModificaProduzione {
 
 
     public void initialize() {
-        this.quantita.setTextFormatter(new TextFormatter<>(Utils.integerFilter));
+        this.quantita.setTextFormatter(new TextFormatter<>(Utils.positiveIntegerFilter));
     }
 
     public void conferma(ActionEvent actionEvent) {
