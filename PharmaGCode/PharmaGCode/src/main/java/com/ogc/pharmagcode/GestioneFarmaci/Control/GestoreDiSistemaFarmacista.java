@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
-import static com.ogc.pharmagcode.Utils.DBMSDaemon.queryOrdiniPeriodici;
+import com.ogc.pharmagcode.Utils.DBMSDaemon;
 
 public class GestoreDiSistemaFarmacista implements Serializable {
     private int giornoUltimaChiamata = 0;
@@ -32,7 +32,7 @@ public class GestoreDiSistemaFarmacista implements Serializable {
                 Utils.cambiaInterfaccia("GestioneFarmaci/AvvisoMancatoCaricamento.fxml", new Stage(), 600, 400);
             }
             do {
-                ordiniPeriodici = DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia);
+                ordiniPeriodici = DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia); // TODO: Serve una conferma: Qua voglio tutti gli ordini periodici di una farmacia in una qualsiasi data, giusto?
             }while(!DBMSDaemon.queryCreaOrdini(ordiniPeriodici) || ordiniPeriodici==null); //Finche le query non vengono eseguite correttamente prova a rifarle
             giornoUltimaChiamata = Main.orologio.chiediOrario().getDayOfMonth();
             serializza();
@@ -76,20 +76,16 @@ public class GestoreDiSistemaFarmacista implements Serializable {
     }
 
     private OrdinePeriodico[] getOrdiniPeriodici() {
-        return queryOrdiniPeriodici();
+        return DBMSDaemon.queryOrdiniPeriodici();
     }
 
 
     private OrdinePeriodico[] getOrdiniPeriodiciFarmacia(int idFarmacia) {
-        OrdinePeriodico[] temp = DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia);
         int giornoSettimana = Main.orologio.chiediOrario().getDayOfWeek().getValue();
+        OrdinePeriodico[] temp = DBMSDaemon.queryOrdiniPeriodici(Main.idFarmacia, giornoSettimana);
         List<OrdinePeriodico> ordinePeriodicoList = new ArrayList<>();
-        for (OrdinePeriodico o : temp) {
-            if (o.getPeriodicita() == giornoSettimana) {
-                ordinePeriodicoList.add(o);
-            }
-        }
-        return ordinePeriodicoList.toArray(OrdinePeriodico[]::new);
+        ordinePeriodicoList.addAll(Arrays.asList(temp));
+        return ordinePeriodicoList.toArray(new OrdinePeriodico[0]);
     }
 
     public void serializza() {
