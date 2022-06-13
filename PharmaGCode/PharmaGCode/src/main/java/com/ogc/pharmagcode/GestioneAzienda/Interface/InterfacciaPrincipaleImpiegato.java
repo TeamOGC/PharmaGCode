@@ -9,8 +9,8 @@ import javafx.fxml.FXML;
 
 public class InterfacciaPrincipaleImpiegato extends InterfacciaPrincipale {
     BoundaryDiSistemaImpiegato b=new BoundaryDiSistemaImpiegato();
-    public InterfacciaPrincipaleImpiegato(String nome, String cognome, String idAzienda) {
-        super(nome + " " + cognome + " Azienda: " + idAzienda);
+    public InterfacciaPrincipaleImpiegato(String nome, String cognome, String id_azienda) {
+        super(nome + " " + cognome );
     }
 
     @FXML
