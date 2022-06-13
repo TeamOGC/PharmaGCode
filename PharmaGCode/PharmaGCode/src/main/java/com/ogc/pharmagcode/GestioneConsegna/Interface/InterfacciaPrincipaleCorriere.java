@@ -7,8 +7,8 @@ import javafx.stage.Stage;
 
 public class InterfacciaPrincipaleCorriere extends InterfacciaPrincipale {
 
-    public InterfacciaPrincipaleCorriere(String nome, String cognome, String idCorriere) {
-        super(nome + " " + cognome + " Corriere: " + idCorriere);
+    public InterfacciaPrincipaleCorriere(String nome, String cognome) {
+        super("Corriere: " + nome + " " + cognome);
     }
 
     @FXML
