@@ -305,7 +305,7 @@ public class DBMSDaemon {
         String query = "UPDATE Impiegato SET Impiegato.password = ? WHERE email = ? AND password=?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             stmt.setString(1, password);
-            stmt.setString(1, mail);
+            stmt.setString(2, mail);
             stmt.setString(3, vecchiaPsw);
             var r = stmt.executeUpdate();
             return r == 1;
