@@ -756,7 +756,7 @@ public class DBMSDaemon {
         }
 
         String query = "SELECT ComposizioneOrdine.* FROM ComposizioneOrdine WHERE ComposizioneOrdine.id_ordine=?";
-        String query2 = "UPDATE ComposizioneOrdine SET quantita=? WHERE id_ordine=?";
+        String query2 = "UPDATE ComposizioneOrdine SET quantita=? WHERE id_ordine=? AND id_lotto=?";
         String query3 = "UPDATE Lotto SET quantita=quantita+? WHERE id_lotto=?";
         try (PreparedStatement stmt = connAzienda.prepareStatement(query);
              PreparedStatement stmt2 = connAzienda.prepareStatement(query2);
@@ -766,9 +766,13 @@ public class DBMSDaemon {
             stmt2.setInt(2, ordine.getId_ordine());
             if (delta < 0) {
                 while (r.next()) {
+                    stmt2.clearParameters();
+                    stmt3.clearParameters();
                     stmt3.setInt(2, r.getInt("id_lotto"));
                     stmt2.setInt(2, ordine.getId_ordine());
+                    stmt2.setInt(3,r.getInt("id_lotto"));
                     int qty = r.getInt("quantita");
+                    Main.log.info("Nuova Iterazione");
                     /* Fa l'update del lotto*/
                     if (-delta >= qty) { // -delta=quantita da rimuovere, se è maggiore della quantita di lotto nell'ordine, rimuove totalmente il lotto dall'ordine e continua
                         stmt2.setInt(1, 0);
@@ -776,17 +780,20 @@ public class DBMSDaemon {
                         stmt2.addBatch();       //aggiunge alla batch la query di update della composizione
                         stmt3.setInt(1, qty);
                         stmt3.addBatch();       //aggiunge alla batch la query di update della quantita del lotto
+                        Main.log.info("Delta dopo l'operazione: "+delta+" qty "+qty+" con -delta>=qty");
                     } else {   //altrimenti la quantita da rimuovere viene settata a 0 e può uscire dal loop
                         stmt2.setInt(1, qty + delta);
-                        delta = 0;
                         stmt2.addBatch();       //aggiunge alla batch la query di update della composizione
                         stmt3.setInt(1, -delta);
                         stmt3.addBatch();       //aggiunge alla batch la query di update della quantita del lotto
+                        Main.log.info("Delta dopo l'operazione: "+delta+" qty "+qty+" con -delta<qty");
+                        delta=0;
                         break;
                     }
                 }
                 stmt2.executeBatch();
                 stmt3.executeBatch();
+                //connAzienda.commit();
             }
 
         } catch (SQLException e) {
@@ -1475,8 +1482,10 @@ public class DBMSDaemon {
         try {
             connAzienda.setAutoCommit(false);
             for (OrdinePeriodico op : ordini) {
-                Ordine o = new Ordine(-1, op.getId_farmaco(), op.getNomeFarmaco(), op.getId_farmacia(), data, "In Lavorazione", op.getQuantita());
-                DBMSDaemon.queryCreaOrdine(o, false);
+                if(Main.orologio.chiediOrario().toLocalDate().getDayOfWeek().getValue()==op.getPeriodicita()) {
+                    Ordine o = new Ordine(-1, op.getId_farmaco(), op.getNomeFarmaco(), op.getId_farmacia(), data, "In Lavorazione", op.getQuantita());
+                    DBMSDaemon.queryCreaOrdine(o, false);
+                }
             }
             connAzienda.commit();
             connAzienda.setAutoCommit(true);

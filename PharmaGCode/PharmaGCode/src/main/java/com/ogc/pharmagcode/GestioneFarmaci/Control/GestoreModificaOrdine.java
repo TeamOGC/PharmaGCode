@@ -24,8 +24,8 @@ public class GestoreModificaOrdine {
 
     public void modificaOrdine(int nuovaQuantita, LocalDate data) { //LocalDate date
         // TODO: Modifica Data Ordine è commentato
-        // If data diverso da ordine.getData
-        //        DBMSDaemon.queryAggiornaData(ordine, data);
+        if(!data.equals(ordine.getData_consegna()))
+               DBMSDaemon.queryAggiornaData(ordine, data);
         if (DBMSDaemon.queryAggiornaQuantitaOrdine(ordine, nuovaQuantita) == -1)
             Utils.creaPannelloErrore("Errore");
         else {
