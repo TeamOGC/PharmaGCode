@@ -58,6 +58,10 @@ public class Ordine {
         return data_consegna;
     }
 
+    public void setData_consegna(LocalDate data_consegna) {
+        this.data_consegna = data_consegna;
+    }
+
     public String getStato() {
         return stato;
     }

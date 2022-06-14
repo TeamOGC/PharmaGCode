@@ -31,7 +31,7 @@ public class InterfacciaVisualizzaOrdini {
 
     @FXML
     protected void initialize() {
-        ol = FXCollections.observableArrayList(gestoreVisualizzaOrdini.chiediOrdini());
+        ol = FXCollections.observableList(gestoreVisualizzaOrdini.chiediOrdini());
         listaOrdini.setItems(ol);
         this.nomeFarmacoFilter.setOnKeyTyped(filtra -> this.filterBy());
         this.dataConsegnaFilter.setOnAction(filtra -> this.filterBy());

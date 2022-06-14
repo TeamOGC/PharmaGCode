@@ -15,12 +15,15 @@ import java.util.HashMap;
 
 public class GestoreVisualizzaOrdini {
 
+    private final static ArrayList<RecordOrdine> listaOrdini = new ArrayList<>();
+
+
     public GestoreVisualizzaOrdini() {
+        listaOrdini.clear();
         Utils.cambiaInterfaccia("GestioneFarmaci/VisualizzaOrdiniFarmacia.fxml", new Stage(), c -> new InterfacciaVisualizzaOrdini(this));
     }
 
     public ArrayList<RecordOrdine> chiediOrdini() {
-        ArrayList<RecordOrdine> listaOrdini = new ArrayList<>();
         Ordine[] ordini = DBMSDaemon.queryVisualizzaOrdiniFarmacia(Main.idFarmacia);
         var merceCaricata = DBMSDaemon.queryMerceCaricata(Main.idFarmacia, Main.orologio.chiediOrario().toLocalDate());
         if (merceCaricata == null) merceCaricata = new HashMap<>();
@@ -37,5 +40,11 @@ public class GestoreVisualizzaOrdini {
             }
         }
         return listaOrdini;
+    }
+
+    protected static void aggiornaOrdine(Ordine aggiornato){
+        listaOrdini.removeIf(recordOrdine -> recordOrdine.getId_ordine() == aggiornato.getId_ordine());
+        if(aggiornato.getQuantita() != 0)
+            listaOrdini.add(0, RecordOrdine.fromOrdine(aggiornato));
     }
 }

@@ -26,16 +26,19 @@ public class GestoreModificaOrdine {
             return;
         }
         if (!data.isEqual(ordine.getData_consegna())) {
+            ordine.setData_consegna(data);
             Main.log.info("Modificando la data dell'ordine");
             DBMSDaemon.queryAggiornaData(ordine, data);
         }
         if( nuovaQuantita != ordine.getQuantita()){
+            ordine.setQuantita(nuovaQuantita);
             Main.log.info("Modificando la quantità dell'ordine");
             if (DBMSDaemon.queryAggiornaQuantitaOrdine(ordine, nuovaQuantita) == -1) {
                 Utils.creaPannelloErrore("Errore durante la modifica della quantità dell'ordine");
                 return;
             }
         }
+        GestoreVisualizzaOrdini.aggiornaOrdine(this.ordine);
         Utils.creaPannelloConferma("Ordine Modificato Correttamente", this.stage);
     }
 }
