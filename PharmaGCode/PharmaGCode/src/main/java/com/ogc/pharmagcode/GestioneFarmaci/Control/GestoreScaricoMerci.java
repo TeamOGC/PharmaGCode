@@ -27,7 +27,10 @@ public class GestoreScaricoMerci {
     public void scaricoMerci(int codiceLotto, int quantita) {
         // TODO: Doccia pensiero: Cosa succede se carica un farmaco che non aveva ordinato?
         int s = DBMSDaemon.queryScaricaMerci(codiceLotto, Main.idFarmacia, quantita);
-        if (s <= 5) {
+        if(s<0){
+            Utils.creaPannelloErrore("Il farmaco non è stato trovato o è avvenuto un errore con il Database");
+        }
+        else if (s <= 5) {
             Utils.creaPannelloConferma("Merce scaricata correttamente!\nATTENZIONE: il farmaco scaricato è in esaurimento!", this.stage);
         }
         else

@@ -604,7 +604,8 @@ public class DBMSDaemon {
             stmt.setInt(1, qty);
             stmt.setInt(2, id_lotto);
             stmt.setInt(3, id_farmacia);
-            stmt.executeUpdate();
+            if(stmt.executeUpdate()<=0)
+                return -1;
             var squery = "SELECT Lotto.id_Farmaco,sum(quantita) FROM DB_Farmacie.Lotto WHERE Lotto.id_farmaco=(SELECT Lotto.id_farmaco FROM Lotto WHERE Lotto.id_lotto=? ) GROUP BY Lotto.id_farmaco";
             try (PreparedStatement sstmt = connFarmacia.prepareStatement(squery)) {
                 sstmt.setInt(1, id_lotto);
