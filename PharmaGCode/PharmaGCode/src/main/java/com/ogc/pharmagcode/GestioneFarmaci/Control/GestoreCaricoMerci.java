@@ -30,10 +30,14 @@ public class GestoreCaricoMerci {
      */
     public void caricaFarmaco(int codiceLotto, int quantita) {
         Main.log.info("Caricando lotto (" + codiceLotto + ") quantita (" + quantita + ")  --- DB NON zÈ COMMENTATO");
-        DBMSDaemon.queryCaricaFarmaco(codiceLotto, Main.idFarmacia, quantita,ordine.getId_farmaco());
-        DBMSDaemon.aggiornaQuantitaConsegnataOrdine(ordine.getId_ordine(), codiceLotto, quantita);
 
-        Utils.creaPannelloConferma("Merce Caricata Correttamente", this.stage);
+        if(DBMSDaemon.aggiornaQuantitaConsegnataOrdine(ordine.getId_ordine(), codiceLotto, quantita)) {
+            DBMSDaemon.queryCaricaFarmaco(codiceLotto, Main.idFarmacia, quantita, ordine.getId_farmaco());
+            Utils.creaPannelloConferma("Merce Caricata Correttamente", this.stage);
+        }
+        else{
+            Utils.creaPannelloErrore("Il lotto inserito non fa parte dell'ordine selezionato");
+        }
     }
 
 }
