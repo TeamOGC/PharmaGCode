@@ -8,9 +8,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 
-// TODO: Manca la data
 public class InterfacciaModificaOrdine {
-    public DatePicker dataconsegna;
+    @FXML private DatePicker dataconsegna;
     GestoreModificaOrdine gestoreModificaOrdine;
 
     @FXML

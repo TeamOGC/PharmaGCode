@@ -40,6 +40,14 @@ public class RecordOrdine extends Ordine {
         }
     }
 
+    public RecordOrdine(Ordine ordine, Button bottone){
+        super(ordine.getId_ordine(), ordine);
+        this.bottone = bottone;
+        this.bottone.getStyleClass().add("btnlist");
+        this.callback = null;
+        this.nomeBottone=null;
+    }
+
     public String getNomeBottone() {
         return nomeBottone;
     }
@@ -83,14 +91,10 @@ public class RecordOrdine extends Ordine {
             LocalDate d = Main.orologio.chiediOrario().toLocalDate();
             if (Duration.between(d.atTime(0, 0, 1), ordine.getData_consegna().atTime(0, 0, 1)).toDays() > 1) {
                 nomeBottone = "Modifica";
-                callback = modifica -> {
-                    new GestoreModificaOrdine(ordine);
-                };
+                callback = modifica -> new GestoreModificaOrdine(ordine);
             } else if (d.atTime(0, 0, 1).equals(ordine.getData_consegna().atTime(0, 0, 1)) && ordine.getStato().equalsIgnoreCase("consegnato")) {
                 nomeBottone = "Carica"; // TODO: Se tuttti i farmaci sono stati caricati, non fare vedere il bottone (o solo un bottone scemo con scritto Caricato!)
-                callback = carica -> {
-                    new GestoreCaricoMerci(ordine);
-                };
+                callback = carica -> new GestoreCaricoMerci(ordine);
             }
         } else if (Main.sistema == 2) { // Lato azienda i bottoni sono: Correggi e Ricevuta
             if (ordine.getStato().equalsIgnoreCase("consegnato")) {
