@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.net.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneFarmaci.Interface.InterfacciaOrdinaFarmaco">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ogc.pharmagcode.GestioneFarmaci.Interface.InterfacciaOrdinaFarmaco">
    <children>
       <GridPane prefHeight="800.0" prefWidth="1280.0">
         <columnConstraints>
@@ -78,22 +85,6 @@
                   <Font name="SansSerif Bold" size="17.0" />
                </font>
             </Button>
-            <Label fx:id="nomeUtente" prefHeight="30.0" prefWidth="328.0" text="Francesco" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="SansSerif Bold" size="17.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="5.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="orologio" alignment="CENTER" prefHeight="30.0" prefWidth="213.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <font>
-                  <Font name="SansSerif Bold" size="17.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets bottom="5.0" />
-               </GridPane.margin>
-            </Label>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <children>
                   <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="850.0" styleClass="attributi">
