@@ -52,7 +52,7 @@
                 </TableColumn>
                   <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
-                          <PropertyValueFactory property="id_farmacia" />
+                          <PropertyValueFactory property="nomeFarmacia" />
                       </cellValueFactory>
                       <graphic>
                           <Label text="Destinazione">

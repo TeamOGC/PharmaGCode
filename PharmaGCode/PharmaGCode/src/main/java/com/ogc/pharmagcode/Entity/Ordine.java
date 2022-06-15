@@ -11,6 +11,7 @@ public class Ordine {
     private final int id_farmacia;
     private LocalDate data_consegna;
     private String stato;
+    private String nomeFarmacia;
     private int quantita;
 
 
@@ -32,6 +33,7 @@ public class Ordine {
         this.data_consegna = ordine.getData_consegna();
         this.quantita = ordine.getQuantita();
         this.stato = ordine.getStato();
+        this.nomeFarmacia=ordine.getNomeFarmacia();
     }
 
     public int getQuantita() {
@@ -74,6 +76,14 @@ public class Ordine {
         this.quantita = quantita;
     }
 
+    public String getNomeFarmacia() {
+        return nomeFarmacia;
+    }
+
+    public void setNomeFarmacia(String nomeFarmacia) {
+        this.nomeFarmacia = nomeFarmacia;
+    }
+
     /**
      * Converte i risultati di una query
      * {@code SELECT Ordine.*, Farmaco.nome}
@@ -91,6 +101,19 @@ public class Ordine {
         String stato = r.getString(6);
         String nome_farmaco = r.getString(7);
         Ordine ord = new Ordine(id_ordine, id_farmaco, nome_farmaco, id_farmacia, data_consegna, stato, quantita);
+        return ord;
+    }
+
+    public static Ordine createFromDB(ResultSet r, String nomeFarmacia) throws SQLException {
+        int id_ordine = r.getInt(1);
+        int id_farmaco = r.getInt(2);
+        int id_farmacia = r.getInt(3);
+        LocalDate data_consegna = r.getDate(4).toLocalDate();
+        int quantita = r.getInt(5);
+        String stato = r.getString(6);
+        String nome_farmaco = r.getString(7);
+        Ordine ord = new Ordine(id_ordine, id_farmaco, nome_farmaco, id_farmacia, data_consegna, stato, quantita);
+        ord.setNomeFarmacia(nomeFarmacia);
         return ord;
     }
 }

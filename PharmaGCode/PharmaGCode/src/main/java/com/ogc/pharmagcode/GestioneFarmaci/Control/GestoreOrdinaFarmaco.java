@@ -1,6 +1,5 @@
 package com.ogc.pharmagcode.GestioneFarmaci.Control;
 
-import com.ogc.pharmagcode.Common.PannelloAvviso;
 import com.ogc.pharmagcode.Entity.Farmaco;
 import com.ogc.pharmagcode.Entity.Ordine;
 import com.ogc.pharmagcode.GestioneFarmaci.Interface.InterfacciaOrdinaFarmaco;

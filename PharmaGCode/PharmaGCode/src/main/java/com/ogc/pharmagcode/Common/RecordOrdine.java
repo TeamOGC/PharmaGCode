@@ -28,8 +28,9 @@ public class RecordOrdine extends Ordine {
 
     private Button bottone = null;
 
-    public RecordOrdine(int id_ordine, int id_farmaco, String nome_farmaco, int id_farmacia, LocalDate data_consegna, String stato, int quantita, String nomeBottone, EventHandler<ActionEvent> callback) {
+    public RecordOrdine(int id_ordine, int id_farmaco, String nome_farmaco, int id_farmacia, LocalDate data_consegna, String stato, int quantita, String nomeFarmacia, String nomeBottone, EventHandler<ActionEvent> callback) {
         super(id_ordine, id_farmaco, nome_farmaco, id_farmacia, data_consegna, stato, quantita);
+        this.setNomeFarmacia(nomeFarmacia);
         this.nomeBottone = nomeBottone;
         this.callback = callback;
         if (nomeBottone != null && !nomeBottone.isBlank()) {
@@ -61,7 +62,7 @@ public class RecordOrdine extends Ordine {
     }
 
     public static RecordOrdine fromOrdine(Ordine ordine, String nomeBottone, EventHandler<ActionEvent> callback) { // TODO: Usare l'altro che aggiunge i bottoni in automatico
-        return new RecordOrdine(ordine.getId_ordine(), ordine.getId_farmaco(), ordine.getNome_farmaco(), ordine.getId_farmacia(), ordine.getData_consegna(), ordine.getStato(), ordine.getQuantita(), nomeBottone, callback);
+        return new RecordOrdine(ordine.getId_ordine(), ordine.getId_farmaco(), ordine.getNome_farmaco(), ordine.getId_farmacia(), ordine.getData_consegna(), ordine.getStato(), ordine.getQuantita(), ordine.getNomeFarmacia(), nomeBottone, callback);
     }
 
     /**
@@ -93,11 +94,11 @@ public class RecordOrdine extends Ordine {
                 nomeBottone = "Modifica";
                 callback = modifica -> new GestoreModificaOrdine(ordine);
             } else if (d.atTime(0, 0, 1).equals(ordine.getData_consegna().atTime(0, 0, 1)) && ordine.getStato().equalsIgnoreCase("consegnato")) {
-                nomeBottone = "Carica"; // TODO: Se tuttti i farmaci sono stati caricati, non fare vedere il bottone (o solo un bottone scemo con scritto Caricato!)
+                nomeBottone = "Carica";
                 callback = carica -> new GestoreCaricoMerci(ordine);
             }
         } else if (Main.sistema == 2) { // Lato azienda i bottoni sono: Correggi e Ricevuta
-            if (ordine.getStato().equalsIgnoreCase("consegnato")) {
+            if (ordine.getStato().equalsIgnoreCase("consegnato") || ordine.getStato().equalsIgnoreCase("corretto")) {
                 nomeBottone = "Ricevuta";
                 callback = creaPDF -> {
                     Main.log.info("Cliccato sul bottone Ricevuta");
@@ -117,6 +118,6 @@ public class RecordOrdine extends Ordine {
                 };
             }
         }
-        return new RecordOrdine(ordine.getId_ordine(), ordine.getId_farmaco(), ordine.getNome_farmaco(), ordine.getId_farmacia(), ordine.getData_consegna(), ordine.getStato(), ordine.getQuantita(), nomeBottone, callback);
+        return new RecordOrdine(ordine.getId_ordine(), ordine.getId_farmaco(), ordine.getNome_farmaco(), ordine.getId_farmacia(), ordine.getData_consegna(), ordine.getStato(), ordine.getQuantita(),ordine.getNomeFarmacia(), nomeBottone, callback);
     }
 }

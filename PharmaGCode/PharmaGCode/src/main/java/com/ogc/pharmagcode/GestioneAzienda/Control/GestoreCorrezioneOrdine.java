@@ -42,9 +42,10 @@ public class GestoreCorrezioneOrdine {
             return;
         }
         daCorreggere.setStato("Corretto");
-        DBMSDaemon.queryAggiornaStatoOrdine(daCorreggere);
+        DBMSDaemon.queryCorreggiOrdine(qtaDaAggiungere,qtaGiaCaricata,daCorreggere);
         GestoreVisualizzaOrdiniAzienda.aggiornaTabella(daCorreggere);
         Main.log.info("Ordine corretto");
+        Utils.creaPannelloConferma("Correzione effettuata con successo");
         ((Stage) boundary.qtaIntegrare.getScene().getWindow()).close();
     }
 }

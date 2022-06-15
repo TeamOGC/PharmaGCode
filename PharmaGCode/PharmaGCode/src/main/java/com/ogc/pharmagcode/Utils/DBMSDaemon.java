@@ -888,12 +888,12 @@ public class DBMSDaemon {
      */
     public static Ordine[] queryVisualizzaOrdiniAzienda() {
         connectAzienda();
-        String query = "SELECT Ordine.*, F.nome FROM Ordine INNER JOIN Farmaco F on Ordine.id_farmaco = F.id_farmaco ORDER BY Ordine.data_consegna DESC";
+        String query = "SELECT Ordine.*, F.nome, F2.nome as nome_farmacia  FROM Farmacia F2, Ordine, Farmaco F WHERE Ordine.id_farmaco = F.id_farmaco AND Ordine.id_farmacia = F2.id_farmacia ORDER BY Ordine.data_consegna DESC";
         ArrayList<Ordine> ordini = new ArrayList<>();
         try (PreparedStatement stmt = connAzienda.prepareStatement(query)) {
             var r = stmt.executeQuery();
             while (r.next()) {
-                ordini.add(Ordine.createFromDB(r));
+                ordini.add(Ordine.createFromDB(r, r.getString("nome_farmacia")));
             }
             return ordini.toArray(new Ordine[0]);
         } catch (SQLException e) {
