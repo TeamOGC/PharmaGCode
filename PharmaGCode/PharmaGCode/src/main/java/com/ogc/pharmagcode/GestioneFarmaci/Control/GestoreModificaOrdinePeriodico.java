@@ -32,5 +32,6 @@ public class GestoreModificaOrdinePeriodico {
         Main.log.info("Aggiornando la quantità dell'ordine periodico (" + qta + ") di " + ordinePeriodico.getNomeFarmaco() + ";");
         DBMSDaemon.queryAggiornaOrdinePeriodico(qta, ordinePeriodico);
         Utils.creaPannelloConferma("Quantità modificata correttamente", this.stage);
+        GestoreListaOrdiniPeriodici.stage.close();
     }
 }

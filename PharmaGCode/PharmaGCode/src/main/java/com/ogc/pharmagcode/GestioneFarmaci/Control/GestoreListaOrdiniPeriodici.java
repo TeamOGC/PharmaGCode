@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class GestoreListaOrdiniPeriodici {
 
     public ObservableList<RecordOrdinePeriodico> recordOrdinePeriodicoObservableList;
+    protected static Stage stage;
 
     public GestoreListaOrdiniPeriodici() {
 
@@ -28,7 +29,7 @@ public class GestoreListaOrdiniPeriodici {
             }
         }
         recordOrdinePeriodicoObservableList = FXCollections.observableList(ordiniPeriodici);
-
-        Utils.cambiaInterfaccia("GestioneFarmaci/ListaOrdiniPeriodici.fxml", new Stage(), c -> new InterfacciaListaOrdiniPeriodici(this));
+        stage = new Stage();
+        Utils.cambiaInterfaccia("GestioneFarmaci/ListaOrdiniPeriodici.fxml", stage, c -> new InterfacciaListaOrdiniPeriodici(this));
     }
 }
