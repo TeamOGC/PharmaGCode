@@ -84,7 +84,9 @@ public class GestoreOrdinaFarmaco {
      */
     private void ordinaDateSeparate(Ordine o, boolean accettaInScadenza, int quantita, int quantitaEccedente) {
         o.setQuantita(quantita - quantitaEccedente);
-        DBMSDaemon.queryCreaOrdine(o, "In Lavorazione", accettaInScadenza);
+        if(o.getQuantita() > 0) {
+            DBMSDaemon.queryCreaOrdine(o, "In Lavorazione", accettaInScadenza);
+        }
         o.setQuantita(quantitaEccedente);
         DBMSDaemon.queryCreaOrdine(o, "In Attesa Di Disponibilita", false);
     }

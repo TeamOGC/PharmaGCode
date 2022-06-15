@@ -5,10 +5,7 @@ import com.ogc.pharmagcode.GestioneFarmaci.Control.GestoreOrdinaFarmaco;
 import com.ogc.pharmagcode.Main;
 import com.ogc.pharmagcode.Utils.Utils;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class InterfacciaOrdinaFarmaco {
     Farmaco f;
@@ -21,7 +18,7 @@ public class InterfacciaOrdinaFarmaco {
     @FXML
     private CheckBox checkboxScadenza;
 
-    private GestoreOrdinaFarmaco gof;
+    private final GestoreOrdinaFarmaco gof;
 
     public InterfacciaOrdinaFarmaco(Farmaco f, GestoreOrdinaFarmaco gof) {
         this.gof = gof;
@@ -30,6 +27,7 @@ public class InterfacciaOrdinaFarmaco {
 
     @FXML
     protected void initialize() {
+        quantita.setTextFormatter(new TextFormatter<>(Utils.nonZeroPositiveIntegerFilter));
         nomeFarmaco.setText(f.getNome());
         princAttivo.setText(f.getPrincipio_attivo());
         dataDiConsegna.setValue(Main.orologio.chiediOrario().toLocalDate().plusDays(3));
