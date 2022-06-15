@@ -90,7 +90,7 @@ public class RecordOrdine extends Ordine {
         EventHandler<ActionEvent> callback = null;
         if (Main.sistema == 0) { // Lato Farmacia i bottoni sono Modifica o Carica
             LocalDate d = Main.orologio.chiediOrario().toLocalDate();
-            if (Duration.between(d.atTime(0, 0, 1), ordine.getData_consegna().atTime(0, 0, 1)).toDays() > 1) {
+            if (Duration.between(d.atTime(0, 0, 1), ordine.getData_consegna().atTime(0, 0, 1)).toDays() > 2) {
                 nomeBottone = "Modifica";
                 callback = modifica -> new GestoreModificaOrdine(ordine);
             } else if (d.atTime(0, 0, 1).equals(ordine.getData_consegna().atTime(0, 0, 1)) && ordine.getStato().equalsIgnoreCase("consegnato")) {

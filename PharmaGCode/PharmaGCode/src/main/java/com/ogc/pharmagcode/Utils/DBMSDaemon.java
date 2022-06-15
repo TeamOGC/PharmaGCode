@@ -599,13 +599,14 @@ public class DBMSDaemon {
      */
     public static int queryScaricaMerci(int id_lotto, int id_farmacia, int qty) {
         connectFarmacia();
-        String query = "UPDATE DB_Farmacie.Lotto SET Lotto.quantita=Lotto.quantita-? WHERE Lotto.id_lotto=? AND Lotto.id_farmacia=?";
+        String query = "UPDATE DB_Farmacie.Lotto SET Lotto.quantita=Lotto.quantita-? WHERE Lotto.id_lotto=? AND Lotto.id_farmacia=? AND Lotto.quantita>=?";
         try (PreparedStatement stmt = connFarmacia.prepareStatement(query)) {
             stmt.setInt(1, qty);
             stmt.setInt(2, id_lotto);
             stmt.setInt(3, id_farmacia);
+            stmt.setInt(4, qty);
             if(stmt.executeUpdate()<=0)
-                return -1;
+                return -1; // Non aggiornato
             var squery = "SELECT Lotto.id_Farmaco,sum(quantita) FROM DB_Farmacie.Lotto WHERE Lotto.id_farmaco=(SELECT Lotto.id_farmaco FROM Lotto WHERE Lotto.id_lotto=? ) GROUP BY Lotto.id_farmaco";
             try (PreparedStatement sstmt = connFarmacia.prepareStatement(squery)) {
                 sstmt.setInt(1, id_lotto);
@@ -619,7 +620,7 @@ public class DBMSDaemon {
         } catch (SQLException e) {
             erroreComunicazioneDBMS(e);
         }
-        return -1;
+        return -2;
     }
 
     /**
