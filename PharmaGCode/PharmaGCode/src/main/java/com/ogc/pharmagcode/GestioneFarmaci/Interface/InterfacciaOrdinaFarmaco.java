@@ -32,12 +32,12 @@ public class InterfacciaOrdinaFarmaco {
     protected void initialize() {
         nomeFarmaco.setText(f.getNome());
         princAttivo.setText(f.getPrincipio_attivo());
-        dataDiConsegna.setValue(Main.orologio.chiediOrario().toLocalDate().plusDays(2));
+        dataDiConsegna.setValue(Main.orologio.chiediOrario().toLocalDate().plusDays(3));
     }
 
     @FXML
     protected void conferma() {
-        if(quantita.getText().isBlank() || dataDiConsegna.getValue().isBefore(Main.orologio.chiediOrario().toLocalDate().plusDays(2))){
+        if(quantita.getText().isBlank() || dataDiConsegna.getValue().isBefore(Main.orologio.chiediOrario().toLocalDate().plusDays(3))){
             Utils.creaPannelloErrore("Inserisci dati validi");
             return;
         }

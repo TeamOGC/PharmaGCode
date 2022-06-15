@@ -21,8 +21,8 @@ public class GestoreModificaOrdine {
     }
 
     public void modificaOrdine(int nuovaQuantita, LocalDate data) {
-        if (data.isBefore(Main.orologio.chiediOrario().toLocalDate().plusDays(2))) {
-            Utils.creaPannelloErrore("La data di consegna non può essere prima di " + Main.orologio.chiediOrario().toLocalDate().plusDays(2));
+        if (data.isBefore(Main.orologio.chiediOrario().toLocalDate().plusDays(3))) {
+            Utils.creaPannelloErrore("La data di consegna non può essere prima di " + Main.orologio.chiediOrario().toLocalDate().plusDays(3));
             return;
         }
         if (!data.isEqual(ordine.getData_consegna())) {

@@ -40,7 +40,7 @@
                       <graphic>
                           <Label text="Farmaco">
                               <tooltip>
-                                  <Tooltip text="Clicca qui per ordinare in ordine alfabetico o in oridne inverso" />
+                                  <Tooltip text="Clicca qui per ordinare alfabeticamente in base al nome del farmaco" />
                               </tooltip>
                           </Label>
                       </graphic>
@@ -52,7 +52,7 @@
                       <graphic>
                           <Label text="Principio Attivo">
                               <tooltip>
-                                  <Tooltip text="Clicca qui per ordinare in ordine alfabetico o in oridne inverso" />
+                                  <Tooltip text="Clicca qui per ordinare alfabeticamente in base al principio attivo" />
                               </tooltip>
                           </Label>
                       </graphic>
@@ -62,18 +62,13 @@
                           <PropertyValueFactory property="quantitaFarmaci" />
                       </cellValueFactory>
                       <graphic>
-                          <Label text="Disponibilità in magazzino">
+                          <Label text="Scorte in possesso">
                               <tooltip>
-                                  <Tooltip text="Clicca qui per ordinare in modo crescente o decrescente" />
+                                  <Tooltip text="Clicca qui per ordinare in modo crescente o decrescente in base alle scorte in possesso nella tua farmacia" />
                               </tooltip>
                           </Label>
                       </graphic>
                   </TableColumn>
-<!--                  <TableColumn editable="false" prefWidth="75.0" text="Data di Disponibilità">-->
-<!--                      <cellValueFactory>-->
-<!--                          <PropertyValueFactory property="data_disponibilità" />-->
-<!--                      </cellValueFactory>-->
-<!--                  </TableColumn>-->
                   <TableColumn editable="false" prefWidth="75.0">
                       <cellValueFactory>
                           <PropertyValueFactory property="bottone" />
