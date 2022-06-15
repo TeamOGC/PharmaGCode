@@ -17,9 +17,9 @@ public class BoundaryDiSistemaFarmacista {
         try (ObjectInputStream o = new ObjectInputStream(new FileInputStream("gds.time"))) {
                 gF = (GestoreDiSistemaFarmacista) o.readObject();
         } catch (FileNotFoundException e) {
-            System.out.println("Gestore da creare");
+//            System.out.println("Gestore da creare");
         } catch (IOException e) {
-            System.err.println("Errore deserializzazione");
+//            System.err.println("Errore deserializzazione");
         } catch (Exception e) {
             e.printStackTrace();
         }

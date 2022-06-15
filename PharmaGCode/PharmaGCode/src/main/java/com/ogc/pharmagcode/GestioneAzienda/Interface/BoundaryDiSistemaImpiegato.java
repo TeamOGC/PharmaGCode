@@ -15,9 +15,9 @@ public class BoundaryDiSistemaImpiegato {
         try (ObjectInputStream o = new ObjectInputStream(new FileInputStream("gds.time"))) {
             gI = (GestoreDiSistemaImpiegato) o.readObject();
         } catch (FileNotFoundException e) {
-            System.out.println("Gestore da creare");
+//            System.out.println("Gestore da creare");
         } catch (IOException e) {
-            System.err.println("Errore deserializzazione");
+//            System.err.println("Errore deserializzazione");
         } catch (Exception e) {
             e.printStackTrace();
         }
