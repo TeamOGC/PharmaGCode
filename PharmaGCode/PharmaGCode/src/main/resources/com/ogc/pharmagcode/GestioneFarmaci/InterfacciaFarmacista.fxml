@@ -85,12 +85,12 @@
                   </Button>
                </children>
             </HBox>
-            <Label fx:id="orologio" prefHeight="30.0" prefWidth="214.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label fx:id="orologio" prefHeight="30.0" prefWidth="214.0" text="Lunedi 9 Maggio 8:00 " GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font name="SansSerif Bold" size="17.0" />
                </font>
             </Label>
-            <Label fx:id="nomeUtente" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="328.0" text="Francesco" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <Label fx:id="nomeUtente" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="519.0" text="Francesco" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <font>
                   <Font name="SansSerif Bold" size="17.0" />
                </font>

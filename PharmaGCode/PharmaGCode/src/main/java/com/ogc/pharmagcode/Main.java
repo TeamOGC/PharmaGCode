@@ -17,6 +17,8 @@ public class Main extends Application {
     public static Stage mainStage = null;
     public static Orologio orologio = new Orologio();
     public static int sistema, idFarmacia;
+
+    public static String nomeFarmacia;
     public static boolean debug;
 
     @Override
@@ -40,11 +42,12 @@ public class Main extends Application {
                     throw new NumberFormatException("Tipo di sistema non valido");
                 }
             }
-            if (args.length >= 2) {
-                idFarmacia = Integer.parseInt(args[1]);
-            }
             if (args.length >= 3) {
-                debug = Integer.parseInt(args[2]) == 1;
+                nomeFarmacia=args[1];
+                idFarmacia = Integer.parseInt(args[2]);
+            }
+            if (args.length >= 4) {
+                debug = Integer.parseInt(args[3]) == 1;
             }
         } catch (NumberFormatException e) {
             System.err.println(e.getMessage());

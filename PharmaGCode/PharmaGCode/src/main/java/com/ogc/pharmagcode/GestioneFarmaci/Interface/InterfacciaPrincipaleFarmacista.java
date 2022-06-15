@@ -12,7 +12,7 @@ import javafx.fxml.FXML;
 public class InterfacciaPrincipaleFarmacista extends InterfacciaPrincipale {
     BoundaryDiSistemaFarmacista b=new BoundaryDiSistemaFarmacista();
     public InterfacciaPrincipaleFarmacista(String nome, String cognome) {
-        super(nome + " " + cognome + " " + " Farmacia: " + Main.idFarmacia);
+        super(nome + " " + cognome + " - " + Main.nomeFarmacia);
         Main.log.info("Gestione Farmaci");
     }
     @FXML
